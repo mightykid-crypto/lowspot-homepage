@@ -1,0 +1,6 @@
+# 내 PC 시험용 — 이 파일을 .dev.vars 로 복사해 쓴다(.dev.vars 는 저장소에 올리지 않는다)
+# 실제 배포 값은 `npx wrangler secret put 이름` 으로 넣는다 (README 참고)
+SEMINARS={"TEST1116":{"room":"test-room","title":"시험 세미나","endsAt":"2026-11-17T18:00:00+09:00"}}
+TEACHERS={"T-MIN-TEST":{"name":"민경우","room":"test-room"},"T-YOON-TEST":{"name":"윤여근","room":"test-room"}}
+TOKEN_KEY=시험용-아무-긴-문자열-바꿔서-쓰세요
+DEV_CORS=1
