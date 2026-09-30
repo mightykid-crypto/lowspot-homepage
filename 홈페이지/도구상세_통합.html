@@ -239,6 +239,10 @@
     }
     .dl-btn:hover { background: var(--sprout-tx); transform: translateY(-2px); }
     .dl-meta { font-size: 13.5px; color: var(--sub); margin: 0; }
+    .dl-btn.soon { background: var(--bg); color: var(--sprout-tx); border: 1.5px dashed var(--sprout); }
+    .dl-btn.soon:hover { background: var(--card-g); transform: none; }
+    .dl-note { font-size: 13.5px; color: var(--sub); margin: 10px 0 0; }
+    .dl-note a { color: var(--sky-tx); }
 
     /* 실제 사진 갤러리 */
     .gallery-section {
@@ -458,7 +462,13 @@
       .sec-title h2 { font-size: 22px !important; }
       .sec-title p { font-size: 15px !important; line-height: 1.6 !important; }
     }
-</style>
+    /* 휴대폰: 떠 있는 빠른 메뉴 단추를 작은 원으로 (글·사진을 덜 가리게) */
+    @media (max-width: 768px) {
+      .mobile-fab-btn { width: 48px; height: 48px; padding: 0 !important; justify-content: center; bottom: 16px !important; right: 16px !important; font-size: 18px !important; opacity: .92; }
+      .mobile-fab-btn span:not(:first-child) { display: none; }
+      .vertical-quick-bar { right: 16px !important; bottom: 72px !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -501,7 +511,7 @@
               <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
               <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
               <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
-              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (0.1초 송출)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (말씀 화면 송출)</a>
               <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
               <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
               <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
@@ -535,19 +545,20 @@
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <span class="app-badge" id="appBadge">WINDOWS DESKTOP APPLICATION</span>
+          <span class="app-badge" id="appBadge">윈도 PC용</span>
           <h1 id="appTitle">성경노트 : 서피스 펜으로 짓는 성찰과 묵상</h1>
           <p id="appDesc">종이 위에 만년필로 쓰듯 정결한 디지털 묵상 연구 노트입니다.</p>
           <div class="meta-tags" id="appTags"></div>
         </div>
 
         <div class="dl-box">
-          <div style="font-size:13.5px; font-weight:700; color:var(--sprout-tx); margin-bottom:12px;" id="dlStatus">현재 최신 안정 버전</div>
+          <div style="font-size:13.5px; font-weight:700; color:var(--sprout-tx); margin-bottom:12px;" id="dlStatus">공개 준비 중</div>
           <h2 style="font-size:28px; margin-bottom:16px;" id="dlVer">v0.2.2 (64-bit)</h2>
           <button class="dl-btn" id="dlBtn" onclick="downloadOrLaunch()">
-            <span id="dlBtnText">📥 윈도우 설치파일 다운로드</span>
+            <span id="dlBtnText">🔔 곧 공개됩니다</span>
           </button>
           <p class="dl-meta" id="dlMeta">용량: 19.7 MB · Windows 10/11 x64</p>
+          <p class="dl-note" id="dlNote">먼저 써 보고 싶으시면 <a href="mailto:help@lowspot.net">help@lowspot.net</a> 으로 알려 주세요.</p>
         </div>
       </div>
     </div>
@@ -585,8 +596,8 @@
       <div class="guide-box">
         <h3><span>🛡️</span> 윈도우 SmartScreen 보호 알림 안내</h3>
         <p>
-          개인 오픈소스 소프트웨어 특성상, 초기 설치 시 윈도우 보호 경고가 표시될 수 있습니다. 
-          안전한 프로그램이므로 아래 2단계로 즉시 정상 설치하실 수 있습니다.
+          값비싼 유료 서명 인증서를 등록하지 않은 개인 프로그램이라, 처음 설치할 때 윈도 보호 경고가 뜰 수 있습니다.
+          공식 배포처에서 받으신 파일이라면 아래 두 단계로 설치하실 수 있습니다.
         </p>
         <div class="guide-steps">
           <div class="step-item">
@@ -661,7 +672,7 @@
         name: "성경노트",
         icon: "✍️",
         type: "win",
-        badge: "WINDOWS DESKTOP (.EXE) · 추천",
+        badge: "윈도 PC용 · 추천",
         title: "성경노트 : 서피스 펜으로 짓는 성찰과 묵상",
         desc: "종이 위에 만년필로 쓰듯 정결한 디지털 묵상 연구 노트입니다. 서피스 펜의 필압과 햅틱 피드백을 지원하며, 본문 주해와 기도문을 한지의 종이 질감 위에 온전히 집중하게 돕습니다.",
         tags: ["✓ 서피스펜 햅틱", "✓ 본문·기도 분할", "✓ 오프라인 영구 보관"],
@@ -684,7 +695,7 @@
         name: "10초게임",
         icon: "🎮",
         type: "web",
-        badge: "INSTANT WEB PWA · 바로 쓰는 웹앱",
+        badge: "바로 쓰는 웹앱 · 소그룹 게임",
         title: "10초게임 : 소그룹 모임의 얼음을 깨는 17종 말씀 게임",
         desc: "보드게임을 스마트폰 링크 하나에 담았습니다. 성경 구절 맞추기, 색상 찾기 등 17가지 재미있는 즉석 게임으로 청소년부와 소그룹 모임 전체가 함께 즐겁게 참여합니다.",
         tags: ["✓ 설치 필요 없음", "✓ 17개 게임 내장", "✓ 폰·태블릿 겸용"],
@@ -700,17 +711,17 @@
         features: [
           { icon: "📱", title: "링크 접속 즉시 구동", desc: "앱스토어에서 복잡하게 설치할 필요 없이 웹 브라우저 링크 하나로 전원이 바로 게임에 참여합니다." },
           { icon: "🎯", title: "17개 말씀·아이스브레이크 게임", desc: "성경 구절 퀴즈부터 순발력 게임까지 모임 분위기에 맞는 17가지 테마를 고를 수 있습니다." },
-          { icon: "👥", title: "소그룹 명단 간편 저장", desc: "한 번 입력한 소그룹 원원 이름을 다음 모임에서도 바로 불러와 점수 대결을 진행할 수 있습니다." }
+          { icon: "👥", title: "소그룹 명단 간편 저장", desc: "한 번 입력한 소그룹 구성원 이름을 다음 모임에서도 바로 불러와 점수 대결을 진행할 수 있습니다." }
         ]
       },
       "wordle": {
         name: "낮은꼬들",
         icon: "📖",
         type: "web",
-        badge: "INSTANT WEB PWA · 묵상 워들",
+        badge: "바로 쓰는 웹앱 · 묵상 워들",
         title: "낮은꼬들 : 주일 설교 단어를 맞추는 한글 묵상 게임",
-        desc: "세계적으로 유행한 워들(Wordle) 게임을 한글 성경과 설교 단어로 재해석했습니다. 44,937개 한글 사전을 지원하며, 자음과 모음 색상 힌트를 통해 오늘 본문의 단어를 맞춥니다.",
-        tags: ["✓ 44,937 단어 사전", "✓ 설교 단어 묵상", "✓ 모바일 완벽 지원"],
+        desc: "세계적으로 유행한 워들(Wordle) 게임을 한글 성경과 설교 단어로 재해석했습니다. 4만여 개 한글 단어 사전을 담았고, 자음과 모음 색상 힌트를 통해 오늘 본문의 단어를 맞춥니다.",
+        tags: ["✓ 4만여 단어 사전", "✓ 설교 단어 묵상", "✓ 휴대폰에서도 편하게"],
         version: "Web v1.0",
         meta: "웹 브라우저 접속 즉시 구동 · 무설치",
         btnText: "🌿 낮은꼬들 웹앱 실행하기 →",
@@ -722,7 +733,7 @@
         ],
         features: [
           { icon: "🧩", title: "직관적인 6회 기회 힌트", desc: "단어를 입력할 때마다 초록색, 노란색 색상 힌트가 표시되어 남녀노소 쉽고 재미있게 참여합니다." },
-          { icon: "📚", title: "44,937개 한글 사전 탑재", desc: "풍성한 성경 및 한국어 사전을 탑재하여 어떤 단어든 자연스럽게 검증하고 문제를 낼 수 있습니다." },
+          { icon: "📚", title: "4만여 개 한글 단어 사전", desc: "풍성한 성경 및 한국어 사전을 탑재하여 어떤 단어든 자연스럽게 검증하고 문제를 낼 수 있습니다." },
           { icon: "🕊️", title: "설교 후 나눔 활동 연계", desc: "주일 설교 본문의 핵심 키워드를 문제로 설정하여 소그룹 공과 시간 나눔 도구로 활용할 수 있습니다." }
         ]
       },
@@ -730,7 +741,7 @@
         name: "교회재정",
         icon: "📊",
         type: "win",
-        badge: "WINDOWS DESKTOP (.EXE) · 회계 장부",
+        badge: "윈도 PC용 · 회계 장부",
         title: "교회재정 : 엑셀보다 명쾌한 수입·지출 회계 장부",
         desc: "복잡한 일반 회계 프로그램 대신, 우리 교회 재정 원리에 꼭 맞춰 만든 가볍고 튼튼한 회계 앱입니다. 매주 헌금 항목 관리와 월별·연간 예결산 통계를 한눈에 정리합니다.",
         tags: ["✓ 헌금별 분류 입력", "✓ 연간 결산 도표", "✓ 데이터 간편 백업"],
@@ -753,8 +764,8 @@
         name: "설교프레젠터",
         icon: "🖥️",
         type: "win",
-        badge: "WINDOWS DESKTOP (.EXE) · 예배 방송",
-        title: "설교프레젠터 : 0.1초 만에 스크린에 송출하는 말씀 화면",
+        badge: "윈도 PC용 · 예배 방송",
+        title: "설교프레젠터 : 곧바로 스크린에 띄우는 말씀 화면",
         desc: "무거운 프레젠테이션 소프트웨어를 띄울 필요 없이, 성경 구절과 설교 자막을 예배당 대형 스크린에 빠르고 선명하게 송출하는 경량 프레젠테이션 도구입니다.",
         tags: ["✓ 실시간 구절 검색", "✓ 듀얼 모니터 송출", "✓ 초경량 빠른 속도"],
         version: "v1.0.0 (64-bit)",
@@ -765,7 +776,7 @@
           "화면사진/설교 프리젠터.png"
         ],
         features: [
-          { icon: "⚡", title: "초경량 2.4MB 빠른 반응", desc: "복잡한 프로그램 로딩 없이 1초 안에 실행되어 예배 중 갑작스러운 구절 요청에도 즉각 대처합니다." },
+          { icon: "⚡", title: "가볍고 빠른 실행", desc: "무거운 프로그램을 띄우지 않고 빠르게 실행되어 예배 중 갑작스러운 구절 요청에도 즉각 대처합니다." },
           { icon: "🖥️", title: "듀얼 스크린 분리 제어", desc: "사역자 모니터에서는 조작 및 다음 화면을 미리 보고, 성도 스크린에는 깨끗한 자막만 송출합니다." },
           { icon: "🎨", title: "가독성 높은 글꼴·배경 테마", desc: "예배실 조명과 어울리는 고품격 배경 영상 및 큰 글꼴 테마를 원클릭으로 지정합니다." }
         ]
@@ -774,10 +785,10 @@
         name: "PDF변환",
         icon: "📄",
         type: "win",
-        badge: "WINDOWS DESKTOP (.EXE) · 문서 도구",
+        badge: "윈도 PC용 · 문서 도구",
         title: "PDF변환 : 주보·행정 문서를 가볍게 자르고 묶는 도구",
-        desc: "인쇄용 주보 파일이나 당회 보고서 PDF 파일을 복잡한 유료 프로그램 없이 즉시 병합, 페이지 분할, 워드·이미지로 손쉽게 변환해 주는 실무 도구입니다.",
-        tags: ["✓ 고속 병합/분할", "✓ 무설치판 동시 지원", "✓ 무료 실무 툴"],
+        desc: "인쇄용 주보 파일이나 당회 보고서 PDF 파일을 무거운 프로그램 없이 병합, 페이지 분할, 워드·이미지로 손쉽게 변환해 주는 실무 도구입니다.",
+        tags: ["✓ 고속 병합/분할", "✓ 무설치판 동시 지원", "✓ PC 안에서 변환"],
         version: "v1.0.0 (64-bit)",
         meta: "용량: 2.4MB (설치판) / 8.9MB (무설치 포터블)",
         btnText: "📥 PDF변환 설치파일 다운로드",
@@ -786,7 +797,7 @@
           "화면사진/PDF변환_1_첫화면.png"
         ],
         features: [
-          { icon: "📑", title: "클릭 한 번으로 병합 및 분할", desc: "여러 개의 PDF 문서를 드래그 앤 드롭으로 넣으면 원하는 순서대로 1초 만에 하나로 묶어줍니다." },
+          { icon: "📑", title: "클릭 한 번으로 병합 및 분할", desc: "여러 개의 PDF 문서를 드래그 앤 드롭으로 넣으면 원하는 순서대로 하나로 묶어 줍니다." },
           { icon: "💼", title: "USB에 담아 다니는 무설치판", desc: "교회 사무실 컴퓨터나 노회 사무실 어디서든 USB에 넣어 바로 실행하는 포터블 버전을 지원합니다." },
           { icon: "🛡️", title: "완전 로컬 변환 보안", desc: "외부 웹 사이트에 중요 교적·재정 문서를 업로드하지 않고 PC 내에서 안전하게 가공합니다." }
         ]
@@ -795,9 +806,9 @@
         name: "찬양콘티",
         icon: "🎵",
         type: "win",
-        badge: "WINDOWS DESKTOP (.EXE) · 예배 찬양",
+        badge: "윈도 PC용 · 예배 찬양",
         title: "찬양콘티 : 찬양 인도자를 위한 4곡 콘티 뷰어",
-        desc: "주일 예배 및 금요 기기도회 찬양 콘티 악보 4곡을 한눈에 펼쳐보거나 매끄럽게 전환하며 시연할 수 있는 찬양 인도자·악기팀 전용 악보 관리 앱입니다.",
+        desc: "주일 예배 및 금요 기도회 찬양 콘티 악보 4곡을 한눈에 펼쳐보거나 매끄럽게 전환하며 시연할 수 있는 찬양 인도자·악기팀 전용 악보 관리 앱입니다.",
         tags: ["✓ 4곡 다중 악보 뷰", "✓ 빠른 곡 검색", "✓ 포터블 실행 지원"],
         version: "v1.0.0 (64-bit)",
         meta: "용량: 1.9MB (설치판) / 8.6MB (무설치 포터블)",
@@ -817,7 +828,7 @@
         name: "말씀뽑기",
         icon: "📜",
         type: "win",
-        badge: "WINDOWS DESKTOP (.EXE) · 축복 말씀",
+        badge: "윈도 PC용 · 축복 말씀",
         title: "말씀뽑기 : 신년 및 심방 축복 말씀 카드 뽑기",
         desc: "신년 감사예배, 가정 심방, 특별 기도회에서 성도님들에게 하나님이 주시는 위로와 약속의 말씀 카드를 아름다운 연출로 뽑아 마음에 새기는 도구입니다.",
         tags: ["✓ 신년 축복 말씀", "✓ 아름다운 화면 연출", "✓ 구절 설정 지원"],
@@ -833,16 +844,16 @@
         features: [
           { icon: "🎁", title: "품격 있는 말씀 뽑기 연출", desc: "카드 위를 마우스나 터치로 고르면 은은한 빛과 함께 축복의 성경 구절이 나타납니다." },
           { icon: "⚙️", title: "교회 맞춤 말씀 구절 관리", desc: "우리 교회의 표어나 담임목사님이 심방 시 건네시는 구절 목록을 자유롭게 추가하고 수정합니다." },
-          { icon: "🖼️", title: "큰 스크린 및 스마트폰 호환", desc: "대배우실 프로젝터뿐 아니라 성도님과의 1:1 심방 테이블 위 태블릿에서도 훌륭하게 구동됩니다." }
+          { icon: "🖼️", title: "큰 스크린 및 스마트폰 호환", desc: "예배실 프로젝터뿐 아니라 성도님과의 1:1 심방 테이블 위 태블릿에서도 훌륭하게 구동됩니다." }
         ]
       },
       "qr": {
         name: "QR메이커",
         icon: "📱",
         type: "win",
-        badge: "WINDOWS DESKTOP (.EXE) · 안내 도구",
+        badge: "윈도 PC용 · 안내 도구",
         title: "QR메이커 : 주보·포스터용 교회 안내 QR코드 생성기",
-        desc: "교회 홈페이지, 헌금 계좌 안내, 온라인 심방 신청서 주소를 주보 및 현수막에 인쇄할 수 있는 고해상도 QR 코드로 1초 만에 변환해 주는 필수 도구입니다.",
+        desc: "교회 홈페이지, 헌금 계좌 안내, 온라인 심방 신청서 주소를 주보 및 현수막에 인쇄할 수 있는 고해상도 QR 코드로 손쉽게 만들어 주는 도구입니다.",
         tags: ["✓ 초고해상도 QR", "✓ 색상·로고 커스텀", "✓ 즉시 이미지 저장"],
         version: "v1.0.0 MVP",
         meta: "용량: 1.5 MB · Windows 10/11 x64",
@@ -854,14 +865,14 @@
         features: [
           { icon: "🖨️", title: "인쇄용 고해상도 PNG/SVG", desc: "주보뿐 아니라 대형 외벽 현수막에 인쇄해도 깨지지 않는 선명한 QR 이미지를 저장합니다." },
           { icon: "🎨", title: "교회 로고 및 브랜드 컬러 삽입", desc: "밋밋한 검정 QR 코드 중앙에 교회 로고나 십자가 문양을 얹어 아름답게 꾸밀 수 있습니다." },
-          { icon: "🚀", title: "복잡한 광고·만료 없는 완전 무료", desc: "시중 QR 사이트처럼 일정 기간 뒤 링크가 끊기거나 광고가 뜨는 일 없이 100% 영구 구동됩니다." }
+          { icon: "🔗", title: "기한 없이 쓰는 QR", desc: "시중 QR 사이트처럼 일정 기간 뒤 링크가 끊기는 일 없이, 만든 QR 코드를 계속 쓰실 수 있습니다." }
         ]
       },
       "typing": {
         name: "타자 말씀 암송",
         icon: "⌨️",
         type: "web",
-        badge: "INSTANT WEB PWA / WINDOWS · 말씀 타이핑",
+        badge: "웹앱 · 윈도 PC용 · 말씀 타이핑",
         title: "타자 말씀 암송 : 손끝으로 마음에 새기는 주요 구절",
         desc: "신구약 핵심 암송 구절 100선을 한 글자씩 키보드로 타자하며 묵상하는 도구입니다. 정확도와 타자 속도를 체크하며 성경 묵상의 즐거움을 더합니다.",
         tags: ["✓ 암송 구절 100선", "✓ 웹·exe 모두 지원", "✓ 타자 속도·정확도"],
@@ -923,8 +934,12 @@
       document.getElementById('appDesc').textContent = app.desc;
       document.getElementById('dlVer').textContent = app.version;
       document.getElementById('dlMeta').textContent = app.meta;
-      document.getElementById('dlBtnText').textContent = app.btnText;
-      document.getElementById('dlStatus').textContent = app.type === 'web' ? '바로 쓰는 웹 브라우저 앱' : '현재 최신 안정 버전';
+      // 주소(url)가 생기기 전까지는 '곧 공개' 상태로 보여 준다
+      const ready = !!app.url;
+      document.getElementById('dlBtnText').textContent = ready ? app.btnText : '🔔 곧 공개됩니다';
+      document.getElementById('dlStatus').textContent = ready ? (app.type === 'web' ? '바로 쓰는 웹앱' : '최신 버전') : '공개 준비 중';
+      document.getElementById('dlBtn').classList.toggle('soon', !ready);
+      document.getElementById('dlNote').style.display = ready ? 'none' : '';
 
       const tagsBox = document.getElementById('appTags');
       tagsBox.innerHTML = app.tags.map(t => `<span>${t}</span>`).join('');
@@ -967,9 +982,7 @@
       const app = appsData[currentAppId];
       // 실제 주소가 생기면 appsData 에 url 을 넣는다. 그 전까지는 준비 중 안내 + 문의 메일.
       if (app.url) { window.open(app.url, '_blank', 'noopener'); return; }
-      if (confirm(app.name + '은(는) 곧 공개됩니다.\n먼저 받아 보고 싶으시면 문의 메일을 보내 주세요. 메일을 쓰시겠어요?')) {
-        location.href = 'mailto:help@lowspot.net?subject=' + encodeURIComponent(app.name + ' 받기 문의');
-      }
+      location.href = 'mailto:help@lowspot.net?subject=' + encodeURIComponent(app.name + ' 먼저 써 보기 문의');
     }
 
     window.addEventListener('DOMContentLoaded', init);

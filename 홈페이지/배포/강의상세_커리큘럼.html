@@ -419,7 +419,13 @@
       .form-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
       .submit-btn { width: 100%; box-sizing: border-box; padding: 14px 20px !important; font-size: 15px !important; }
     }
-</style>
+    /* 휴대폰: 떠 있는 빠른 메뉴 단추를 작은 원으로 (글·사진을 덜 가리게) */
+    @media (max-width: 768px) {
+      .mobile-fab-btn { width: 48px; height: 48px; padding: 0 !important; justify-content: center; bottom: 16px !important; right: 16px !important; font-size: 18px !important; opacity: .92; }
+      .mobile-fab-btn span:not(:first-child) { display: none; }
+      .vertical-quick-bar { right: 16px !important; bottom: 72px !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -457,7 +463,7 @@
               <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
               <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
               <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
-              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (0.1초 송출)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (말씀 화면 송출)</a>
               <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
               <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
               <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
