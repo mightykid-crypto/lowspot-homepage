@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="여러 AI를 한 팀으로 부려 목회 일을 이어 가게 돕는 작업 도구, 오레브를 소개합니다.">
+  <title>오레브 — 낮은자리</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="공통.css">
+  <style>
+    .pc-only { display: inline; }
+    @media (max-width: 768px) { .pc-only { display: none; } }
+    /* 윈도 "PC 보호" 창 모형 (설치경고_안내.html 을 간추림) */
+    .ss-cap { font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .ss-cap b {
+      width: 26px; height: 26px; border-radius: 50%; background: var(--sprout); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 14px;
+    }
+    .ss-win { background: #1B5FA8; color: #fff; border-radius: 6px; padding: 18px 18px 14px; min-height: 196px; display: flex; flex-direction: column; }
+    .ss-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .ss-desc { font-size: 13px; line-height: 1.55; opacity: .95; }
+    .ss-link { font-size: 13px; text-decoration: underline; margin-top: 10px; align-self: flex-start; padding: 2px 4px; }
+    .ss-actions { margin-top: auto; padding-top: 14px; display: flex; justify-content: flex-end; gap: 8px; }
+    .ss-btn { font-size: 13px; padding: 5px 16px; border: 1px solid #fff; border-radius: 2px; }
+    .ss-run { background: #fff; color: #1B5FA8; font-weight: 700; }
+    .ss-mark { outline: 3px solid #E0483A; outline-offset: 3px; border-radius: 4px; }
+    .ss-text { font-size: 14.5px; color: var(--sub); margin: 10px 0 0; }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="index.html" class="brand">
+        <div class="logo-icon">
+          <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M0 100V76C22 76 30 86 50 86C70 86 78 76 100 76V100Z" fill="#4A3E33"/>
+            <path d="M44 86C44 68 44 57 47 45H53C50 57 50 68 50 86Z" fill="#6E9A4F"/>
+            <path d="M52 49C65 47 78 36 81 17C65 19 53 31 52 49Z" fill="#6E9A4F"/>
+            <path d="M46 57C34 55 23 44 20 27C34 30 45 42 46 57Z" fill="#6E9A4F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">낮은자리</div>
+          <div class="brand-motto">세상엔 강하고 하나님껜 아이같길.</div>
+        </div>
+      </a>
+
+      <!-- 상단 내비게이션 -->
+      <nav class="main-nav">
+        <a href="index.html#hero" class="nav-link">처음</a>
+        <a href="오레브.html" class="nav-link active" aria-current="page">오레브</a>
+        <a href="목회시스템.html" class="nav-link">목회시스템</a>
+
+        <!-- 사역 도구 (10) 드롭다운 -->
+        <div class="nav-item" id="navItemApps">
+          <a href="index.html#apps" class="nav-link">사역 도구 (10)</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemApps', event)" title="10개 앱 하위 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">만든 사역 도구 목록</div>
+            <div class="dd-list">
+              <a href="도구상세_통합.html?id=bible-note" class="dd-item"><span class="dd-icon">✍️</span> <strong>성경노트</strong> (서피스펜 햅틱)</a>
+              <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
+              <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
+              <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (0.1초 송출)</a>
+              <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
+              <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
+              <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
+              <a href="도구상세_통합.html?id=qr" class="dd-item"><span class="dd-icon">📱</span> <strong>QR메이커</strong> (주보·현수막 QR)</a>
+              <a href="도구상세_통합.html?id=typing" class="dd-item"><span class="dd-icon">⌨️</span> <strong>타자 말씀 암송</strong> (100선 묵상)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 강의 드롭다운 -->
+        <div class="nav-item" id="navItemLectures">
+          <a href="index.html#lectures" class="nav-link">AI 강의</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-list">
+              <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
+              <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
+              <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+            </div>
+          </div>
+        </div>
+        <a href="index.html#contact" class="nav-link">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow">AI 동역 도구 · 오레브(OREV)</span>
+        <h1>여러 AI를 한 팀으로 부려 <br class="pc-only">목회 일을 이어 가게 돕습니다</h1>
+        <p class="lead">
+          오레브는 클로드 코드·코덱스·안티그래비티 같은 AI를 <strong>팀으로 부려</strong> 목회 일을 이어서 해 주는 작업 도구입니다.
+          쓰시던 AI를 대신하는 프로그램이 아니라, 그 AI들을 한 화면에 모아 지휘하게 돕는 <strong>작업 운영 체제</strong>에 가깝습니다.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-main" href="#seminar">세미나로 시작하기</a>
+          <a class="btn btn-quiet" href="#faq">자주 묻는 질문 보기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. 오레브란 -->
+    <section class="section" id="what">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">01</span>
+          <h2>오레브는 무엇인가요</h2>
+          <p>AI 여러 대를 한자리에서 부리는 관제실입니다.</p>
+        </div>
+        <div class="grid grid-2" style="align-items:center; gap:32px;">
+          <div>
+            <p>
+              요즘 AI는 채팅창 하나에 말을 걸어 쓰는 것이 보통입니다. 그런데 일이 커지면 한 대로는 모자라서
+              자료를 찾는 AI, 글을 쓰는 AI, 코드를 만지는 AI를 따로 띄우게 되고, 곧 <strong>창이 여섯 개</strong>가 됩니다.
+              어느 창이 일하는 중인지, 어느 창이 대답을 기다리다 멈췄는지 사람이 일일이 돌아다녀야 하지요.
+            </p>
+            <p>
+              오레브는 그 창들을 <strong>한 화면에 모아 대신 지켜봐 주는 프로그램</strong>입니다.
+              멈춰 선 AI가 있으면 알려 드리고, AI끼리 주고받을 말은 옮겨 주고, 무슨 일이 있었는지 기록해 둡니다.
+            </p>
+            <div class="note g">
+              🍳 AI 한 대만 쓰는 것이 혼자 요리하는 것이라면, 오레브는 <strong>주방장이 되어 여러 요리사를 두고 일하는 것</strong>에 가깝습니다.
+            </div>
+          </div>
+          <figure class="shot">
+            <img src="오레브사진/팀티켓.webp" alt="설교팀 티켓 화면 — 주일 설교 본문 구조 정리 일을 세 단계로 나눠 진행 상황을 보여 줌" width="440" height="286" loading="lazy">
+            <figcaption>팀마다 맡은 일이 티켓으로 남고, 단계별 진행이 보입니다.</figcaption>
+          </figure>
+        </div>
+        <div class="grid grid-3" style="margin-top:32px;">
+          <div class="card"><span class="ico">👥</span><h3>팀</h3><p>한 가지 일을 맡은 AI 모임입니다. 예: 설교 준비, 교회 행정.</p></div>
+          <div class="card"><span class="ico">🧭</span><h3>마스터</h3><p>팀을 지휘하는 AI입니다. 일을 잘게 나눠 맡기고 결과를 검사합니다.</p></div>
+          <div class="card"><span class="ico">🛠️</span><h3>워커</h3><p>마스터가 필요할 때 세우는 일손 AI입니다. 일이 끝나면 내립니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 강점 -->
+    <section class="section" id="strengths">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">02</span>
+          <h2>왜 오레브인가요 — 실제로 써 보며 느낀 여섯 가지</h2>
+          <p>코딩 하나만 보면 AI 하나가 더 간단합니다. 오레브의 쓸모는 한 AI로는 어려운 <strong>전체 일</strong> — 매주의 사역 흐름과 긴 작업에서 나옵니다.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card"><span class="ico">⛽</span><h3>같은 구독으로 더 오래</h3><p>AI 구독 하나는 주간 한도가 금방 찹니다. 클로드·코덱스·제미나이를 나눠 쓰면 같은 비용으로 더 오래 일합니다. 무거운 코딩은 코덱스, 문서는 제미나이, 판단과 검수는 클로드에게 맡기는 식입니다.</p></div>
+          <div class="card"><span class="ico">🌙</span><h3>사람이 없는 시간에도</h3><p>한도가 풀리면 다시 깨우고, 쉬는 일손을 알려 주고, 끝난 일을 보고합니다. 주무시는 동안 긴 작업이 이어집니다.</p></div>
+          <div class="card"><span class="ico">📒</span><h3>대화가 아니라 기록이 남습니다</h3><p>결정 대장·기억·티켓·확인 목록·인수인계로 정한 것을 잃지 않습니다. 대화가 끊기거나 AI를 바꿔도 이어서 일합니다.</p></div>
+          <div class="card"><span class="ico">📱</span><h3>터미널을 몰라도</h3><p>한글 화면으로 쓰고, 휴대폰으로 들여다보고, 알림을 받고, 파일은 끌어 넣으면 됩니다.</p></div>
+          <div class="card"><span class="ico">🔁</span><h3>매주 되풀이되는 사역을 팀으로</h3><p>설교팀, 주보·카드뉴스·나눔지를 맡는 사이드팀처럼 매주 같은 흐름을 팀과 지침으로 고정해 둡니다.</p></div>
+          <div class="card"><span class="ico">🛡️</span><h3>안전선</h3><p>돈이 드는 일, 바깥으로 보내는 일, 되돌릴 수 없는 삭제는 사람의 허락 없이 하지 않습니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 교차 검수 -->
+    <section class="section" id="review">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">03</span>
+          <h2>AI끼리 서로 검토합니다</h2>
+          <p>검수에 드는 품은 아끼면 안 되는 품입니다. 한 번의 검수로 문제와 방향을 잡고, 다음 차례에 바로 고칩니다.</p>
+        </div>
+        <div class="grid grid-2">
+          <div class="card s">
+            <h3>혼자 일하는 AI의 한계</h3>
+            <p>AI 하나에게 맡기면 판단은 결국 사람 몫이고, 스스로 한 검수는 부족할 때가 많았습니다.</p>
+          </div>
+          <div class="card g">
+            <h3>다른 회사 AI끼리 교차 검수</h3>
+            <p>실제 운영(2026년 9월)에서 한 AI가 만든 결과를 다른 회사 AI가 검수해 <strong>셈법이 어긋난 곳, 번호가 겹쳐 쓰일 틈, 약관 문장의 잘못, 빠진 뒷정리 단계</strong>를 잡아냈습니다.</p>
+          </div>
+        </div>
+        <div class="note" style="margin-top:18px;">
+          <strong>AI를 바꿔도 이어집니다.</strong> AI마다 일하는 방식이 달라 팀의 지휘 AI는 웬만하면 바꾸지 않지만,
+          한도에 걸려 잠시 다른 AI로 넘겼다 돌아와도 대화 기록과 인수인계 덕분에 대부분의 맥락을 되살려 그대로 이어 갔습니다.
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 이런 분께 -->
+    <section class="section" id="uses">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">04</span>
+          <h2>이런 분께 · 이렇게 씁니다</h2>
+          <p>매주 되풀이되는 일이 많고, AI를 이미 한두 개 써 보신 목회자께 권합니다.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card"><span class="ico">📖</span><h3>설교 준비</h3><p>설교팀이 본문 관찰 → 핵심 문장 → 대지 → 적용 질문 순서로 초안을 정리합니다. 정한 형식은 결정 대장에 남아 다음 주에도 그대로 씁니다.</p></div>
+          <div class="card"><span class="ico">🗞️</span><h3>주보 · 카드뉴스 · 나눔지</h3><p>설교가 정리되면 사이드팀이 주보 문구, 카드뉴스, 소그룹 나눔지로 이어서 만듭니다.</p></div>
+          <div class="card"><span class="ico">🌙</span><h3>밤새 이어지는 긴 작업</h3><p>자기 전에 맡겨 두면 아침에 "밤새 있었던 일"로 끝난 일과 대답을 기다리는 일을 한눈에 봅니다.</p></div>
+        </div>
+        <div class="grid grid-2" style="margin-top:28px;">
+          <figure class="shot">
+            <img src="오레브사진/결정대장.webp" alt="결정 대장 화면 — 새가족 안내문, 설교 초안 형식, 10월 공동 일정 같은 결정이 날짜와 팀별로 모여 있음" width="860" height="420" loading="lazy">
+            <figcaption>결정 대장 — 정한 것이 팀·날짜와 함께 모입니다.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="오레브사진/밤새있었던일.webp" alt="살펴보기 요약 화면 — 밤새 있었던 일: 본부팀 끝난 티켓 1건, 설교팀 답 기다리는 일 1건" width="860" height="290" loading="lazy">
+            <figcaption>밤새 있었던 일 — 끝난 일과 답을 기다리는 일을 아침에 봅니다.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 세미나로 시작하기 -->
+    <section class="section" id="seminar">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">05</span>
+          <h2>세미나로 시작하기</h2>
+          <p>오레브는 세미나에서 함께 설치하고 바로 써 보는 것으로 시작합니다.</p>
+        </div>
+        <div class="grid grid-2" style="align-items:start; gap:28px;">
+          <ol class="steps">
+            <li><h3>세미나에서 설치</h3><p>현장에서 안내해 드리는 설치 파일로 내 노트북에 설치합니다.</p></li>
+            <li><h3>가입 신청</h3><p>이름·휴대전화·이메일과 세미나 화면에 띄워 드리는 <strong>가입 코드</strong>를 적습니다. 아이디는 따로 없습니다.</p></li>
+            <li><h3>승인되면 바로 사용</h3><p>강사가 현장에서 승인하면 저절로 첫 화면으로 넘어갑니다. 첫 팀 만들기 안내를 따라 함께 실습합니다.</p></li>
+          </ol>
+          <div class="card g">
+            <h3>이용권</h3>
+            <ul class="checklist" style="margin-top:12px;">
+              <li><strong>첫해 이용권은 세미나비에 포함</strong>됩니다.</li>
+              <li>2년째부터 <strong>연 20,000원</strong>입니다.</li>
+              <li>한 계정에 <strong>컴퓨터 2대</strong>까지 씁니다(예: 연구실 PC와 노트북).</li>
+              <li>비밀번호는 각자 정하며 <strong>내 컴퓨터에만</strong> 암호화해 둡니다. 잊으시면 이메일로 받는 6자리 번호로 새로 정합니다.</li>
+              <li>AI 이용료(구독료)는 오레브 요금과 별개로 각 AI 회사에 내십니다.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 준비물 -->
+    <section class="section" id="ready">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">06</span>
+          <h2>준비물 — 솔직하게 말씀드립니다</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="card"><span class="ico">💻</span><h3>윈도 PC</h3><p>윈도 10·11 PC에서 돌아갑니다. 인텔·AMD PC와 서피스 같은 ARM PC 모두 설치 파일이 있습니다.</p></div>
+          <div class="card"><span class="ico">🤖</span><h3>AI 구독 하나 이상</h3><p>클로드·코덱스·안티그래비티(제미나이) 가운데 <strong>적어도 하나의 구독</strong>이 필요합니다.</p></div>
+          <div class="card"><span class="ico">⚖️</span><h3>큰 일만 나눕니다</h3><p>쉬운 일은 AI 하나가 끝내게 하고, 큰 일만 팀으로 나눕니다. 모든 일에 여러 AI가 필요한 것은 아닙니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. 설치 안내 -->
+    <section class="section" id="install">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">07</span>
+          <h2>설치할 때 파란 "PC 보호" 창이 뜨면</h2>
+          <p>바이러스나 고장이 아닙니다. 두 가지만 순서대로 누르시면 됩니다.</p>
+        </div>
+        <div class="grid grid-3 ss-grid">
+          <div>
+            <div class="ss-cap"><b>1</b> 파란 창이 나타납니다</div>
+            <div class="ss-win" aria-hidden="true">
+              <div class="ss-title">Windows의 PC 보호</div>
+              <div class="ss-desc">Microsoft Defender SmartScreen에서 인식할 수 없는 앱의 시작을 차단했습니다.</div>
+              <div class="ss-link">추가 정보</div>
+              <div class="ss-actions"><span class="ss-btn">실행 안 함</span></div>
+            </div>
+            <p class="ss-text">[실행 안 함]은 누르지 마시고 창 안을 살펴봐 주세요.</p>
+          </div>
+          <div>
+            <div class="ss-cap"><b>2</b> [추가 정보]를 누릅니다</div>
+            <div class="ss-win" aria-hidden="true">
+              <div class="ss-title">Windows의 PC 보호</div>
+              <div class="ss-desc">Microsoft Defender SmartScreen에서 인식할 수 없는 앱의 시작을 차단했습니다.</div>
+              <div class="ss-link ss-mark">추가 정보</div>
+              <div class="ss-actions"><span class="ss-btn">실행 안 함</span></div>
+            </div>
+            <p class="ss-text">설명 글 아래 작게 밑줄 그어진 글씨입니다.</p>
+          </div>
+          <div>
+            <div class="ss-cap"><b>3</b> 새로 생긴 [실행]을 누릅니다</div>
+            <div class="ss-win" aria-hidden="true">
+              <div class="ss-title">Windows의 PC 보호</div>
+              <div class="ss-desc">앱: 오레브_설치.exe<br>게시자: 알 수 없는 게시자</div>
+              <div class="ss-actions"><span class="ss-btn ss-run ss-mark">실행</span><span class="ss-btn">실행 안 함</span></div>
+            </div>
+            <p class="ss-text">설치가 끝나면 [오레브 시작]을 누르세요. 바탕화면에도 바로가기가 생깁니다.</p>
+          </div>
+        </div>
+        <div class="grid grid-2" style="margin-top:24px;">
+          <div class="note">
+            <strong>왜 이 창이 뜨나요?</strong> 윈도는 값비싼 유료 인증서(디지털 서명)를 등록하지 않은 개인이나 작은 단체의 프로그램을 처음 실행할 때 늘 이 창을 띄웁니다.
+            오레브는 목회를 돕기 위해 만든 독립 프로그램입니다.
+          </div>
+          <div class="note" style="border-left-color: var(--soil);">
+            <strong>꼭 확인해 주세요.</strong> 세미나 현장처럼 <strong>공식 배포처에서 받은 파일</strong>만 실행해 주세요.
+            출처를 알 수 없는 메일 첨부·카페·메신저 링크로 받은 파일이라면 [실행]을 누르지 마시고 지워 주세요.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. 내려받기 -->
+    <section class="section" id="download">
+      <div class="wrap">
+        <div class="contact-band" style="background: var(--card-s);">
+          <h2>설치 파일 내려받기</h2>
+          <p>곧 공개됩니다. 세미나 참가자께 먼저 드립니다.</p>
+          <span class="btn" role="button" aria-disabled="true">📥 곧 공개됩니다</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. 자주 묻는 질문 -->
+    <section class="section" id="faq">
+      <div class="wrap narrow">
+        <div class="sec-head">
+          <span class="sec-num">08</span>
+          <h2>자주 묻는 질문</h2>
+        </div>
+        <div class="faq">
+          <details><summary>요금은 얼마인가요?</summary><div><p>첫해 이용권은 세미나비에 포함되고, 2년째부터 연 20,000원입니다. 세미나에 이용권이 포함되지 않았거나 세미나 뒤에 따로 신청하시는 경우는 납부를 확인한 뒤 발급해 드립니다.</p><p>AI 이용료(구독료)는 오레브 요금에 들어 있지 않고 각 AI 회사에 직접 내십니다.</p></div></details>
+          <details><summary>컴퓨터 몇 대에서 쓸 수 있나요?</summary><div><p>한 계정에 2대까지입니다. 두 번째 컴퓨터를 등록할 때는 가입 이메일로 받는 6자리 번호로 본인 확인을 합니다. 컴퓨터를 바꾸시면 프로그램 안에서 기존 기기를 직접 해제하실 수 있습니다(30일에 한 번).</p></div></details>
+          <details><summary>비밀번호를 잊었어요.</summary><div><p>로그인 창의 [비밀번호를 잊었어요]를 눌러 이름과 이메일을 적으시면, 이메일로 온 6자리 번호로 새 비밀번호를 정하실 수 있습니다. 휴대폰에서도 됩니다. 서버는 비밀번호를 받지도 보관하지도 않습니다.</p></div></details>
+          <details><summary>AI 구독이 꼭 있어야 하나요?</summary><div><p>네. 오레브는 AI를 대신하는 프로그램이 아니라 쓰시는 AI를 팀으로 부리는 도구라서, 클로드·코덱스·안티그래비티(제미나이) 가운데 적어도 하나의 구독이 필요합니다.</p></div></details>
+          <details><summary>설교 원고나 대화 내용이 서버로 가나요?</summary><div><p>아니요. 오레브로 작성하는 설교문·노트·문서·AI와의 대화 기록은 모두 내 컴퓨터에만 저장됩니다. 서버에는 가입과 이용권 확인에 필요한 최소한의 정보(이름·연락처·기기 식별값)만 갑니다. 자세한 내용은 <a href="개인정보.html">개인정보 처리 안내</a>를 봐 주세요.</p></div></details>
+          <details><summary>인터넷이 끊기면 못 쓰나요?</summary><div><p>이용권을 한 번 받아 두면 남은 기간 동안은 인터넷 없이도 실행됩니다. 이용권은 인터넷이 연결될 때 저절로 30일씩 갱신되며, 갱신이 늦어져도 7일의 여유 기간이 있습니다.</p></div></details>
+          <details><summary>AI가 만든 결과를 그대로 써도 되나요?</summary><div><p>AI가 만든 글에는 틀린 내용이 섞일 수 있습니다. 사실 확인과 교리적·윤리적 검토, 최종 사용은 쓰시는 분의 몫입니다. 오레브의 교차 검수는 그 부담을 덜어 드리는 것이지 대신하는 것은 아닙니다.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10·11. 약관 · 문의 -->
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="contact-band">
+          <h2>궁금하신 점은 편하게 물어 주세요</h2>
+          <p>세미나 요청, 설치 문의, 이용권 문의 모두 한 곳으로 받습니다.</p>
+          <a class="btn btn-main" href="mailto:help@lowspot.net?subject=%EC%98%A4%EB%A0%88%EB%B8%8C%20%EB%AC%B8%EC%9D%98">✉️ help@lowspot.net 으로 메일 쓰기</a>
+          <p style="margin:18px 0 0; font-size:14px;"><a href="약관.html">이용약관</a> · <a href="개인정보.html">개인정보 처리 안내</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><a href="오레브.html">오레브</a> · <a href="약관.html">이용약관</a> · <a href="개인정보.html">개인정보 처리 안내</a> · <a href="mailto:help@lowspot.net">help@lowspot.net</a></p>
+      <p>© 2026 민경우 · 낮은자리 (lowspot.net) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
+    </div>
+  </footer>
+
+  <script>
+    // 상단 메뉴 펼침 (다른 페이지와 같음)
+    function toggleDropdown(itemId, e) {
+      e.stopPropagation();
+      const el = document.getElementById(itemId);
+      const wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    }
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+    });
+  </script>
+</body>
+</html>

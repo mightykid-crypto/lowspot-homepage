@@ -23,7 +23,7 @@ PAGES = [
     '약관.html',
     '개인정보.html',
 ]
-EXTRA = ['favicon.svg']
+EXTRA = ['favicon.svg', '공통.css']
 ASSET_DIRS = ('화면사진', '오레브사진')
 
 MAX_W = 1600          # 이보다 넓은 그림은 줄인다

@@ -1,0 +1,229 @@
+/* 낮은자리 — 새 페이지(오레브·목회시스템·약관·개인정보) 공통 모양
+   색·글꼴은 브랜드 규정(원본편) 그대로. 기존 index·상세 페이지의 머리·메뉴와 같게 맞춘다. */
+:root {
+  --bg: #FEFDFC;
+  --card: #F3EFE4;
+  --line: #E6E1D5;
+  --ink: #332F2A;
+  --sub: #6B5C4D;
+  --faint: #93867A;
+  --sprout: #6E9A4F;
+  --sprout-tx: #52733B;
+  --sky: #4E7C99;
+  --sky-tx: #3F6B87;
+  --soil: #4A3E33;
+  --white: #ffffff;
+  --radius: 8px;
+  --radius-lg: 16px;
+  --card-g: color-mix(in srgb, var(--sprout) 12%, var(--bg));
+  --card-s: color-mix(in srgb, var(--sky) 12%, var(--bg));
+  --serif: 'Gowun Batang', serif;
+  --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans);
+  font-size: 16px; line-height: 1.75; word-break: keep-all; overflow-wrap: break-word;
+}
+img { max-width: 100%; height: auto; }
+a { color: var(--sky-tx); }
+.wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+.narrow { max-width: 760px; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; margin: 0; line-height: 1.4; }
+
+/* ── 머리(로고·메뉴) ── */
+header.top {
+  border-bottom: 1px solid var(--line); position: sticky; top: 0;
+  background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(16px); z-index: 500;
+}
+.top-in { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+.logo-icon {
+  width: 36px; height: 36px; overflow: hidden; background: #F1F3F3; border-radius: 18%;
+  display: flex; align-items: center; justify-content: center; border: 1px solid var(--line);
+}
+.brand-name { font-family: var(--serif); font-weight: 700; font-size: 21px; letter-spacing: -0.02em; }
+.brand-motto { font-size: 12px; color: var(--sub); display: none; }
+@media (min-width: 640px) { .brand-motto { display: block; } }
+
+nav.main-nav { display: flex; align-items: center; gap: 6px; }
+.nav-item { position: relative; display: flex; align-items: center; }
+.nav-link {
+  font-size: 15px; color: var(--sub); padding: 8px 12px; border-radius: var(--radius);
+  font-weight: 600; display: inline-flex; align-items: center; gap: 4px; text-decoration: none;
+  transition: all 0.2s;
+}
+.nav-link:hover, .nav-link.active { color: var(--ink); background: var(--card); }
+.nav-arrow {
+  background: transparent; border: none; color: var(--sub); font-size: 13px;
+  padding: 6px 8px; border-radius: 6px; cursor: pointer;
+}
+.nav-arrow:hover { background: var(--line); color: var(--ink); }
+.dropdown-menu {
+  display: none; position: absolute; top: 100%; right: 0; margin-top: 6px;
+  background: color-mix(in srgb, var(--bg) 98%, transparent); backdrop-filter: blur(20px);
+  border: 1px solid var(--line); border-radius: var(--radius-lg);
+  box-shadow: 0 16px 40px rgba(51, 47, 42, 0.16);
+  min-width: 260px; max-width: 340px; padding: 12px; z-index: 1000;
+}
+.nav-item.open .dropdown-menu { display: block; }
+.dd-title {
+  font-size: 12px; font-weight: 700; color: var(--sub);
+  padding: 4px 10px 8px; border-bottom: 1px solid var(--line); margin-bottom: 6px;
+}
+.dd-list { display: flex; flex-direction: column; gap: 4px; max-height: 380px; overflow-y: auto; }
+.dd-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius);
+  font-size: 14px; color: var(--ink); text-decoration: none;
+}
+.dd-item:hover { background: var(--card-g); color: var(--sprout-tx); }
+.dd-icon { font-size: 16px; width: 22px; text-align: center; }
+
+/* ── 첫머리 ── */
+.page-hero { padding: 72px 0 56px; border-bottom: 1px solid var(--line); }
+.eyebrow {
+  display: inline-block; background: var(--card-g); color: var(--sprout-tx);
+  font-size: 13.5px; font-weight: 700; padding: 5px 14px; border-radius: 99px; margin-bottom: 18px;
+}
+.eyebrow.sky { background: var(--card-s); color: var(--sky-tx); }
+.page-hero h1 { font-size: 38px; letter-spacing: -0.02em; margin-bottom: 18px; }
+.page-hero .lead { font-size: 18px; color: var(--sub); max-width: 40rem; margin: 0; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+/* ── 단추 ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 44px; padding: 10px 22px; border-radius: var(--radius);
+  font-family: var(--sans); font-size: 15.5px; font-weight: 700; text-decoration: none;
+  border: 1px solid transparent; cursor: pointer;
+}
+.btn-main { background: var(--sprout-tx); color: var(--white); }
+.btn-main:hover { background: color-mix(in srgb, var(--sprout-tx) 88%, #000); }
+.btn-quiet { background: var(--bg); color: var(--ink); border-color: var(--line); }
+.btn-quiet:hover { background: var(--card); }
+.btn[aria-disabled="true"], .btn:disabled {
+  background: var(--card); color: var(--sub); border-color: var(--line); cursor: not-allowed;
+}
+
+/* ── 절 ── */
+.section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+.section:last-of-type { border-bottom: none; }
+.sec-head { margin-bottom: 36px; }
+.sec-head h2 { font-size: 28px; margin-bottom: 10px; }
+.sec-head p { color: var(--sub); margin: 0; max-width: 40rem; }
+.sec-num { font-family: var(--serif); font-weight: 700; color: var(--sprout-tx); font-size: 15px; margin-bottom: 6px; display: block; }
+
+.grid { display: grid; gap: 18px; }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.card {
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 26px 24px;
+}
+.card.g { background: var(--card-g); }
+.card.s { background: var(--card-s); }
+.card h3 { font-size: 19px; margin-bottom: 8px; }
+.card p { margin: 0; color: var(--sub); font-size: 15px; }
+.card .ico { font-size: 26px; margin-bottom: 10px; display: block; }
+.card .tag {
+  display: inline-block; font-size: 12.5px; font-weight: 700; padding: 2px 10px;
+  border-radius: 99px; margin-bottom: 10px; background: var(--card); color: var(--sub);
+}
+.card .tag.on { background: var(--sprout-tx); color: var(--white); }
+
+.note {
+  border: 1px solid var(--line); border-left: 4px solid var(--sky); background: var(--card-s);
+  border-radius: var(--radius); padding: 16px 20px; color: var(--ink); font-size: 15px;
+}
+.note.g { border-left-color: var(--sprout); background: var(--card-g); }
+.note strong { color: var(--ink); }
+
+.checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.checklist li { padding-left: 28px; position: relative; }
+.checklist li::before { content: '✓'; position: absolute; left: 4px; color: var(--sprout-tx); font-weight: 700; }
+
+.steps { list-style: none; padding: 0; margin: 0; counter-reset: s; display: grid; gap: 14px; }
+.steps > li {
+  counter-increment: s; position: relative; padding: 18px 20px 18px 68px;
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg);
+}
+.steps > li::before {
+  content: counter(s); position: absolute; left: 20px; top: 18px; width: 32px; height: 32px;
+  border-radius: 50%; background: var(--sprout); color: var(--white);
+  font-family: var(--serif); font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.steps h3 { font-size: 17px; margin-bottom: 4px; }
+.steps p { margin: 0; color: var(--sub); font-size: 15px; }
+
+figure.shot { margin: 0; }
+figure.shot img { display: block; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+figure.shot figcaption { font-size: 13.5px; color: var(--sub); margin-top: 8px; }
+
+/* 자주 묻는 질문 */
+.faq { display: grid; gap: 10px; }
+.faq details { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }
+.faq summary {
+  cursor: pointer; padding: 16px 20px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; color: var(--sub); font-weight: 400; }
+.faq details[open] summary::after { content: '−'; }
+.faq details > div { padding: 0 20px 18px; color: var(--sub); font-size: 15px; }
+.faq details > div p { margin: 0 0 8px; }
+
+/* 약관·안내 문서 */
+.doc { max-width: 760px; }
+.doc h2 { font-size: 21px; margin: 44px 0 12px; padding-top: 8px; }
+.doc h2:first-child { margin-top: 0; }
+.doc p, .doc li { font-size: 15.5px; }
+.doc ol, .doc ul { padding-left: 1.4em; }
+.doc li { margin-bottom: 6px; }
+.doc table { width: 100%; border-collapse: collapse; font-size: 14.5px; margin: 12px 0; }
+.doc th, .doc td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
+.doc th { background: var(--card); }
+.table-scroll { overflow-x: auto; }
+.doc-meta { color: var(--sub); font-size: 15px; margin: 0; }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 0; padding: 0; list-style: none; }
+.toc a {
+  display: inline-block; font-size: 14px; padding: 6px 12px; border: 1px solid var(--line);
+  border-radius: 99px; color: var(--sub); text-decoration: none; background: var(--white);
+}
+.toc a:hover { color: var(--ink); background: var(--card); }
+
+/* 문의 띠 */
+.contact-band { background: var(--card-g); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 36px 32px; text-align: center; }
+.contact-band h2 { font-size: 24px; margin-bottom: 8px; }
+.contact-band p { color: var(--sub); margin: 0 0 20px; }
+
+footer {
+  border-top: 1px solid var(--line); padding: 36px 0; text-align: center; color: var(--sub); font-size: 14px;
+}
+footer p { margin: 4px 0; }
+footer a { color: var(--sub); }
+
+/* ── 휴대폰 ── */
+@media (max-width: 768px) {
+  body { font-size: 15px; }
+  .wrap { padding: 0 20px; }
+  .top-in { flex-direction: column; height: auto; padding: 12px 20px 8px; gap: 10px; align-items: flex-start; }
+  nav.main-nav {
+    width: calc(100% + 40px); margin: 0 -20px; padding: 0 20px 6px; overflow-x: auto; flex-wrap: nowrap;
+    gap: 4px; scrollbar-width: none;
+  }
+  nav.main-nav::-webkit-scrollbar { display: none; }
+  .nav-link { white-space: nowrap; padding: 8px 10px; }
+  .nav-arrow, .dropdown-menu { display: none !important; }
+  .page-hero { padding: 44px 0 36px; }
+  .page-hero h1 { font-size: 28px; }
+  .page-hero .lead { font-size: 16px; }
+  .section { padding: 48px 0; }
+  .sec-head h2 { font-size: 23px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .steps > li { padding: 16px 16px 16px 60px; }
+  .steps > li::before { left: 16px; }
+  .contact-band { padding: 28px 20px; }
+  .btn { width: 100%; }
+}
