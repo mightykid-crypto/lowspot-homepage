@@ -5,24 +5,34 @@
   const qs = new URLSearchParams(location.search);
   const API = (qs.get('api') || '') + '/api/live';
   const WS_BASE = (qs.get('api') || location.origin).replace(/^http/, 'ws') + '/api/live/ws';
-  const BEAM = qs.get('view') === 'beam';
+  const BEAM = qs.get('view') === 'beam' || location.hash === '#beam';
+  // 체험판: 서버 없이 이 브라우저 안에서 돈다(미리보기 사본은 window.LIVE_DEMO, 또는 ?demo=1). 같은 브라우저의 탭끼리는 실시간으로 이어진다
+  const DEMO = qs.get('demo') === '1' || window.LIVE_DEMO === true;
+  const NS = DEMO ? 'livedemo.' : 'live.';
   const LESSONS = ['공통', '1강', '2강', '3강', '4강', '5강', '6강'];
   const TYPE = { prompt: '프롬프트', link: '링크·파일', notice: '공지', answer: '답변' };
   const $ = (sel, root = document) => root.querySelector(sel);
   const store = {
-    get(k, d) { try { const v = localStorage.getItem('live.' + k); return v ? JSON.parse(v) : d; } catch { return d; } },
-    set(k, v) { try { localStorage.setItem('live.' + k, JSON.stringify(v)); } catch {} },
-    del(k) { try { localStorage.removeItem('live.' + k); } catch {} },
+    get(k, d) { try { const v = localStorage.getItem(NS + k); return v ? JSON.parse(v) : d; } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(NS + k, JSON.stringify(v)); } catch {} },
+    del(k) { try { localStorage.removeItem(NS + k); } catch {} },
   };
 
   // ── 상태 ──
   const S = {
-    token: store.get('token', null), me: null, title: '라이브톡', locked: false,
+    token: null, me: null, title: '라이브톡', locked: false,
     posts: new Map(), questions: new Map(), drafts: new Map(), myQuestions: new Map(),
     online: 0, members: 0, people: [], filter: store.get('filter', 'all'),
     tab: 'feed', editing: null, answering: null, unread: 0, ws: null, retry: 0, alive: false,
   };
   const saves = () => store.get('saved', {});
+  // 입장권: 체험판은 탭마다 따로(한 탭은 강사, 한 탭은 참가자) — 실제 사이트는 이 브라우저에 기억
+  const tok = {
+    get() { try { return DEMO ? sessionStorage.getItem('livedemo.token') : store.get('token', null); } catch { return null; } },
+    set(v) { try { DEMO ? sessionStorage.setItem('livedemo.token', v) : store.set('token', v); } catch {} },
+    del() { try { DEMO ? sessionStorage.removeItem('livedemo.token') : tok.del(); } catch {} },
+  };
+  S.token = tok.get();
 
   // ── 작은 도구 ──
   function el(tag, attrs = {}, ...kids) {
@@ -59,7 +69,155 @@
     const ta = el('textarea', { style: 'position:fixed;opacity:0' }); ta.value = text; document.body.append(ta); ta.select();
     const ok = document.execCommand('copy'); ta.remove(); return ok;
   }
+  // 확인 상자 — 브라우저 confirm/prompt 대신 페이지 안에 띄운다(미리보기 화면에서는 confirm 이 막혀 있음)
+  function confirmBox(message, { ok = '확인', danger = false, input = null } = {}) {
+    return new Promise((resolve) => {
+      const field = input ? el('input', { class: 'dlg-input', placeholder: input, 'aria-label': input }) : null;
+      const done = (v) => { wrap.remove(); resolve(v); };
+      const wrap = el('div', { class: 'dlg-wrap', role: 'dialog', 'aria-modal': 'true', onclick: (e) => { if (e.target === wrap) done(null); } },
+        el('div', { class: 'dlg' },
+          el('p', { class: 'dlg-msg' }, message),
+          field,
+          el('div', { class: 'dlg-btns' },
+            el('button', { type: 'button', class: 'dlg-cancel', onclick: () => done(null) }, '취소'),
+            el('button', { type: 'button', class: 'dlg-ok' + (danger ? ' danger' : ''), onclick: () => done(field ? field.value : true) }, ok))));
+      wrap.addEventListener('keydown', (e) => { if (e.key === 'Escape') done(null); if (e.key === 'Enter' && field) done(field.value); });
+      document.body.append(wrap);
+      (field || $('.dlg-ok', wrap)).focus();
+    });
+  }
   const send = (m) => { if (S.ws && S.ws.readyState === 1) { S.ws.send(JSON.stringify(m)); return true; } toast('연결이 잠시 끊겼어요. 다시 붙는 중이에요.'); return false; };
+
+
+  // ── 체험판 서버 (브라우저 안) — 실제 서버(라이브톡/worker)와 같은 규칙을 흉내 낸다 ──
+  const Demo = DEMO ? (() => {
+    const ch = 'BroadcastChannel' in window ? new BroadcastChannel('lowspot-live-demo') : null;
+    const sockets = new Set();
+    const names = ['김은혜 목사', '박소망 전도사', '이믿음 목사', '최사랑 강도사', '정기쁨 목사', '한평안 전도사', '오충성 목사', '윤온유 목사', '장절제 전도사', '임화평 목사', '서인내 목사', '강자비 전도사', '조양선 목사', '신성실 목사', '문겸손 전도사', '배지혜 목사', '노진리 목사', '하생명 전도사', '구빛나 목사', '남소금 목사', '편새싹 전도사', '황하늘 목사'];
+    const fake = names.map((_, i) => 'demo' + i);
+    const vote = (n, from = 0) => Object.fromEntries(fake.slice(from, from + n).map((u) => [u, 1]));
+    function fresh() {
+      const t0 = Date.now();
+      const mk = (id, min, o) => ({ id, at: t0 - min * 60000, votes: {}, author: '민경우', pinned: false, lesson: 1, title: '', ...o });
+      return {
+        title: '한남노회 AI 세미나 · 체험판', locked: false, blocked: {},
+        members: Object.fromEntries(fake.map((u, i) => [u, { name: names[i], church: '' }])),
+        posts: [
+          mk('p1', 95, { type: 'notice', lesson: 0, title: '라이브톡에 오신 것을 환영합니다', text: '강의 중에 쓰실 프롬프트와 자료가 여기에 올라와요. [📋 복사하기]로 복사해 제미나이 창에 붙여 넣으세요.\n오전 쉬는 시간은 10:50 – 11:00 입니다.', pinned: true, votes: { like: vote(12) } }),
+          mk('p2', 80, { type: 'prompt', title: '여는 실습 — 주보 광고문 다듬기', text: '이번 주 주보에 실을 광고문입니다. 제가 급하게 메모해 둔 것이라 문장이 거칠고 딱딱합니다. 성도들에게 따뜻하게 읽히도록 다듬어 주세요.\n"다음 주 토요일 교회 대청소 함. 9시까지 나와야 됨. 지난번에 몇 명 안 나와서 힘들었음. 이번엔 다들 꼭 나오기 바람. 점심 제공."', votes: { copy: vote(19), done: vote(17), like: vote(8) } }),
+          mk('p3', 60, { type: 'prompt', title: '기법 1 — 역할 부여', text: "당신은 아동부 전문 사역자입니다. 초등학교 1, 2학년 어린이들에게 '하나님의 임재하심'을 직관적으로 가르쳐 줄 시각 도구 예화를 기획해 주세요.", votes: { copy: vote(15), done: vote(11) } }),
+          mk('p4', 40, { type: 'link', title: '1강 실습 자료 (예시 링크)', text: '오늘 실습에 쓰는 자료예요. 체험판이라 실제 파일은 아니에요.\nhttps://drive.google.com/', votes: { open: vote(14) } }),
+          mk('p5', 20, { type: 'answer', question: '제미나이 무료 계정으로도 실습할 수 있나요?', text: '네, 오늘 실습은 무료 계정으로도 모두 해 보실 수 있어요.', votes: { like: vote(6) } }),
+        ],
+        questions: [{ id: 'q1', uid: fake[3], name: names[3], church: '', text: '메타 프롬프팅은 몇 강에서 다루나요?', at: t0 - 5 * 60000, answered: false }],
+        drafts: [
+          { id: 'd1', type: 'prompt', lesson: 2, title: '기법 2 — 구체적 맥락', text: '고용 불안을 겪는 40대 가장들에게 마태복음 6장(염려하지 말라)의 현실적 적용점 3가지를 제안해 주세요.', at: t0 },
+          { id: 'd2', type: 'prompt', lesson: 2, title: '기법 3 — 단계별 대화', text: '새가족 환영 만찬 프로그램의 2시간 타임라인 초안을 기획해 주세요.', at: t0 + 1 },
+        ],
+      };
+    }
+    let room = store.get('room', null) || fresh();
+    const pushAll = () => sockets.forEach((s) => s.push());
+    const persist = () => { store.set('room', room); if (ch) ch.postMessage(1); pushAll(); };
+    if (ch) ch.onmessage = () => { room = store.get('room', room); pushAll(); };
+    const pub = (p, uid) => {
+      const counts = {}, mine = {};
+      for (const k of ['copy', 'open', 'like', 'done']) { const v = p.votes?.[k] || {}; counts[k] = Object.keys(v).length; mine[k] = !!v[uid]; }
+      const { votes, ...rest } = p; return { ...rest, counts, mine };
+    };
+    class DemoSocket {
+      constructor(me) { this.me = me; this.readyState = 1; sockets.add(this); setTimeout(() => { if (this.onopen) this.onopen(); this.push(true); }, 150); }
+      emit(m) { if (this.onmessage) this.onmessage({ data: JSON.stringify(m) }); }
+      push(first) {
+        const me = this.me;
+        const hello = { t: 'hello', soft: !first, me, title: room.title, locked: room.locked, posts: [...room.posts].sort((a, b) => a.at - b.at).map((p) => pub(p, me.uid)) };
+        if (me.role === 'teacher') { hello.questions = room.questions; hello.drafts = room.drafts; hello.members = Object.keys(room.members).length; }
+        else hello.myQuestions = room.questions.filter((q) => q.uid === me.uid);
+        this.emit(hello);
+        this.emit({ t: 'presence', online: 17 + sockets.size });
+        if (me.role === 'teacher') this.emit({ t: 'people', members: Object.keys(room.members).length, list: Object.entries(room.members).slice(0, 17).map(([uid, m]) => ({ uid, name: m.name, church: m.church || '' })) });
+      }
+      close() { sockets.delete(this); this.readyState = 3; }
+      send(raw) { act(this, JSON.parse(raw)); }
+    }
+    const nid = (c) => c + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+    function act(sock, m) {
+      room = store.get('room', room);   // 다른 탭이 방금 바꾼 것 위에 고친다(덮어쓰기 방지)
+      const me = sock.me, oops = (text) => sock.emit({ t: 'error', text });
+      const P = (id) => room.posts.find((p) => p.id === id);
+      if (m.t === 'ping') return;
+      if (m.t === 'react') {
+        const p = P(m.id); if (!p) return;
+        p.votes[m.kind] ||= {}; const v = p.votes[m.kind];
+        if ((m.kind === 'like' || m.kind === 'done') && v[me.uid]) delete v[me.uid];
+        else if (!v[me.uid]) v[me.uid] = 1; else return;
+        return persist();
+      }
+      if (m.t === 'ask') {
+        if (room.locked) return oops('지금은 질문을 받지 않아요.');
+        const text = String(m.text || '').trim().slice(0, 500); if (!text) return;
+        room.questions.push({ id: nid('q'), uid: me.uid, name: me.name, church: me.church || '', text, at: Date.now(), answered: false });
+        return persist();
+      }
+      if (me.role !== 'teacher') return oops('강사만 할 수 있어요.');
+      switch (m.t) {
+        case 'post': case 'edit': {
+          const text = String(m.text || '').trim(); if (!text) return oops('내용을 적어 주세요.');
+          let p = m.t === 'edit' ? P(m.id) : null;
+          if (m.t === 'edit' && !p) return;
+          const isNew = !p;
+          if (isNew) { p = { id: nid('p'), at: Date.now(), votes: {}, author: me.name, pinned: false }; room.posts.push(p); }
+          Object.assign(p, { type: m.type || 'notice', lesson: Number(m.lesson) || 0, title: m.title || '', text, edited: !isNew });
+          if (m.question) p.question = m.question;
+          if (m.fromDraft) { const d = room.drafts.find((x) => x.id === m.fromDraft); if (d) d.usedAt = Date.now(); }
+          if (m.answers) { const q = room.questions.find((x) => x.id === m.answers); if (q) { q.answered = true; q.answerPost = p.id; } }
+          persist(); if (isNew) crowd(p.id); return;
+        }
+        case 'pin': { const p = P(m.id); if (p) { p.pinned = !p.pinned; persist(); } return; }
+        case 'delete': room.posts = room.posts.filter((p) => p.id !== m.id); return persist();
+        case 'draft_save': {
+          let d = room.drafts.find((x) => x.id === m.id);
+          if (!d) { d = { id: nid('d'), at: Date.now() }; room.drafts.push(d); }
+          Object.assign(d, { type: m.type || 'prompt', lesson: Number(m.lesson) || 0, title: m.title || '', text: m.text || '' });
+          return persist();
+        }
+        case 'draft_delete': room.drafts = room.drafts.filter((d) => d.id !== m.id); return persist();
+        case 'question_done': { const q = room.questions.find((x) => x.id === m.id); if (q) { q.answered = !q.answered; persist(); } return; }
+        case 'lock': room.locked = !room.locked; return persist();
+        case 'block': delete room.members[m.uid]; return persist();
+        case 'wipe':
+          room = fresh(); store.set('room', room); if (ch) ch.postMessage(1);
+          sockets.forEach((s) => s.emit({ t: 'wiped', reason: '체험판을 처음 상태로 되돌렸어요' }));
+          return;
+      }
+    }
+    // 새 자료가 올라가면 가짜 참가자들이 몇 초에 걸쳐 복사·열기·따라 했어요를 누른다
+    function crowd(id) {
+      let i = 0; const n = 9 + Math.floor(Math.random() * 10);
+      const tick = () => {
+        room = store.get('room', room);
+        const p = room.posts.find((x) => x.id === id); if (!p || i >= n) return;
+        const u = fake[i++];
+        p.votes.copy ||= {}; p.votes.open ||= {}; p.votes.done ||= {};
+        if (p.type === 'prompt') p.votes.copy[u] = 1;
+        if (/https?:\/\//.test(p.text)) p.votes.open[u] = 1;
+        if (p.type !== 'notice' && i > 3) p.votes.done[fake[i - 4]] = 1;
+        persist(); setTimeout(tick, 600 + Math.random() * 1200);
+      };
+      setTimeout(tick, 1500);
+    }
+    function exportText() {
+      const L = (n) => (n ? `${n}강` : '공통'), T = { prompt: '프롬프트', link: '링크', notice: '공지', answer: '답변' };
+      const out = [`# ${room.title} — 라이브톡 자료 모음`, ''];
+      for (const p of [...room.posts].sort((a, b) => (a.lesson - b.lesson) || (a.at - b.at))) {
+        out.push(`## [${L(p.lesson)} · ${T[p.type]}] ${p.title || ''}`.trimEnd(), '');
+        if (p.question) out.push(`> 질문: ${p.question}`, '');
+        out.push(p.type === 'prompt' ? '```\n' + p.text + '\n```' : p.text, '');
+      }
+      return out.join('\n');
+    }
+    return { DemoSocket, exportText };
+  })() : null;
 
   // ── 입장 ──
   function showJoin(msg) {
@@ -74,22 +232,34 @@
     $('#joinError').textContent = '';
     btn.disabled = true; btn.textContent = '들어가는 중…';
     try {
+      if (DEMO) {   // 체험판 입장: DEMO(참가자) · DEMO-T(강사)
+        const code = f.elements.code.value.trim().toUpperCase(), name = f.elements.name.value.trim(), church = f.elements.church.value.trim();
+        const uid = Math.random().toString(36).slice(2, 10);
+        let me;
+        if (code === 'DEMO-T') me = { role: 'teacher', name: '민경우', uid: 't-' + uid, church: '' };
+        else if (code === 'DEMO') { if (!name) throw new Error('이름을 적어 주세요.'); me = { role: 'user', name, church, uid: 'u-' + uid }; }
+        else throw new Error('체험판 코드는 DEMO(참가자) 또는 DEMO-T(강사)예요.');
+        S.token = JSON.stringify(me); tok.set(S.token);
+        store.set('lastName', name); store.set('lastChurch', church);
+        return connect();
+      }
       const res = await fetch(API + '/join', {
         method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ code: f.elements.code.value.trim(), name: f.elements.name.value.trim(), church: f.elements.church.value.trim() }),
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || '들어가지 못했어요. 잠시 뒤 다시 해 주세요.');
-      S.token = data.token; store.set('token', data.token);
+      S.token = data.token; tok.set(data.token);
       store.set('lastName', f.elements.name.value.trim()); store.set('lastChurch', f.elements.church.value.trim());
       connect();
     } catch (err) {
       $('#joinError').textContent = err.message.includes('fetch') ? '서버에 닿지 않아요. 인터넷 연결을 확인해 주세요.' : err.message;
     } finally { btn.disabled = false; btn.textContent = '입장하기'; }
   }
-  function leave() {
-    if (!confirm('라이브톡에서 나갈까요? 다시 들어오려면 코드를 넣어야 해요.')) return;
-    store.del('token'); S.token = null;
+  async function leave() {
+    const ok = await confirmBox('라이브톡에서 나갈까요? 다시 들어오려면 코드를 넣어야 해요.', { ok: '나가기' });
+    if (!ok) return;
+    tok.del(); S.token = null;
     if (S.ws) { S.ws.onclose = null; S.ws.close(); }
     showJoin();
   }
@@ -103,12 +273,12 @@
   function connect() {
     if (!S.token) return showJoin();
     if (S.ws) { S.ws.onclose = null; try { S.ws.close(); } catch {} }
-    const ws = new WebSocket(WS_BASE + '?token=' + encodeURIComponent(S.token));
+    const ws = DEMO ? new Demo.DemoSocket(JSON.parse(S.token)) : new WebSocket(WS_BASE + '?token=' + encodeURIComponent(S.token));
     S.ws = ws; setConn('wait');
     ws.onopen = () => { S.retry = 0; setConn('on'); };
     ws.onmessage = (e) => handle(JSON.parse(e.data));
     ws.onclose = (e) => {
-      if (e.code === 4003) { store.del('token'); S.token = null; return showJoin('강사님이 이 방에서 내보냈어요.'); }
+      if (e.code === 4003) { tok.del(); S.token = null; return showJoin('강사님이 이 방에서 내보냈어요.'); }
       if (e.code === 4000) return;
       setConn('wait');
       const wait = Math.min(10000, 1000 * 2 ** S.retry++);
@@ -117,7 +287,7 @@
         if (S.retry > 2) {
           try {
             const r = await fetch(API + '/export?token=' + encodeURIComponent(S.token), { method: 'GET' });
-            if (r.status === 401) { store.del('token'); S.token = null; return showJoin('입장 시간이 지났어요. 다시 들어와 주세요.'); }
+            if (r.status === 401) { tok.del(); S.token = null; return showJoin('입장 시간이 지났어요. 다시 들어와 주세요.'); }
           } catch {}
         }
         connect();
@@ -128,7 +298,8 @@
 
   function handle(m) {
     switch (m.t) {
-      case 'hello':
+      case 'hello': {
+        const before = new Set(S.posts.keys());
         S.me = m.me; S.title = m.title; S.locked = m.locked;
         S.posts = new Map(m.posts.map((p) => [p.id, p]));
         S.questions = new Map((m.questions || []).map((q) => [q.id, q]));
@@ -137,8 +308,14 @@
         if (m.members != null) S.members = m.members;
         $('#liveJoin').hidden = true; $('#liveApp').hidden = false;
         document.body.classList.toggle('is-teacher', S.me.role === 'teacher');
-        renderAll(true);
+        if (m.soft) {
+          const added = m.posts.filter((p) => !before.has(p.id));
+          const last = added[added.length - 1];
+          renderAll(false, last?.id);
+          if (last && !(S.me.role === 'teacher' && last.author === S.me.name) && (document.hidden || !nearBottom())) bumpUnread();
+        } else renderAll(true);
         break;
+      }
       case 'post': {
         const isNew = !S.posts.has(m.post.id);
         S.posts.set(m.post.id, m.post);
@@ -161,7 +338,7 @@
       case 'locked': S.locked = m.locked; renderLock(); break;
       case 'error': toast(m.text); break;
       case 'wiped':
-        store.del('token'); S.token = null;
+        tok.del(); S.token = null;
         showJoin(m.reason + '. 함께해 주셔서 고맙습니다.');
         break;
     }
@@ -181,12 +358,12 @@
   window.addEventListener('scroll', () => { if (S.unread && nearBottom()) clearUnread(); }, { passive: true });
 
   // ── 그리기 ──
-  function renderAll(first) {
+  function renderAll(first, flashId) {
     if (BEAM) return renderBeam();
     $('#roomTitle').textContent = S.title;
     $('#meName').textContent = S.me.role === 'teacher' ? `${S.me.name} 강사` : S.me.name;
     document.title = `라이브톡 — ${S.title}`;
-    renderFilters(); renderFeed(); renderCounts(); renderLock(); renderTabs(); renderSaved();
+    renderFilters(); renderFeed(flashId); renderCounts(); renderLock(); renderTabs(); renderSaved();
     if (S.me.role === 'teacher') { renderQuestions(); renderDrafts(); renderPeople(); }
     else renderMyQuestions();
     if (first) setTimeout(() => window.scrollTo({ top: document.body.scrollHeight }), 50);
@@ -277,10 +454,11 @@
       } }, '📋 복사하기', el('span', { class: 'n' }, String(c.copy))));
     }
     if (urls.length) acts.append(el('span', { class: 'act-stat', title: '열어 본 사람' }, `🔗 ${c.open}명 열어 봄`));
-    acts.append(
+    acts.append(...[
       el('button', { type: 'button', class: 'act' + (mine.like ? ' on' : ''), 'aria-pressed': mine.like ? 'true' : 'false', onclick: react('like') }, '👍', el('span', { class: 'n' }, String(c.like))),
       p.type !== 'notice' ? el('button', { type: 'button', class: 'act act-done' + (mine.done ? ' on' : ''), 'aria-pressed': mine.done ? 'true' : 'false', onclick: react('done') }, mine.done ? '✅ 따라 했어요' : '☑️ 따라 했어요', el('span', { class: 'n' }, String(c.done))) : null,
-      el('button', { type: 'button', class: 'act act-save' + (saved ? ' on' : ''), title: '내 보관함', 'aria-pressed': saved ? 'true' : 'false', onclick: () => toggleSave(p) }, saved ? '⭐' : '☆'));
+      el('button', { type: 'button', class: 'act act-save' + (saved ? ' on' : ''), title: '내 보관함', 'aria-pressed': saved ? 'true' : 'false', onclick: () => toggleSave(p) }, saved ? '⭐' : '☆'),
+    ].filter(Boolean));
     const kids = [head, ...body, acts];
     if (teacher) {
       const total = Math.max(S.members, 1);
@@ -290,7 +468,7 @@
       kids.push(el('div', { class: 'teacher-tools' },
         el('button', { type: 'button', onclick: () => send({ t: 'pin', id: p.id }) }, p.pinned ? '고정 풀기' : '📌 고정'),
         el('button', { type: 'button', onclick: () => startEdit(p) }, '✏️ 고치기'),
-        el('button', { type: 'button', class: 'danger', onclick: () => { if (confirm('이 자료를 지울까요? 참가자 화면에서도 사라져요.')) send({ t: 'delete', id: p.id }); } }, '🗑 지우기')));
+        el('button', { type: 'button', class: 'danger', onclick: async () => { if (await confirmBox('이 자료를 지울까요? 참가자 화면에서도 사라져요.', { ok: '지우기', danger: true })) send({ t: 'delete', id: p.id }); } }, '🗑 지우기')));
     }
     return el('article', { class: 'card t-' + p.type + (flash ? ' flash' : ''), id: 'post-' + p.id }, ...kids);
   }
@@ -389,7 +567,7 @@
         el('div', { class: 'draft-tools' },
           el('button', { type: 'button', class: 'go', onclick: () => { send({ t: 'post', ...d, fromDraft: d.id }); toast('올렸어요.'); } }, '지금 올리기'),
           el('button', { type: 'button', onclick: () => { fillComposer(d); S.draftEditing = d.id; S.fromDraft = null; } }, '고치기'),
-          el('button', { type: 'button', class: 'danger', onclick: () => { if (confirm('준비함에서 지울까요?')) send({ t: 'draft_delete', id: d.id }); } }, '지우기'))));
+          el('button', { type: 'button', class: 'danger', onclick: async () => { if (await confirmBox('준비함에서 지울까요?', { ok: '지우기', danger: true })) send({ t: 'draft_delete', id: d.id }); } }, '지우기'))));
     }
   }
   function renderQuestions() {
@@ -416,7 +594,7 @@
     $('#peopleCount').textContent = `${S.online}/${S.members}`;
     box.replaceChildren(...S.people.map((u) => el('li', {},
       el('span', {}, u.name, u.church ? el('small', {}, ' · ' + u.church) : null),
-      el('button', { type: 'button', class: 'link-danger', onclick: () => { if (confirm(`${u.name} 님을 내보낼까요? 이 입장권으로는 다시 못 들어와요.`)) send({ t: 'block', uid: u.uid }); } }, '내보내기'))));
+      el('button', { type: 'button', class: 'link-danger', onclick: async () => { if (await confirmBox(`${u.name} 님을 내보낼까요? 이 입장권으로는 다시 못 들어와요.`, { ok: '내보내기', danger: true })) send({ t: 'block', uid: u.uid }); } }, '내보내기'))));
   }
 
   // ── 좁은 창: 탭 ──
@@ -477,17 +655,26 @@
     $('#cancelAnswer').addEventListener('click', resetComposer);
     $('#lockBtn').addEventListener('click', () => send({ t: 'lock' }));
     $('#exportBtn').addEventListener('click', async () => {
+      if (DEMO) { download(`라이브톡_${S.title}.md`, Demo.exportText(), 'text/markdown'); return toast('내보냈어요(체험판). 미리보기 화면에서는 파일 받기가 막혀 있을 수 있어요.'); }
       const r = await fetch(API + '/export?token=' + encodeURIComponent(S.token));
       if (!r.ok) return toast('내보내지 못했어요.');
       download(`라이브톡_${S.title}.md`, await r.text(), 'text/markdown');
     });
-    $('#wipeBtn').addEventListener('click', () => {
-      const v = prompt('방의 모든 자료·질문이 지워지고 되돌릴 수 없어요.\n먼저 [전체 내보내기]를 해 두셨나요?\n\n지우려면  지금 삭제  라고 적어 주세요.');
-      if (v === '지금 삭제') send({ t: 'wipe', confirm: v });
+    $('#wipeBtn').addEventListener('click', async () => {
+      const v = await confirmBox('방의 모든 자료·질문이 지워지고 되돌릴 수 없어요. 먼저 [전체 내보내기]를 해 두셨나요? 지우려면 아래에 "지금 삭제"라고 적어 주세요.', { ok: '지우기', danger: true, input: '지금 삭제' });
+      if (v === null) return;
+      if (v.trim() === '지금 삭제') send({ t: 'wipe', confirm: '지금 삭제' });
+      else toast('확인 문구가 달라서 지우지 않았어요.');
     });
-    $('#beamBtn').addEventListener('click', () => window.open(location.pathname + '?view=beam' + (qs.get('api') ? '&api=' + encodeURIComponent(qs.get('api')) : ''), 'lowspot-beam'));
+    $('#beamBtn').href = location.pathname + (qs.get('api') ? '?api=' + encodeURIComponent(qs.get('api')) : (qs.get('demo') ? '?demo=1' : '')) + '#beam';
     $('#beamCodeForm').addEventListener('submit', (e) => { e.preventDefault(); store.set('beamCode', e.target.elements.code.value.trim()); renderBeam(); });
     if (BEAM) { document.body.classList.add('beam'); $('#beam').hidden = false; }
+    if (DEMO) {
+      $('.join-card .lead').after(el('div', { class: 'demo-note' },
+        el('b', {}, '체험판이에요 '), '— 서버 없이 이 브라우저 안에서만 돌아요. 참가자 코드 ', el('code', {}, 'DEMO'), ' · 강사 코드 ', el('code', {}, 'DEMO-T'),
+        el('br'), '탭 두 개를 열어 한쪽은 강사, 한쪽은 참가자로 들어가 보세요. 가짜 참가자 20여 명이 함께 반응해요.'));
+      if (!store.get('lastName', '')) $('#joinForm').elements.name.value = '홍길동 목사';
+    }
     S.token ? connect() : showJoin();
   });
 })();

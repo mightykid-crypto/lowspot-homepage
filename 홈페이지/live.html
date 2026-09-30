@@ -29,6 +29,19 @@
     body:not(.is-teacher) .teacher-only, body.is-teacher .user-only { display: none !important; }
     .btn-sm { min-height: 40px; padding: 8px 18px; font-size: 15px; }
 
+    a.bar-btn { text-decoration: none; display: inline-flex; align-items: center; }
+    /* 확인 상자 */
+    .dlg-wrap { position: fixed; inset: 0; z-index: 700; background: rgba(51, 47, 42, .38); display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .dlg { background: #fff; border-radius: var(--radius-lg); padding: 22px 22px 16px; width: min(420px, 100%); box-shadow: 0 24px 60px rgba(51, 47, 42, .25); display: grid; gap: 14px; }
+    .dlg-msg { margin: 0; font-size: 15.5px; line-height: 1.6; }
+    .dlg-input { font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
+    .dlg-btns { display: flex; justify-content: flex-end; gap: 8px; }
+    .dlg-btns button { font: inherit; font-size: 15px; font-weight: 700; padding: 9px 16px; border-radius: var(--radius); border: 1px solid var(--line); background: #fff; cursor: pointer; }
+    .dlg-ok { background: var(--sprout-tx) !important; color: #fff; border-color: var(--sprout-tx) !important; }
+    .dlg-ok.danger { background: #B3261E !important; border-color: #B3261E !important; color: #fff !important; }
+    /* 체험판 안내 */
+    .demo-note { background: #FFF8E6; border: 1px solid #F1DEA8; border-radius: var(--radius); padding: 12px 14px; font-size: 14px; line-height: 1.7; margin: -8px 0 20px; }
+    .demo-note code { font-family: var(--sans); font-weight: 800; background: #fff; border: 1px solid #F1DEA8; padding: 1px 7px; border-radius: 6px; letter-spacing: .04em; }
     /* 입장 */
     .live-join { padding: 56px 0 80px; }
     .join-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: start; }
@@ -361,7 +374,7 @@
           <div class="appbar-r">
             <span id="onlineCount" class="online"></span>
             <span id="meName" class="me"></span>
-            <button id="beamBtn" type="button" class="bar-btn teacher-only">🖥 빔 화면</button>
+            <a id="beamBtn" href="live.html#beam" target="_blank" rel="noopener" class="bar-btn teacher-only">🖥 빔 화면</a>
             <button id="leaveBtn" type="button" class="bar-btn">나가기</button>
           </div>
         </div>
