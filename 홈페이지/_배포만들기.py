@@ -33,6 +33,9 @@ MAX_KB = 250          # 이보다 큰 그림은 webp 로 바꾼다
 BLUR = {
     # 헌금 목록의 헌금자 이름 칸(이름과 금액이 함께 보임)
     '화면사진/교회재정 헌금관리.png': [(960, 1450, 1300, 1814)],
+    # 말씀 받은 사람 이름(가족 이름으로 보임)
+    '화면사진/말씀뽑기 설정.png': [(515, 660, 720, 1085), (720, 165, 860, 228)],
+    '화면사진/말씀뽑기 뽑기화면.png': [(1200, 340, 1350, 418)],
 }
 
 ROBOTS = 'User-agent: *\nDisallow: /\n'
@@ -54,7 +57,7 @@ def convert(src_rel):
     im = Image.open(src)
     im = im.convert('RGBA' if im.mode in ('RGBA', 'LA', 'P') else 'RGB')
     for box in blur or []:
-        region = im.crop(box).filter(ImageFilter.GaussianBlur(18))
+        region = im.crop(box).filter(ImageFilter.GaussianBlur(24))
         im.paste(region, box)
     if im.width > MAX_W:
         im = im.resize((MAX_W, round(im.height * MAX_W / im.width)), Image.LANCZOS)
