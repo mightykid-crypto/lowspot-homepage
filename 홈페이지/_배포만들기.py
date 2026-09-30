@@ -22,8 +22,9 @@ PAGES = [
     '목회시스템.html',
     '약관.html',
     '개인정보.html',
+    '404.html',          # Cloudflare Pages 가 없는 주소에 자동으로 보여 줌
 ]
-EXTRA = ['favicon.svg', '공통.css']
+EXTRA = ['favicon.svg', '공통.css', 'og/lowspot.png', 'og/orev.png']   # og/ = 카톡 링크 미리보기 그림
 ASSET_DIRS = ('화면사진', '오레브사진')
 
 MAX_W = 1600          # 이보다 넓은 그림은 줄인다
@@ -36,7 +37,11 @@ BLUR = {
     '화면사진/말씀뽑기 뽑기화면.png': [(1200, 340, 1350, 418)],
 }
 
-ROBOTS = 'User-agent: *\nDisallow: /\n'
+# 검색 로봇은 막고, 링크 미리보기 로봇(카카오톡·페이스북·X)만 허용한다 — 미리보기는 색인을 만들지 않음
+ROBOTS = ('User-agent: kakaotalk-scrap\nAllow: /\n\n'
+          'User-agent: facebookexternalhit\nAllow: /\n\n'
+          'User-agent: Twitterbot\nAllow: /\n\n'
+          'User-agent: *\nDisallow: /\n')
 HEADERS = '/*\n  X-Robots-Tag: noindex, nofollow\n'
 
 ASSET_RE = re.compile(r'(?:%s)/[^"\'`)<>]+?\.(?:png|jpe?g|webp|svg|gif)' % '|'.join(ASSET_DIRS))
@@ -88,6 +93,7 @@ def main():
                 s = s.replace(ref, done[rel])
         open(os.path.join(OUT, page), 'w', encoding='utf-8').write(s)
     for f in EXTRA:
+        os.makedirs(os.path.dirname(os.path.join(OUT, f)), exist_ok=True)
         shutil.copy2(os.path.join(HERE, f), os.path.join(OUT, f))
     open(os.path.join(OUT, 'robots.txt'), 'w').write(ROBOTS)
     open(os.path.join(OUT, '_headers'), 'w').write(HEADERS)
@@ -100,6 +106,8 @@ def main():
             if re.match(r'(https?:|mailto:|tel:|#|javascript:|data:|\$\{)', u):
                 continue
             path = unquote(u.split('#')[0].split('?')[0])
+            if u.startswith('/'):
+                path = path.lstrip('/') or 'index.html'
             if path and not os.path.exists(os.path.join(OUT, path)):
                 problems.append(f'{page}: 링크 대상 없음 {u}')
         if re.search(r'lowspot\.kr|문의@|live_chat', s):
