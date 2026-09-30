@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="오레브(OREV) 개인정보 처리방침입니다.">
+  <title>개인정보 처리 안내 — 오레브 · 낮은자리</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="공통.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="index.html" class="brand">
+        <div class="logo-icon">
+          <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M0 100V76C22 76 30 86 50 86C70 86 78 76 100 76V100Z" fill="#4A3E33"/>
+            <path d="M44 86C44 68 44 57 47 45H53C50 57 50 68 50 86Z" fill="#6E9A4F"/>
+            <path d="M52 49C65 47 78 36 81 17C65 19 53 31 52 49Z" fill="#6E9A4F"/>
+            <path d="M46 57C34 55 23 44 20 27C34 30 45 42 46 57Z" fill="#6E9A4F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">낮은자리</div>
+          <div class="brand-motto">세상엔 강하고 하나님껜 아이같길.</div>
+        </div>
+      </a>
+
+      <!-- 상단 내비게이션 -->
+      <nav class="main-nav">
+        <a href="index.html#hero" class="nav-link">처음</a>
+        <a href="오레브.html" class="nav-link">오레브</a>
+        <a href="목회시스템.html" class="nav-link">목회시스템</a>
+
+        <!-- 사역 도구 (10) 드롭다운 -->
+        <div class="nav-item" id="navItemApps">
+          <a href="index.html#apps" class="nav-link">사역 도구 (10)</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemApps', event)" title="10개 앱 하위 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">만든 사역 도구 목록</div>
+            <div class="dd-list">
+              <a href="도구상세_통합.html?id=bible-note" class="dd-item"><span class="dd-icon">✍️</span> <strong>성경노트</strong> (서피스펜 햅틱)</a>
+              <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
+              <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
+              <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (0.1초 송출)</a>
+              <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
+              <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
+              <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
+              <a href="도구상세_통합.html?id=qr" class="dd-item"><span class="dd-icon">📱</span> <strong>QR메이커</strong> (주보·현수막 QR)</a>
+              <a href="도구상세_통합.html?id=typing" class="dd-item"><span class="dd-icon">⌨️</span> <strong>타자 말씀 암송</strong> (100선 묵상)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 강의 드롭다운 -->
+        <div class="nav-item" id="navItemLectures">
+          <a href="index.html#lectures" class="nav-link">AI 강의</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-list">
+              <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
+              <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
+              <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+            </div>
+          </div>
+        </div>
+        <a href="index.html#contact" class="nav-link">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow sky">오레브(OREV)</span>
+        <h1>오레브 개인정보 처리 안내</h1>
+        <p class="doc-meta">시행 2026년 11월 1일 · 보호책임자 민경우(개인) · 문의 help@lowspot.net</p>
+        <ul class="toc">
+          <li><a href="#s1">1. 수집하는 개인정보의 항목</a></li>
+          <li><a href="#s2">2. 개인정보의 수집 및 이용 목적</a></li>
+          <li><a href="#s3">3. 개인정보의 보유 및 이용 기간과 파기 절차</a></li>
+          <li><a href="#s4">4. 개인정보의 제3자 제공 (제공 없음 원칙)</a></li>
+          <li><a href="#s5">5. 개인정보 처리 업무의 위탁</a></li>
+          <li><a href="#s6">6. 개인정보의 국외 이전에 관한 사항</a></li>
+          <li><a href="#s7">7. 정보주체(회원)의 권리·의무 및 행사 방법</a></li>
+          <li><a href="#s8">8. 개인정보의 안전성 확보 조치</a></li>
+          <li><a href="#s9">9. 개인정보 보호책임자 및 문의처</a></li>
+          <li><a href="#s10">10. 고지의 의무</a></li>
+        </ul>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <article class="doc">
+<p>민경우(이하 "운영자"라 합니다)은 오레브(OREV, 이하 "서비스")를 이용하는 회원의 자유와 권리를 보호하며, 개인정보를 안전하게 처리하기 위해 「개인정보 보호법」 제30조에 따라 다음과 같이 개인정보 처리방침을 수립·공개합니다.</p>
+<h2 id="s1">1. 수집하는 개인정보의 항목</h2>
+<p>운영자는 서비스 가입 신청, 기기 인증 및 이용권 관리 등을 위해 <strong>실제로 필요한 최소한의 개인정보</strong>만을 수집합니다. 별도의 회원 아이디(ID), 교회명, 직분, 주민등록번호 등 불필요하거나 과도한 정보는 일절 수집하지 않습니다. <strong>서버는 회원의 비밀번호를 받거나 보관하지 않으며, 오레브 화면 비밀번호는 사용자 PC에만 암호화되어 저장</strong>됩니다.</p>
+<ol>
+<li><strong>가입 신청 시 수집 항목</strong>:<ul>
+<li><strong>필수 항목</strong>: 성명(이름), 연락처(휴대전화번호, 이메일 주소), 세미나 참여 코드</li>
+<li><em>(※ 아이디, 교회명, 직분은 수집하지 않으며, 서버는 비밀번호를 받지 않습니다. 화면 비밀번호는 사용자 PC 로컬에만 암호화 보관되며, 클라이언트 인증을 위한 보안 접근 토큰은 단방향 암호화 해시(SHA-256)로만 저장됩니다.)</em></li>
+</ul>
+</li>
+<li><strong>서비스 이용 및 기기 인증 과정에서 자동 수집되는 항목</strong>:<ul>
+<li><strong>기기 식별값</strong>(계정당 최대 2대 기기 제한 검증 및 라이선스 부정 복제 방지를 위한 하드웨어 고유 해시값), 두 번째 PC 등록 및 비밀번호 재설정 시 발송된 이메일 6자리 확인 번호 인증 이력, 프로그램 버전, 인증 일시, IP 주소</li>
+</ul>
+</li>
+</ol>
+<div class="note g"><p>💡 <strong>알려드립니다 (PC 로컬 데이터 미수집)</strong>:
+회원이 오레브를 통해 작성하는 설교문, 연구 노트, 문서, AI와의 대화 기록 등 일체의 작업 결과물과 화면 비밀번호는 회원의 개인 PC에만 저장되며, 운영자의 서버로 전송되거나 수집되지 않습니다.</p>
+</div>
+<h2 id="s2">2. 개인정보의 수집 및 이용 목적</h2>
+<p>수집된 개인정보는 다음의 목적에 한해서만 이용되며, 목적이 변경될 경우에는 사전에 회원의 동의를 구합니다.</p>
+<ol>
+<li><strong>회원 가입 및 본인 확인</strong>: 세미나 참석 여부 확인, 가입 신청 승인·관리, 중복 가입 방지</li>
+<li><strong>이용권 발급 및 기기 인증</strong>: 30일 주기 전자서명 이용권 발급, 허용 기기(계정당 최대 2대) 대수 관리, 두 번째 PC 등록 시 6자리 이메일 확인 번호 발송 및 부정 이용 방지</li>
+<li><strong>비밀번호 재설정 확인 번호 발송</strong>: 오레브 화면 비밀번호 분실 시 등록 이메일로 6자리 확인 번호 발송 및 재설정 본인 인증</li>
+<li><strong>서비스 운영 및 고객 지원</strong>: 긴급 보안 공지, 소프트웨어 업데이트 안내, 문의 접수 및 기술 지원 처리</li>
+</ol>
+<h2 id="s3">3. 개인정보의 보유 및 이용 기간과 파기 절차</h2>
+<ol>
+<li><strong>[보유 및 이용 기간]</strong><ul>
+<li>회원의 개인정보는 원칙적으로 <strong>서비스 이용권 유효기간 동안</strong> 보유·이용합니다.</li>
+<li>이용권 만료(또는 서비스 종료) 후에는 부정이용 방지, 재가입·갱신 편의 및 분쟁 대응을 위해 <strong>만료 뒤 6개월간 보관 후 완전히 삭제(영구 파기 또는 복원 불가능한 익명화)</strong>합니다.</li>
+</ul>
+</li>
+<li><strong>[파기 절차 및 방법]</strong><ul>
+<li>전자적 파일 형태의 정보는 기록을 재생할 수 없는 기술적 방법(영구 삭제 및 데이터베이스 익명화)을 사용하여 파기합니다.</li>
+</ul>
+</li>
+</ol>
+<h2 id="s4">4. 개인정보의 제3자 제공 (제공 없음 원칙)</h2>
+<p>운영자는 원칙적으로 회원의 개인정보를 외부에 제공하지 않습니다. 다만, 다음의 경우는 예외로 합니다.</p>
+<ul>
+<li>회원이 사전에 별도로 동의한 경우</li>
+<li>법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우</li>
+</ul>
+<h2 id="s5">5. 개인정보 처리 업무의 위탁</h2>
+<p>운영자는 안정적이고 신속한 서비스 제공을 위해 다음과 같이 개인정보 처리 업무를 전문 업체에 위탁하고 있습니다.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>수탁 업체</th>
+<th>위탁 업무 내용</th>
+<th>개인정보의 보유 및 이용 기간</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cloudflare, Inc.</strong></td>
+<td>인증 서버 구동(Cloudflare Workers), 데이터베이스 호스팅(D1), 업데이트 파일 저장소(R2) 제공</td>
+<td>서비스 제공 계약 종료 시 또는 회원 만료 6개월 후 파기 시까지</td>
+</tr>
+<tr>
+<td><strong>Resend, Inc.</strong></td>
+<td>두 번째 PC 등록 시 본인 확인용 이메일(6자리 확인 번호) 발송 대행</td>
+<td>확인 번호 발송 및 인증 완료 시까지</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="s6">6. 개인정보의 국외 이전에 관한 사항</h2>
+<p>오레브의 글로벌 클라우드 및 발송 인프라(Cloudflare, Resend) 이용 과정에서 개인정보가 국외 서버를 경유하거나 보관될 수 있습니다.</p>
+<ol>
+<li><strong>이전되는 개인정보 항목</strong>:<ul>
+<li>Cloudflare: 성명, 연락처(휴대전화번호, 이메일 주소), 기기 식별 해시값, 접속 일시</li>
+<li>Resend(이메일 발송): 회원의 이메일 주소, 6자리 확인 번호</li>
+</ul>
+</li>
+<li><strong>이전 국가 및 일시</strong>: 미국 등 해당 서비스의 글로벌 데이터센터 소재지 (가입 신청, 기기 인증 및 2번째 PC 확인 번호 발송 시 네트워크 전송)</li>
+<li><strong>이전 목적 및 보호 조치</strong>: 분산 클라우드 인프라 구동, DDoS 보안 방어, 이메일 본인 확인 번호 발송, 전 구간 보안 암호화(HTTPS/TLS) 통신 적용</li>
+<li><strong>거부 방법</strong>: 회원은 국외 이전을 거부할 수 있으나, 거부 시 서비스 가입 및 두 번째 PC 인증이 제한될 수 있습니다.</li>
+</ol>
+<h2 id="s7">7. 정보주체(회원)의 권리·의무 및 행사 방법</h2>
+<ol>
+<li>회원은 운영자에 대해 언제든지 다음 각 호의 개인정보 보호 관련 권리를 행사할 수 있습니다.<ul>
+<li>개인정보 열람 요구</li>
+<li>오류 등이 있을 경우 정정 요구</li>
+<li>삭제 요구</li>
+<li>처리정지 요구 및 가입 탈퇴</li>
+</ul>
+</li>
+<li>권리 행사는 아래의 개인정보 보호책임자 또는 고객지원 이메일로 요청하시면 지체 없이 조치해 드립니다.</li>
+</ol>
+<h2 id="s8">8. 개인정보의 안전성 확보 조치</h2>
+<p>운영자는 회원의 개인정보를 취급함에 있어 분실, 도난, 유출, 변조 또는 훼손되지 않도록 다음과 같은 기술적·관리적 대책을 강구하고 있습니다.</p>
+<ol>
+<li>접근 토큰의 단방향 암호화(해시) 저장 및 보호</li>
+<li>모든 통신 구간에 최신 SSL/TLS 보안 암호화 프로토콜 적용</li>
+<li>관리자 계정에 대한 비밀번호 보호 및 인증 보안 유지</li>
+</ol>
+<h2 id="s9">9. 개인정보 보호책임자 및 문의처</h2>
+<p>회원의 개인정보를 보호하고 개인정보와 관련된 불만 처리 및 피해 구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
+<ul>
+<li><strong>서비스 제공자 및 보호책임자</strong>: 민경우 (개인)</li>
+<li><strong>문의 이메일</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#101;&#108;&#112;&#64;&#108;&#111;&#119;&#115;&#112;&#111;&#116;&#46;&#110;&#101;&#116;">&#104;&#101;&#108;&#112;&#64;&#108;&#111;&#119;&#115;&#112;&#111;&#116;&#46;&#110;&#101;&#116;</a>
+<em>(※ 문의 및 불만 처리는 위 공식 이메일 하나로 운영됩니다.)</em></li>
+</ul>
+<h2 id="s10">10. 고지의 의무</h2>
+<p>본 개인정보 처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경 내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 소프트웨어 알림 또는 공지사항을 통하여 고지할 것입니다.</p>
+<ul>
+<li><strong>공고 일자</strong>: 2026년 10월 말 공고 예정</li>
+<li><strong>시행 일자</strong>: 2026년 11월 1일</li>
+</ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><a href="오레브.html">오레브</a> · <a href="약관.html">이용약관</a> · <a href="개인정보.html">개인정보 처리 안내</a> · <a href="mailto:help@lowspot.net">help@lowspot.net</a></p>
+      <p>© 2026 민경우 · 낮은자리 (lowspot.net) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
+    </div>
+  </footer>
+
+  <script>
+    // 상단 메뉴 펼침 (다른 페이지와 같음)
+    function toggleDropdown(itemId, e) {
+      e.stopPropagation();
+      const el = document.getElementById(itemId);
+      const wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    }
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+    });
+  </script>
+</body>
+</html>

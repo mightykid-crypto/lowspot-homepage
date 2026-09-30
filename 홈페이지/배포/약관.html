@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="오레브(OREV) 서비스 이용약관입니다.">
+  <title>이용약관 — 오레브 · 낮은자리</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="공통.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="index.html" class="brand">
+        <div class="logo-icon">
+          <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M0 100V76C22 76 30 86 50 86C70 86 78 76 100 76V100Z" fill="#4A3E33"/>
+            <path d="M44 86C44 68 44 57 47 45H53C50 57 50 68 50 86Z" fill="#6E9A4F"/>
+            <path d="M52 49C65 47 78 36 81 17C65 19 53 31 52 49Z" fill="#6E9A4F"/>
+            <path d="M46 57C34 55 23 44 20 27C34 30 45 42 46 57Z" fill="#6E9A4F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">낮은자리</div>
+          <div class="brand-motto">세상엔 강하고 하나님껜 아이같길.</div>
+        </div>
+      </a>
+
+      <!-- 상단 내비게이션 -->
+      <nav class="main-nav">
+        <a href="index.html#hero" class="nav-link">처음</a>
+        <a href="오레브.html" class="nav-link">오레브</a>
+        <a href="목회시스템.html" class="nav-link">목회시스템</a>
+
+        <!-- 사역 도구 (10) 드롭다운 -->
+        <div class="nav-item" id="navItemApps">
+          <a href="index.html#apps" class="nav-link">사역 도구 (10)</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemApps', event)" title="10개 앱 하위 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">만든 사역 도구 목록</div>
+            <div class="dd-list">
+              <a href="도구상세_통합.html?id=bible-note" class="dd-item"><span class="dd-icon">✍️</span> <strong>성경노트</strong> (서피스펜 햅틱)</a>
+              <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
+              <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
+              <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (0.1초 송출)</a>
+              <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
+              <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
+              <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
+              <a href="도구상세_통합.html?id=qr" class="dd-item"><span class="dd-icon">📱</span> <strong>QR메이커</strong> (주보·현수막 QR)</a>
+              <a href="도구상세_통합.html?id=typing" class="dd-item"><span class="dd-icon">⌨️</span> <strong>타자 말씀 암송</strong> (100선 묵상)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 강의 드롭다운 -->
+        <div class="nav-item" id="navItemLectures">
+          <a href="index.html#lectures" class="nav-link">AI 강의</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-list">
+              <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
+              <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
+              <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+            </div>
+          </div>
+        </div>
+        <a href="index.html#contact" class="nav-link">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow sky">오레브(OREV)</span>
+        <h1>오레브 서비스 이용약관</h1>
+        <p class="doc-meta">시행 2026년 11월 1일 · 제공자 민경우(개인) · 문의 help@lowspot.net</p>
+        <ul class="toc">
+          <li><a href="#s1">제1조 (목적)</a></li>
+          <li><a href="#s2">제2조 (서비스의 내용 및 작동 원리)</a></li>
+          <li><a href="#s3">제3조 (이용권 및 계정 운영)</a></li>
+          <li><a href="#s4">제4조 (이용 제한 및 계정 정지 사유)</a></li>
+          <li><a href="#s5">제5조 (이용 요금 및 환불 정책)</a></li>
+          <li><a href="#s6">제6조 (책임의 한계 및 면책)</a></li>
+          <li><a href="#s7">제7조 (소프트웨어의 업데이트)</a></li>
+          <li><a href="#s8">제8조 (약관의 변경)</a></li>
+          <li><a href="#s9">제9조 (분쟁의 해결 및 관할 법원)</a></li>
+          <li><a href="#s10">부칙</a></li>
+        </ul>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap">
+        <article class="doc">
+<h2 id="s1">제1조 (목적)</h2>
+<p>본 약관은 민경우(이하 "운영자"라 합니다)이 제공하는 인공지능 협업 오케스트레이션 프로그램인 <strong>오레브(OREV, 이하 "소프트웨어")</strong> 및 관련 제반 서비스(이하 "서비스")를 이용함에 있어, 운영자와 이용자(이하 "회원") 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.</p>
+<h2 id="s2">제2조 (서비스의 내용 및 작동 원리)</h2>
+<ol>
+<li>소프트웨어는 회원의 개인용 컴퓨터(PC) 환경에서 직접 구동되는 로컬 인공지능(AI) 협업 관제 프로그램입니다.</li>
+<li>회원이 작성하는 작업 데이터, 대화 기록, 설정 파일 등 모든 로컬 자산은 회원의 PC 내부에만 안전하게 저장되며, 운영자의 서버로 전송되거나 수집되지 않습니다.</li>
+<li><strong>[AI 서비스 별도 결제]</strong> 소프트웨어는 외부 AI 모델(Anthropic Claude, OpenAI Codex/ChatGPT, Google Gemini 등)과 회원의 계정을 연결하여 작업을 조율하는 도구입니다. <strong>각 외부 AI 서비스의 이용 요금(API 비용 또는 구독료)은 회원이 해당 AI 제공사에 직접 지불해야 하며, 오레브 이용 요금에 포함되지 않습니다.</strong></li>
+</ol>
+<h2 id="s3">제3조 (이용권 및 계정 운영)</h2>
+<ol>
+<li><strong>[이용권의 성격]</strong> 본 서비스는 소프트웨어 자체의 판매가 아니며, 원활한 업데이트 지원, 기기 인증 및 서버 유지 관리를 위한 <strong>연 단위 정기 이용권(라이선스)</strong> 형태로 운영됩니다. 첫해 이용권은 원칙적으로 세미나 수강료에 포함되어 제공되며, 세미나에 이용권이 포함되지 않은 경우나 2년 차 이후의 연간 이용권은 운영자의 납부 확인을 거쳐 발급됩니다.</li>
+<li><strong>[가입 신청 및 비밀번호 체계 (서버 미보관 · 로컬 암호화)]</strong><ul>
+<li>본 서비스는 별도의 회원 아이디(ID)를 요구하지 않으며(가입 이메일로 식별), <strong>인증 서버는 회원의 비밀번호를 받거나 보관하지 않습니다.</strong></li>
+<li>회원은 성명(이름), 연락처(휴대전화번호, 이메일 주소) 및 세미나 코드를 입력하여 가입을 신청하며, 운영자의 승인을 거쳐 계정이 활성화됩니다.</li>
+<li>오레브 소프트웨어 실행 화면을 보호하기 위한 비밀번호는 회원이 소프트웨어 내에서 각자 원하는 것으로 설정하며, <strong>오직 회원의 개인 PC에만 암호화되어 안전하게 저장</strong>됩니다.</li>
+<li>비밀번호를 분실한 경우 로그인 창의 [비밀번호를 잊었어요] 메뉴에서 성명과 등록 이메일을 확인한 뒤, 이메일로 발송되는 6자리 확인 번호를 통해 비밀번호를 재설정할 수 있습니다.</li>
+<li>서버와의 통신 인증은 가입 승인 시 소프트웨어에 안전하게 교부되는 보안 접근 토큰(Access Token)을 통해 이루어집니다.</li>
+</ul>
+</li>
+<li><strong>[기기 대수 제한 및 기기 식별값 수집]</strong><ul>
+<li>1개의 계정당 동시에 등록하여 사용할 수 있는 컴퓨터(PC)는 <strong>최대 2대</strong>로 제한됩니다. (예: 연구실 PC 1대, 가정/노트북 1대)</li>
+<li>운영자는 기기 대수(최대 2대) 확인 및 부정이용 방지를 위하여 회원의 PC로부터 생성된 단방향 암호화 <strong>기기 식별값(하드웨어 고유 해시)</strong>을 수집하고 인증에 활용합니다.</li>
+<li>두 번째 PC를 등록할 때에는 본인 확인 및 부정 사용 방지를 위해 회원의 등록 이메일로 발송되는 <strong>6자리 확인 번호</strong>를 입력하여 인증을 완료해야 합니다.</li>
+</ul>
+</li>
+<li><strong>[기기 직접 해제]</strong><ul>
+<li>등록된 기기의 변경(교체, 고장 등)이 필요한 경우, 회원은 소프트웨어 내에서 <strong>직접 기존 등록 기기를 해제(30일에 1회 가능)</strong>할 수 있습니다.</li>
+</ul>
+</li>
+<li><strong>[이용권 갱신]</strong><ul>
+<li>이용권은 30일 주기의 디지털 서명 인증 방식으로 동작합니다.</li>
+<li>인터넷이 연결된 상태에서 소프트웨어를 구동할 때, 만료일 이전에 백그라운드에서 자동으로 갱신(30일 연장) 처리됩니다.</li>
+</ul>
+</li>
+<li><strong>[유예 기간(Grace Period)]</strong><ul>
+<li>네트워크 장애 또는 이용권 만료일 도래 시, 회원의 원활한 연속 작업을 보호하기 위해 만료일로부터 <strong>7일간의 유예 기간</strong>이 제공됩니다.</li>
+<li>유예 기간 동안 소프트웨어 화면에 갱신 알림이 표시되며, 유예 기간 7일이 경과할 때까지 갱신되지 않을 경우 소프트웨어 사용이 정지됩니다.</li>
+</ul>
+</li>
+<li><strong>[오프라인 사용]</strong> 이미 정상 발급된 유효한 이용권이 PC에 저장되어 있는 경우, 잔여 유효기간 동안은 인터넷 연결이 없는 오프라인 환경에서도 소프트웨어를 실행할 수 있습니다.</li>
+<li><strong>[만료 계정 관리 및 보관]</strong> 이용권이 만료되거나 해지된 회원의 정보는 분쟁 해결 및 재가입 확인을 위하여 만료일로부터 6개월간 보관된 후 영구 파기(또는 익명화)됩니다.</li>
+</ol>
+<h2 id="s4">제4조 (이용 제한 및 계정 정지 사유)</h2>
+<p>운영자는 회원이 다음 각 호의 어느 하나에 해당하는 행위를 한 경우, 사전 통지 없이 이용권을 즉시 정지하거나 계정을 해지할 수 있습니다.</p>
+<ol>
+<li>소프트웨어의 라이선스 인증 체계를 무력화하거나 변조, 크랙, 역공학(Reverse Engineering)하는 행위</li>
+<li>발급받은 계정 또는 이용권을 제3자에게 유상 양도, 대여, 재판매하거나 다수인이 공유하여 사용하는 행위</li>
+<li>등록 허용된 기기(2대) 한도를 우회하여 비정상적인 방법으로 다수의 기기에서 동시 사용하는 행위</li>
+<li>타인의 명의, 연락처 또는 허위 정보를 도용하여 가입 승인을 받은 경우</li>
+<li>소프트웨어를 이용하여 관계 법령, 공서양속에 반하는 불법적인 행위를 하거나 타인의 권리를 침해하는 행위</li>
+</ol>
+<h2 id="s5">제5조 (이용 요금 및 환불 정책)</h2>
+<ol>
+<li><strong>[이용 요금]</strong><ul>
+<li>오레브의 첫해 이용권은 세미나 수강료에 포함되어 제공됩니다.</li>
+<li>단, 첫해 이용권이 포함되지 않은 세미나 또는 2년 차 이후의 연 단위 정기 이용권 요금은 연 20,000원으로 하며, 운영자가 정한 방식에 따라 납부 확인 후 발급됩니다.</li>
+</ul>
+</li>
+<li><strong>[환불 기준]</strong><ul>
+<li><strong>세미나 시작 전 취소 시</strong>: 전액 환불합니다.</li>
+<li><strong>세미나 시작 후 및 세미나 뒤 연 이용권</strong>: 디지털 소프트웨어 발급 및 세미나 교육 서비스 특성상, 세미나 시작 이후의 취소 및 연 이용권에 대한 환불은 일체 불가합니다.</li>
+<li><strong>환불 처리 방식</strong>: 세미나 시작 전 환불은 운영자가 회원의 계좌로 직접 송금하여 처리하며, 관리 시스템에는 환불 완료 기록을 남기고 이용권 추가 갱신을 정지합니다.</li>
+</ul>
+</li>
+</ol>
+<h2 id="s6">제6조 (책임의 한계 및 면책)</h2>
+<ol>
+<li><strong>[AI 생성물의 정확성]</strong> 소프트웨어가 조율하여 출력하는 모든 결과물(설교문, 요약문, 기획안, 코드, 문서 등)은 인공지능이 생성한 내용이므로 오류나 부정확한 정보(환각 현상)가 포함될 수 있습니다. <strong>결과물의 사실 확인, 교리적/윤리적 적합성 검토 및 최종 사용에 대한 모든 책임은 전적으로 회원 본인에게 있습니다.</strong></li>
+<li><strong>[데이터 보관]</strong> 운영자는 회원의 PC에 저장된 로컬 파일(설교 자료, 프로젝트 파일 등)의 유실, 손상에 대해 일체의 책임을 지지 않습니다. 회원은 중요한 자료를 독립된 저장 매체에 정기적으로 백그라운드 백업해야 합니다.</li>
+<li><strong>[외부 AI 서비스 장애]</strong> Anthropic, OpenAI, Google 등 외부 AI 서비스 제공사의 서버 장애, 정책 변경, 요금 인상, API 중단 등으로 인해 소프트웨어의 일부 또는 전체 기능이 제한되는 경우, 운영자는 이에 대해 책임을 부담하지 않습니다.</li>
+<li><strong>[천재지변 및 불가항력]</strong> 천재지변, 전쟁, 기간통신사업자의 회선 장애 등 불가항력적인 사유로 서비스를 제공할 수 없는 경우 운영자의 책임이 면제됩니다.</li>
+</ol>
+<h2 id="s7">제7조 (소프트웨어의 업데이트)</h2>
+<ol>
+<li>운영자는 기능 개선, 버그 수정, 보안 패치 등을 위해 소프트웨어의 업데이트를 수시로 배포할 수 있습니다.</li>
+<li>회원은 소프트웨어 내의 [업데이트] 기능을 통해 운영자의 안전한 전용 서버(Cloudflare)로부터 전자서명 검증을 거친 최신 패치 파일을 내려받아 적용할 수 있습니다.</li>
+<li>운영자는 필요한 경우 이전 버전의 기술 지원을 중단할 수 있으며, 최신 상태를 유지하지 않아 발생하는 오류에 대해서는 책임을 지지 않습니다.</li>
+</ol>
+<h2 id="s8">제8조 (약관의 변경)</h2>
+<ol>
+<li>운영자는 관계 법령을 위배하지 않는 범위에서 본 약관을 개정할 수 있습니다.</li>
+<li>약관이 변경될 경우, 운영자는 적용 일자 최소 7일 전(회원에게 불리하거나 중대한 사항의 변경은 30일 전)에 소프트웨어 알림 또는 공지사항을 통해 고지합니다.</li>
+<li>회원이 개정 약관의 적용 일자 이후에도 서비스를 계속 이용하는 경우 변경된 약관에 동의한 것으로 봅니다.</li>
+</ol>
+<h2 id="s9">제9조 (분쟁의 해결 및 관할 법원)</h2>
+<ol>
+<li>서비스 이용과 관련하여 운영자와 회원 간에 발생한 분쟁에 대해서는 상호 원만한 합의를 위해 성실히 노력합니다.</li>
+<li>분쟁이 해결되지 않아 소송이 제기될 경우, 대한민국 법률을 준거법으로 하며 운영자의 주소지를 관할하는 법원을 전속 관할 법원으로 합니다.</li>
+</ol>
+<h2 id="s10">부칙</h2>
+<ul>
+<li><strong>공고 일자</strong>: 2026년 10월 말 공고 예정</li>
+<li><strong>시행 일자</strong>: 2026년 11월 1일</li>
+</ul>
+<h3>[ 운영자 안내 및 문의처 ]</h3>
+<ul>
+<li><strong>서비스 제공자 (운영자)</strong>: 민경우 (개인)</li>
+<li><strong>문의 이메일</strong>: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#104;&#101;&#108;&#112;&#64;&#108;&#111;&#119;&#115;&#112;&#111;&#116;&#46;&#110;&#101;&#116;">&#104;&#101;&#108;&#112;&#64;&#108;&#111;&#119;&#115;&#112;&#111;&#116;&#46;&#110;&#101;&#116;</a>
+<em>(※ 문의 창구는 위 공식 이메일 하나로 운영됩니다.)</em></li>
+</ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><a href="오레브.html">오레브</a> · <a href="약관.html">이용약관</a> · <a href="개인정보.html">개인정보 처리 안내</a> · <a href="mailto:help@lowspot.net">help@lowspot.net</a></p>
+      <p>© 2026 민경우 · 낮은자리 (lowspot.net) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
+    </div>
+  </footer>
+
+  <script>
+    // 상단 메뉴 펼침 (다른 페이지와 같음)
+    function toggleDropdown(itemId, e) {
+      e.stopPropagation();
+      const el = document.getElementById(itemId);
+      const wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    }
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+    });
+  </script>
+</body>
+</html>
