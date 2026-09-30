@@ -82,7 +82,7 @@ nav.main-nav { display: flex; align-items: center; gap: 6px; }
 .dd-item:hover { background: var(--card-g); color: var(--sprout-tx); }
 .dd-icon { font-size: 16px; width: 22px; text-align: center; }
 /* 메뉴: 마우스를 올리면 아래로 하위 메뉴 (09-30) */
-@media (hover: hover) and (min-width: 769px) {
+@media (min-width: 769px) {
   .nav-item:hover > .dropdown-menu, .nav-item:focus-within > .dropdown-menu { display: block; }
 }
 .dropdown-menu::before { content: ''; position: absolute; left: 0; right: 0; top: -10px; height: 10px; }
