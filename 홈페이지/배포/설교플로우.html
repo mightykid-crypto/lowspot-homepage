@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="본문 분석에서 완성 원고와 나눔 자료까지, 아홉 단계와 여섯 관문으로 이어지는 설교 준비의 흐름입니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="낮은자리">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="설교플로우 — 낮은자리">
+  <meta property="og:description" content="본문 분석에서 완성 원고와 나눔 자료까지, 아홉 단계와 여섯 관문으로 이어지는 설교 준비의 흐름입니다.">
+  <meta property="og:url" content="https://lowspot.net/%EC%84%A4%EA%B5%90%ED%94%8C%EB%A1%9C%EC%9A%B0.html">
+  <meta property="og:image" content="https://lowspot.net/og/lowspot.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>설교플로우 — 낮은자리</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="공통.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="index.html" class="brand">
+        <div class="logo-icon">
+          <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M0 100V76C22 76 30 86 50 86C70 86 78 76 100 76V100Z" fill="#4A3E33"/>
+            <path d="M44 86C44 68 44 57 47 45H53C50 57 50 68 50 86Z" fill="#6E9A4F"/>
+            <path d="M52 49C65 47 78 36 81 17C65 19 53 31 52 49Z" fill="#6E9A4F"/>
+            <path d="M46 57C34 55 23 44 20 27C34 30 45 42 46 57Z" fill="#6E9A4F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">낮은자리</div>
+          <div class="brand-motto">세상엔 강하고 하나님껜 아이처럼.</div>
+        </div>
+      </a>
+
+      <!-- 상단 내비게이션 -->
+      <nav class="main-nav">
+        <a href="index.html#hero" class="nav-link">처음</a>
+        <a href="오레브.html" class="nav-link">오레브</a>
+        <a href="목회시스템.html" class="nav-link active" aria-current="page">목회시스템</a>
+
+        <!-- 사역 도구 (10) 드롭다운 -->
+        <div class="nav-item" id="navItemApps">
+          <a href="index.html#apps" class="nav-link">사역 도구 (10)</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemApps', event)" title="10개 앱 하위 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">만든 사역 도구 목록</div>
+            <div class="dd-list">
+              <a href="도구상세_통합.html?id=bible-note" class="dd-item"><span class="dd-icon">✍️</span> <strong>성경노트</strong> (서피스펜 햅틱)</a>
+              <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
+              <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
+              <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (말씀 화면 송출)</a>
+              <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
+              <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
+              <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
+              <a href="도구상세_통합.html?id=qr" class="dd-item"><span class="dd-icon">📱</span> <strong>QR메이커</strong> (주보·현수막 QR)</a>
+              <a href="도구상세_통합.html?id=typing" class="dd-item"><span class="dd-icon">⌨️</span> <strong>타자 말씀 암송</strong> (100선 묵상)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 강의 드롭다운 -->
+        <div class="nav-item" id="navItemLectures">
+          <a href="index.html#lectures" class="nav-link">AI 강의</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-list">
+              <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
+              <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
+              <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+            </div>
+          </div>
+        </div>
+        <a href="live.html" class="nav-link nav-live"><span class="live-mark" aria-hidden="true"></span>라이브톡</a>
+        <a href="index.html#contact" class="nav-link">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow">목회시스템 · 설교플로우</span>
+        <h1>본문에서 강단까지, <br class="pc-only">목회자가 결정하는 설교 준비의 길</h1>
+        <p class="lead">
+          설교 한 편을 아홉 단계로 나누고, 그 사이에 목회자가 직접 정하는 관문 여섯 개를 두었습니다.
+          자료를 모으고 초안을 다듬는 일은 나눠 맡기되, 무엇을 어떻게 전할지는 언제나 목회자가 결정합니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">한눈에 보기</span>
+          <h2>아홉 단계 · 여섯 관문</h2>
+          <p>앞 단계의 결과가 다음 단계의 재료가 됩니다. 🚪 표시는 목회자의 결정을 기다리는 관문입니다.</p>
+        </div>
+        <ol class="flow" style="--n:9">
+          <li><span>1</span>착수</li>
+          <li><span>2</span>본문 분석</li>
+          <li><span>3</span>기획</li>
+          <li><span>4</span>세부 기획</li>
+          <li><span>5</span>조사 설계</li>
+          <li><span>6</span>자료 조사</li>
+          <li><span>7</span>개요</li>
+          <li><span>8</span>완성문</li>
+          <li><span>9</span>기록·파생</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">단계별로</span>
+          <h2>무엇을, 어떤 순서로 하나요</h2>
+        </div>
+        <ol class="stage-list">
+          <li class="stage"><div class="stage-no"><small>STEP</small>1</div><div class="stage-body">
+            <h3>착수</h3>
+            <p>본문과 설교 자리(주일 낮·새벽·수요·중고등부 등), 설교 시간을 정하고 이번 설교의 목적을 한 줄로 적습니다. 주제 설교라면 몇 가지 주제 안 가운데 하나를 고릅니다.</p>
+            <span class="gate">🚪 관문 0 · 주제 선택</span>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>2</div><div class="stage-body">
+            <h3>본문 기초 분석</h3>
+            <p>앞뒤 문맥과 본문의 구조, 되풀이되는 말과 핵심 단어를 살펴 본문이 스스로 말하는 바를 먼저 듣습니다.</p>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>3</div><div class="stage-body">
+            <h3>기획 — 형식 두 가지 안</h3>
+            <p>같은 본문이라도 풀어 가는 방식은 여러 가지입니다. 본문에 어울리는 설교 형식 두 가지를 나란히 놓고 비교합니다.</p>
+            <span class="gate">🚪 관문 1 · 형식 선택</span>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>4</div><div class="stage-body">
+            <h3>세부 기획 — 중심문과 대지</h3>
+            <p>설교 전체를 꿰는 <b>중심문</b>을 세우고, 그 아래 대지의 뼈대를 잡습니다.</p>
+            <span class="gate">🚪 관문 2 · 기획 확정</span>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>5</div><div class="stage-body">
+            <h3>확장 기획 — 조사 설계</h3>
+            <p>무엇을 더 알아야 하는지 정합니다. 원어와 주석, 역사 배경, 예화, 통계처럼 필요한 조사 거리를 고르고 범위를 정합니다.</p>
+            <span class="gate">🚪 관문 3 · 조사 범위 확정</span>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>6</div><div class="stage-body">
+            <h3>자료 조사</h3>
+            <p>정한 조사 거리를 나누어 동시에 진행하고, 출처와 함께 조사 보고로 모읍니다. 쓸 자료와 버릴 자료는 목회자가 가립니다.</p>
+            <span class="gate">🚪 관문 4 · 조사 보고 검토</span>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>7</div><div class="stage-body">
+            <h3>개요 — 자료 배치와 제목</h3>
+            <p>모은 자료를 대지마다 배치해 설교의 흐름을 완성하고, 설교 제목을 정합니다.</p>
+            <span class="gate">🚪 관문 5 · 개요 승인 · 제목 확정</span>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>8</div><div class="stage-body">
+            <h3>완성문</h3>
+            <p>승인된 개요를 따라 정해진 설교 시간에 맞는 원고를 씁니다. 짧은 설교도 긴 설교와 같은 품질 기준으로 다듬습니다.</p>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>9</div><div class="stage-body">
+            <h3>기록 · 파생 자료</h3>
+            <p>설교를 기록으로 남기고, 같은 말씀을 나눔지·수수께끼·카드뉴스·슬라이드로 이어 만듭니다. 주일학교에서는 <a href="에듀플로우.html">에듀플로우</a>의 영상·슬라이드·퀴즈로 이어집니다.</p>
+          </div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">지키는 것</span>
+          <h2>모든 설교에 같은 기준을</h2>
+        </div>
+        <div class="grid grid-2">
+          <div class="card g"><span class="ico">📜</span><h3>신학과 번역</h3><p>개혁주의 신학(예장 합동)의 자리에 서고, 성경은 개역개정으로 인용합니다.</p></div>
+          <div class="card g"><span class="ico">❓</span><h3>중심문은 하나의 질문</h3><p>도입과 본문을 잇는 한 문장의 질문을 세우고, 모든 대지는 그 질문에 대한 답이 되게 합니다. 설교가 흩어지지 않는 비결입니다.</p></div>
+          <div class="card s"><span class="ico">🔎</span><h3>네 가지 확인</h3><p>예화는 실제 있었던 일인지, 인용은 정말 그 사람의 말인지, 통계는 원자료가 무엇인지, 성경 인용은 개역개정과 한 글자까지 같은지 확인합니다.</p></div>
+          <div class="card s"><span class="ico">⏱️</span><h3>5분에서 60분까지</h3><p>설교 자리에 맞춰 분량을 정합니다. 새벽 설교는 매일성경 읽기표를, 중고등부는 공과 순서를 따라 본문을 잡을 수 있습니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="contact-band">
+          <h2>설교플로우를 함께 세워 보고 싶으시다면</h2>
+          <p>세미나와 강의에서 흐름을 직접 따라가 보실 수 있습니다. 도입 상담은 메일로 물어 주세요.</p>
+          <div class="hero-actions" style="justify-content:center">
+            <a class="btn btn-main" href="mailto:help@lowspot.net?subject=%EC%84%A4%EA%B5%90%ED%94%8C%EB%A1%9C%EC%9A%B0%20%EB%AC%B8%EC%9D%98">✉️ 설교플로우 문의하기</a>
+            <a class="btn btn-quiet" href="강의상세_커리큘럼.html#upcoming">함께 배우는 자리 보기</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="border-bottom:0">
+      <div class="wrap">
+        <div class="flow-nav">
+          <a href="목회시스템.html"><small>← 전체</small>목회시스템</a>
+          <span class="here"><small>지금 보는 곳</small>📖 설교플로우</span>
+          <a href="에듀플로우.html"><small>다른 플로우</small>🌱 에듀플로우 →</a>
+          <a href="제자훈련플로우.html"><small>다른 플로우</small>☕ 제자훈련플로우 →</a>
+          <span class="soon"><small>준비 중</small>🏛️ 교회운영플로우</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><a href="오레브.html">오레브</a> · <a href="약관.html">이용약관</a> · <a href="개인정보.html">개인정보 처리 안내</a> · <a href="mailto:help@lowspot.net">help@lowspot.net</a></p>
+      <p>© 2026 민경우 · 낮은자리 (lowspot.net) — 세상엔 강하고 하나님껜 아이처럼</p>
+    </div>
+  </footer>
+
+  <script>
+    // 상단 메뉴 펼침 (다른 페이지와 같음)
+    function toggleDropdown(itemId, e) {
+      e.stopPropagation();
+      const el = document.getElementById(itemId);
+      const wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    }
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+    });
+  </script>
+</body>
+</html>

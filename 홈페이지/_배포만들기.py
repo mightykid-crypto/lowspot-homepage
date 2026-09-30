@@ -20,13 +20,16 @@ PAGES = [
     '도구상세_통합.html',
     '오레브.html',
     '목회시스템.html',
+    '설교플로우.html',
+    '에듀플로우.html',
+    '제자훈련플로우.html',
     '약관.html',
     '개인정보.html',
     'live.html',         # 라이브톡 (서버는 라이브톡/worker — 따로 wrangler deploy)
     '404.html',          # Cloudflare Pages 가 없는 주소에 자동으로 보여 줌
 ]
 EXTRA = ['favicon.svg', '공통.css', 'live.js', 'og/lowspot.png', 'og/orev.png']   # og/ = 카톡 링크 미리보기 그림
-ASSET_DIRS = ('화면사진', '오레브사진')
+ASSET_DIRS = ('화면사진', '오레브사진', '에듀사진')
 
 MAX_W = 1600          # 이보다 넓은 그림은 줄인다
 MAX_KB = 250          # 이보다 큰 그림은 webp 로 바꾼다

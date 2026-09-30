@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="주일학교 설교 한 편을 예열·선포·반응·인침·동행 다섯 단계로 한 주 내내 잇는 교육성장 과정입니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="낮은자리">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="에듀플로우 — 낮은자리">
+  <meta property="og:description" content="주일학교 설교 한 편을 예열·선포·반응·인침·동행 다섯 단계로 한 주 내내 잇는 교육성장 과정입니다.">
+  <meta property="og:url" content="https://lowspot.net/%EC%97%90%EB%93%80%ED%94%8C%EB%A1%9C%EC%9A%B0.html">
+  <meta property="og:image" content="https://lowspot.net/og/lowspot.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>에듀플로우 — 낮은자리</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="공통.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="index.html" class="brand">
+        <div class="logo-icon">
+          <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M0 100V76C22 76 30 86 50 86C70 86 78 76 100 76V100Z" fill="#4A3E33"/>
+            <path d="M44 86C44 68 44 57 47 45H53C50 57 50 68 50 86Z" fill="#6E9A4F"/>
+            <path d="M52 49C65 47 78 36 81 17C65 19 53 31 52 49Z" fill="#6E9A4F"/>
+            <path d="M46 57C34 55 23 44 20 27C34 30 45 42 46 57Z" fill="#6E9A4F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">낮은자리</div>
+          <div class="brand-motto">세상엔 강하고 하나님껜 아이처럼.</div>
+        </div>
+      </a>
+
+      <!-- 상단 내비게이션 -->
+      <nav class="main-nav">
+        <a href="index.html#hero" class="nav-link">처음</a>
+        <a href="오레브.html" class="nav-link">오레브</a>
+        <a href="목회시스템.html" class="nav-link active" aria-current="page">목회시스템</a>
+
+        <!-- 사역 도구 (10) 드롭다운 -->
+        <div class="nav-item" id="navItemApps">
+          <a href="index.html#apps" class="nav-link">사역 도구 (10)</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemApps', event)" title="10개 앱 하위 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">만든 사역 도구 목록</div>
+            <div class="dd-list">
+              <a href="도구상세_통합.html?id=bible-note" class="dd-item"><span class="dd-icon">✍️</span> <strong>성경노트</strong> (서피스펜 햅틱)</a>
+              <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
+              <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
+              <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (말씀 화면 송출)</a>
+              <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
+              <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
+              <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
+              <a href="도구상세_통합.html?id=qr" class="dd-item"><span class="dd-icon">📱</span> <strong>QR메이커</strong> (주보·현수막 QR)</a>
+              <a href="도구상세_통합.html?id=typing" class="dd-item"><span class="dd-icon">⌨️</span> <strong>타자 말씀 암송</strong> (100선 묵상)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 강의 드롭다운 -->
+        <div class="nav-item" id="navItemLectures">
+          <a href="index.html#lectures" class="nav-link">AI 강의</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-list">
+              <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
+              <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
+              <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+            </div>
+          </div>
+        </div>
+        <a href="live.html" class="nav-link nav-live"><span class="live-mark" aria-hidden="true"></span>라이브톡</a>
+        <a href="index.html#contact" class="nav-link">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow">목회시스템 · 에듀플로우</span>
+        <h1>주일학교 설교 한 편이 <br class="pc-only">한 주의 흐름이 됩니다</h1>
+        <p class="lead">
+          에듀플로우는 주일학교 교육성장 과정입니다. 설교가 주일 한 시간으로 끝나지 않도록,
+          교사의 준비에서 시작해 예배와 나눔을 지나 주중의 학교와 학원 현장까지 다섯 단계로 이어집니다.
+          ㅇㅇ교회 중고등부에서 실제로 쓰고 있는 흐름입니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">한눈에 보기</span>
+          <h2>다섯 단계</h2>
+        </div>
+        <ol class="flow">
+          <li><span>1</span>예열<small>목양의 시선</small></li>
+          <li><span>2</span>선포<small>임재의 시간</small></li>
+          <li><span>3</span>반응<small>말씀 소화하기</small></li>
+          <li><span>4</span>인침<small>거룩한 리마인더</small></li>
+          <li><span>5</span>동행<small>은혜의 노크</small></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">단계별로</span>
+          <h2>무엇을 하고, 왜 하나요</h2>
+          <p>아래 그림은 실제 한 주의 자료입니다.</p>
+        </div>
+        <div class="sample-head"><b>「스펙보다 강력한 이름: 예수」</b><span>마태복음 1:21 · ㅇㅇ교회 중고등부의 한 주</span></div>
+        <ol class="stage-list">
+          <li class="stage"><div class="stage-no"><small>STEP</small>1</div><div class="stage-body">
+            <h3>예열</h3>
+            <p class="stage-sub">Pre-View · 목양의 시선</p>
+            <div class="stage-cols">
+              <div class="what"><b class="lb">내용</b>설교자가 만든 <b>5분 설교 개요 영상</b>을 교사들에게 먼저 공개합니다.</div>
+              <div class="why"><b class="lb">의미</b>농부가 씨를 뿌리기 전 밭을 갈듯, 교사가 먼저 말씀을 먹고 기도로 준비하여 영적 권위와 자신감을 회복하는 <b>교사 재교육</b>의 시간입니다.</div>
+            </div>
+            <figure class="shot narrow"><img src="에듀사진/1_예열.webp" alt="설교 개요 영상 첫 화면 — 스펙보다 강력한 이름: 예수" loading="lazy"><figcaption>교사에게 먼저 보내는 설교 개요 영상</figcaption></figure>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>2</div><div class="stage-body">
+            <h3>선포</h3>
+            <p class="stage-sub">The Message · 임재의 시간</p>
+            <div class="stage-cols">
+              <div class="what"><b class="lb">내용</b>그날의 본문과 핵심 메시지만을 위해 디자인한 <b>맞춤형 설교 슬라이드</b>를 사용합니다.</div>
+              <div class="why"><b class="lb">의미</b>시청각 자극에 민감한 아이들에게 들리는 말씀(청각)과 보이는 말씀(시각)을 일치시켜 복음의 <b>전달력과 몰입도</b>를 크게 높입니다.</div>
+            </div>
+            <figure class="shot narrow"><img src="에듀사진/2_선포.webp" alt="설교 슬라이드 두 장 — 제목 슬라이드와 '그래서 우리는 스펙을 쌓습니다'" loading="lazy"><figcaption>설교 슬라이드 가운데 두 장</figcaption></figure>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>3</div><div class="stage-body">
+            <h3>반응</h3>
+            <p class="stage-sub">Holy Talk · 말씀 소화하기</p>
+            <div class="stage-cols">
+              <div class="what"><b class="lb">내용</b>설교 직후, 메시지를 적용한 <b>게이미피케이션</b>(퀴즈·활동·나눔)을 진행합니다.</div>
+              <div class="why"><b class="lb">의미</b>수동적인 청취를 넘어 능동적인 참여로 이끕니다. 말씀을 즐거움 속에서 곱씹으며 머리의 지식을 가슴의 고백으로 내면화합니다.</div>
+            </div>
+            <figure class="shot"><img src="에듀사진/3_반응.webp" alt="레크리에이션 도구의 게임 10종 선택 화면" loading="lazy"><figcaption>게임을 고르면 AI가 설교에 맞춘 문제를 만들어 주는 레크리에이션 도구 — 단어 게임, 초성 퀴즈, 텔레파시 등 10종</figcaption></figure>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>4</div><div class="stage-body">
+            <h3>인침</h3>
+            <p class="stage-sub">One-Cut Grace · 거룩한 리마인더</p>
+            <div class="stage-cols">
+              <div class="what"><b class="lb">내용</b>예배 직후, 핵심 메시지를 한 장으로 요약한 <b>모바일용 인포그래픽</b>을 보냅니다.</div>
+              <div class="why"><b class="lb">의미</b>교회 문을 나서는 순간 말씀을 잊어버리지 않도록, 아이들의 손(스마트폰)에 <b>진리의 도장</b>을 찍어 주는 즉각적인 피드백입니다.</div>
+            </div>
+            <figure class="shot narrow"><img src="에듀사진/4_인침.webp" alt="인포그래픽 — 예수: 당신의 코치인가, 구조대원인가?" loading="lazy"><figcaption>한 장 요약 인포그래픽 「예수: 당신의 코치인가, 구조대원인가?」</figcaption></figure>
+          </div></li>
+          <li class="stage"><div class="stage-no"><small>STEP</small>5</div><div class="stage-body">
+            <h3>동행</h3>
+            <p class="stage-sub">Daily Manna · 은혜의 노크</p>
+            <div class="stage-cols">
+              <div class="what"><b class="lb">내용</b>주중 여러 때에 퀴즈, 짧은 묵상, 미션 등 다양한 형태의 콘텐츠를 보냅니다.</div>
+              <div class="why"><b class="lb">의미</b>예측할 수 없는 때에 찾아가는 말씀을 통해, 하나님이 주일뿐 아니라 평일의 학교와 학원 현장에서도 <b>동행하심(Coram Deo)</b>을 깨닫게 합니다.</div>
+            </div>
+            <figure class="shot narrow"><img src="에듀사진/5_동행.webp" alt="설교 퀴즈 화면 — 6문항 가운데 첫 문제" loading="lazy"><figcaption>주중에 받는 설교 퀴즈 (6문항)</figcaption></figure>
+          </div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">교사가 먼저</span>
+          <h2>흐름을 움직이는 사람은 교사입니다</h2>
+          <p>에듀플로우의 첫 단계가 교사에게서 시작하는 까닭입니다.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card g"><span class="ico">🍞</span><h3>환대의 식탁</h3><p>전도는 사냥이 아니라 환대입니다. 교사는 아이들을 식탁으로 초대하는 영적 부모이자 주인입니다.</p></div>
+          <div class="card g"><span class="ico">📖</span><h3>말씀을 먼저 먹는 교사</h3><p>교사가 먼저 설교를 듣고 준비하면, 분반 시간이 가르치는 자리에서 함께 소화하는 자리로 바뀝니다.</p></div>
+          <div class="card g"><span class="ico">🙏</span><h3>기도로 여는 예배</h3><p>예배 전 교사들이 모여 아이들의 이름을 부르며 기도하고 예배를 준비합니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="contact-band">
+          <h2>우리 교회 주일학교에도 세우고 싶으시다면</h2>
+          <p>부서의 나이와 형편에 맞춰 다섯 단계를 어떻게 세울지 함께 이야기해 드립니다.</p>
+          <a class="btn btn-main" href="mailto:help@lowspot.net?subject=%EC%97%90%EB%93%80%ED%94%8C%EB%A1%9C%EC%9A%B0%20%EB%8F%84%EC%9E%85%20%EB%AC%B8%EC%9D%98">✉️ 에듀플로우 도입 문의하기</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="border-bottom:0">
+      <div class="wrap">
+        <div class="flow-nav">
+          <a href="목회시스템.html"><small>← 전체</small>목회시스템</a>
+          <a href="설교플로우.html"><small>다른 플로우</small>📖 설교플로우 →</a>
+          <span class="here"><small>지금 보는 곳</small>🌱 에듀플로우</span>
+          <a href="제자훈련플로우.html"><small>다른 플로우</small>☕ 제자훈련플로우 →</a>
+          <span class="soon"><small>준비 중</small>🏛️ 교회운영플로우</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><a href="오레브.html">오레브</a> · <a href="약관.html">이용약관</a> · <a href="개인정보.html">개인정보 처리 안내</a> · <a href="mailto:help@lowspot.net">help@lowspot.net</a></p>
+      <p>© 2026 민경우 · 낮은자리 (lowspot.net) — 세상엔 강하고 하나님껜 아이처럼</p>
+    </div>
+  </footer>
+
+  <script>
+    // 상단 메뉴 펼침 (다른 페이지와 같음)
+    function toggleDropdown(itemId, e) {
+      e.stopPropagation();
+      const el = document.getElementById(itemId);
+      const wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    }
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+    });
+  </script>
+</body>
+</html>

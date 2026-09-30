@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="「일상동행 제자도」 4권 28주 — 스스로 질문하고, 일터와 가정에서 살아내는 제자훈련 교재입니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="낮은자리">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="제자훈련플로우 — 낮은자리">
+  <meta property="og:description" content="「일상동행 제자도」 4권 28주 — 스스로 질문하고, 일터와 가정에서 살아내는 제자훈련 교재입니다.">
+  <meta property="og:url" content="https://lowspot.net/%EC%A0%9C%EC%9E%90%ED%9B%88%EB%A0%A8%ED%94%8C%EB%A1%9C%EC%9A%B0.html">
+  <meta property="og:image" content="https://lowspot.net/og/lowspot.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>제자훈련플로우 — 낮은자리</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="공통.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="index.html" class="brand">
+        <div class="logo-icon">
+          <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M0 100V76C22 76 30 86 50 86C70 86 78 76 100 76V100Z" fill="#4A3E33"/>
+            <path d="M44 86C44 68 44 57 47 45H53C50 57 50 68 50 86Z" fill="#6E9A4F"/>
+            <path d="M52 49C65 47 78 36 81 17C65 19 53 31 52 49Z" fill="#6E9A4F"/>
+            <path d="M46 57C34 55 23 44 20 27C34 30 45 42 46 57Z" fill="#6E9A4F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">낮은자리</div>
+          <div class="brand-motto">세상엔 강하고 하나님껜 아이처럼.</div>
+        </div>
+      </a>
+
+      <!-- 상단 내비게이션 -->
+      <nav class="main-nav">
+        <a href="index.html#hero" class="nav-link">처음</a>
+        <a href="오레브.html" class="nav-link">오레브</a>
+        <a href="목회시스템.html" class="nav-link active" aria-current="page">목회시스템</a>
+
+        <!-- 사역 도구 (10) 드롭다운 -->
+        <div class="nav-item" id="navItemApps">
+          <a href="index.html#apps" class="nav-link">사역 도구 (10)</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemApps', event)" title="10개 앱 하위 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">만든 사역 도구 목록</div>
+            <div class="dd-list">
+              <a href="도구상세_통합.html?id=bible-note" class="dd-item"><span class="dd-icon">✍️</span> <strong>성경노트</strong> (서피스펜 햅틱)</a>
+              <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
+              <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
+              <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (말씀 화면 송출)</a>
+              <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
+              <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
+              <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
+              <a href="도구상세_통합.html?id=qr" class="dd-item"><span class="dd-icon">📱</span> <strong>QR메이커</strong> (주보·현수막 QR)</a>
+              <a href="도구상세_통합.html?id=typing" class="dd-item"><span class="dd-icon">⌨️</span> <strong>타자 말씀 암송</strong> (100선 묵상)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 강의 드롭다운 -->
+        <div class="nav-item" id="navItemLectures">
+          <a href="index.html#lectures" class="nav-link">AI 강의</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-list">
+              <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
+              <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
+              <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+            </div>
+          </div>
+        </div>
+        <a href="live.html" class="nav-link nav-live"><span class="live-mark" aria-hidden="true"></span>라이브톡</a>
+        <a href="index.html#contact" class="nav-link">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="eyebrow">목회시스템 · 제자훈련플로우</span>
+        <h1>「일상동행 제자도」 — <br class="pc-only">교실을 넘어 일상에서 걷는 제자훈련</h1>
+        <p class="lead">
+          4권 28주 과정의 제자훈련 교재입니다. 정답을 받아 적는 공부가 아니라 스스로 질문을 만들어 오고,
+          월요일의 일터와 저녁의 가정에서 말씀을 살아내며, 손 안의 스마트폰으로 한 주를 함께 걷습니다.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-main" href="#sample">📖 1과 미리 보기</a>
+          <a class="btn btn-quiet" href="#contact">도입 문의</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">세 가지 특징</span>
+          <h2>무엇이 다른가요</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="card g"><span class="ico">☕</span><h3>커피브레이크 질문</h3><p>발견 → 해석 → 원리 → 적용, 네 단계 질문으로 본문을 스스로 읽습니다. 훈련생은 <b>My Question Box</b>에 자기 질문을 적어 와 함께 나눕니다.</p></div>
+          <div class="card s"><span class="ico">🏢</span><h3>일터·가정 듀얼 트랙</h3><p>적용 질문을 <b>일터·사회생활</b>과 <b>가정·개인 관계</b> 두 갈래로 나눠 내 삶에 가까운 쪽을 고릅니다. 나눔 질문의 절반 이상이 일상의 자리를 향합니다.</p></div>
+          <div class="card g"><span class="ico">📱</span><h3>스마트 라이프 미션</h3><p>사진·음성 기도·디지털 디톡스·격려 문자 같은 한 주 미션, 3분 오디오 가이드, 잠금화면 암송 카드로 모임 밖의 엿새를 잇습니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">4권 28주</span>
+          <h2>뿌리에서 열매까지</h2>
+          <p>한 권에 7주씩, 나무가 자라는 순서를 따라 갑니다.</p>
+        </div>
+        <div class="book-grid">
+          <div class="book" style="--c:#8A6A4A"><span class="bk">BOOK 1 · 1–7과</span><h3>뿌리</h3><p class="bt">복음과 새로운 시작</p><p>십자가 복음과 은혜의 정체성을 세우고, 스스로 묵상하고 질문하는 기본기를 익힙니다.</p></div>
+          <div class="book" style="--c:#6E9A4F"><span class="bk">BOOK 2 · 8–14과</span><h3>줄기</h3><p class="bt">내면과 매일의 동행</p><p>말씀과 기도, 내면의 회복으로 매일 주님과 동행하는 습관을 세웁니다.</p></div>
+          <div class="book" style="--c:#4E7C99"><span class="bk">BOOK 3 · 15–21과</span><h3>가지</h3><p class="bt">일터·가정의 관계와 회복</p><p>일터와 가정, 가까운 관계 속에서 말씀대로 살고 회복하는 길을 배웁니다.</p></div>
+          <div class="book" style="--c:#C98A2B"><span class="bk">BOOK 4 · 22–28과</span><h3>열매</h3><p class="bt">세상 속 사명과 재생산</p><p>삶의 자리에서 사명을 감당하고, 또 다른 제자를 세우는 사람으로 자랍니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">한 번의 모임</span>
+          <h2>80분, 여섯 단계로 진행합니다</h2>
+          <p>모든 과가 같은 틀이라 인도자도 훈련생도 금방 익숙해집니다.</p>
+        </div>
+        <div class="timebar" aria-hidden="true">
+          <div style="flex:5;background:#EDE6D8"><b>5′</b>오프닝</div>
+          <div style="flex:20;background:var(--card-s)"><b>20′</b>본문 관찰과 발견</div>
+          <div style="flex:10;background:var(--card-g)"><b>10′</b>코어 인사이트</div>
+          <div style="flex:30;background:color-mix(in srgb,#C98A2B 14%,var(--bg))"><b>30′</b>듀얼 트랙 일상 나눔</div>
+          <div style="flex:10;background:var(--card-s)"><b>10′</b>라이프 미션</div>
+          <div style="flex:5;background:#EDE6D8"><b>5′</b>기도·암송</div>
+        </div>
+        <div class="table-scroll">
+          <table class="tbl">
+            <thead><tr><th>시간</th><th>단계</th><th>하는 일</th></tr></thead>
+            <tbody>
+              <tr><td class="t">5분</td><td>스마트 오프닝</td><td>일상 공감 이야기와 마음 열기 질문. 3분 오디오 가이드로 미리 듣고 옵니다.</td></tr>
+              <tr><td class="t">20분</td><td>본문 관찰과 발견</td><td>발견·해석 질문으로 본문을 읽고, 각자 만들어 온 My Question을 나눕니다.</td></tr>
+              <tr><td class="t">10분</td><td>코어 인사이트</td><td>핵심 원리 질문과 한 문단의 핵심 정리로 그날의 진리를 붙듭니다.</td></tr>
+              <tr><td class="t">30분</td><td>듀얼 트랙 일상 나눔</td><td>일터 트랙과 가정 트랙 가운데 골라 솔직하게 나눕니다. 모임의 중심입니다.</td></tr>
+              <tr><td class="t">10분</td><td>스마트 라이프 미션</td><td>이번 주 미션과 주간 묵상 체크표를 정합니다.</td></tr>
+              <tr><td class="t">5분</td><td>동행 기도와 암송</td><td>함께 기도하고, 암송 구절을 잠금화면에 담아 갑니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="grid grid-3" style="margin-top:28px">
+          <div class="card"><span class="ico">🎤</span><h3>인도자는 퍼실리테이터</h3><p>가르치는 사람이 아니라 질문을 열고 나눔을 돕는 사람입니다.</p></div>
+          <div class="card"><span class="ico">🤝</span><h3>나눔은 방 안에</h3><p>모임에서 나눈 이야기는 밖으로 옮기지 않습니다. 비밀 보장이 솔직한 나눔을 지킵니다.</p></div>
+          <div class="card"><span class="ico">📣</span><h3>단톡방 응원단</h3><p>인도자는 주중 단톡방에서 미션 인증에 반응하며 한 주를 응원합니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">어떻게 만들었나요</span>
+          <h2>비교하고, 검토하고, 다시 고쳤습니다</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="card s"><span class="ico">📚</span><h3>대표 교재 다섯 가지 비교</h3><p>국내에서 널리 쓰이는 제자훈련 교재 다섯 가지를 나란히 놓고, 각 교재의 장점과 오늘의 성도에게 빈 자리를 살폈습니다.</p></div>
+          <div class="card s"><span class="ico">🧑‍⚖️</span><h3>두 방향의 검수</h3><p>신학·목회·교육의 눈과 일상 적용·사용성의 눈, 두 검수자가 28과 전체를 읽고 고칠 점을 짚었습니다.</p></div>
+          <div class="card s"><span class="ico">✅</span><h3>전 과 통과</h3><p>죄의 정의를 더 깊게, 디지털 디톡스를 현실에 맞게처럼 짚은 부분을 고쳐 다시 검수하고, 네 권 모든 과가 통과했습니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sample">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">교재 미리 보기</span>
+          <h2>Book 1 · 제1과를 펼쳐 봅니다</h2>
+          <p>실제 교재에서 줄여 옮겼습니다. 교재에는 본문 전문과 적는 칸, QR 자료가 함께 들어 있습니다.</p>
+        </div>
+        <article class="lesson">
+          <div class="lesson-top">
+            <small>BOOK 1 뿌리 · 복음과 새로운 시작 · 제1과</small>
+            <h3>왜 다시 제자도인가?</h3>
+            <p>“배에서 내려 그물을 씻는 자리에서 시작되는 부르심”</p>
+          </div>
+          <div class="lesson-part">
+            <h4>1. 스마트 오프닝 <em>5분</em></h4>
+            <p>📱 출퇴근길에 3분 오디오 가이드로 본문의 배경을 먼저 듣고 옵니다.</p>
+            <p>매일 반복되는 출퇴근길, 쌓인 업무와 끝없는 집안일 속에서 우리는 종종 깊은 피로와 허무를 느낍니다. 밤새 빈 그물을 씻던 갈릴리의 어부 베드로처럼, 우리도 각자의 ‘빈 배’ 곁에서 인생의 의미를 묻습니다.</p>
+            <ul><li><b>마음 열기</b> — 최근 일상에서 “밤새 애썼지만 빈 그물인 것 같다”고 느꼈던 순간은 언제였나요?</li></ul>
+          </div>
+          <div class="lesson-part">
+            <h4>2. 본문 관찰과 발견 <em>20분</em></h4>
+            <p><b>누가복음 5:1–11</b></p>
+            <blockquote>말씀을 마치시고 시몬에게 이르시되 깊은 데로 가서 그물을 내려 고기를 잡으라 시몬이 대답하여 이르되 선생님 우리들이 밤이 새도록 수고하였으되 잡은 것이 없지마는 말씀에 의지하여 내가 그물을 내리리이다 하고 (4–5절)</blockquote>
+            <ul>
+              <li><b>발견</b> — 예수님이 시몬에게 내리신 명령은 무엇이며, 자기 경험과 다른 그 명령에 시몬은 어떻게 반응했나요? (4–5절)</li>
+              <li><b>해석</b> — 엄청난 고기를 잡은 베드로가 기뻐하는 대신 “나는 죄인이로소이다” 하고 엎드린 까닭은 무엇일까요? (8절)</li>
+            </ul>
+            <div class="qbox">✍️ My Question Box — 본문을 묵상하며 “왜 그랬을까?” 궁금했던 나만의 질문을 적어 와 나눕니다.</div>
+          </div>
+          <div class="lesson-part">
+            <h4>3. 코어 인사이트 <em>10분</em></h4>
+            <p>베드로가 평생 쌓은 전문성과 경험을 내려놓고 “말씀에 의지하여” 순종했을 때 무슨 일이 일어났나요?</p>
+            <div class="insight"><b>💡 제자도는 특별한 종교인의 몫이 아니라, 일상에서 예수님을 경험하는 여정입니다.</b><br>예수님은 베드로를 성전이 아니라 생업의 현장에서 부르셨습니다. 제자훈련은 지식을 쌓는 공부가 아니라, 내 삶의 자리에 예수님을 주인으로 모셔 들이는 ‘거룩한 모험’입니다.</div>
+          </div>
+          <div class="lesson-part">
+            <h4>4. 듀얼 트랙 일상 나눔 <em>30분</em></h4>
+            <div class="track-2">
+              <div><b>🏢 트랙 A · 일터와 사회생활</b>내 전문성과 경험만 의지하다 한계에 부딪혔던 적이 있나요? 이번 주 업무에서 내 고집 대신 “말씀에 의지하여” 순종해 보고 싶은 영역은?</div>
+              <div><b>🏠 트랙 B · 가정과 관계</b>가족을 내 방식대로 통제하려다 지쳤던 부분은? 내 판단을 내려놓고 가족에게 먼저 건네고 싶은 말 한마디는?</div>
+            </div>
+          </div>
+          <div class="lesson-part">
+            <h4>5. 스마트 라이프 미션 <em>10분</em></h4>
+            <p>🎯 <b>포토 미션</b> — 매일 일하는 ‘일터의 책상’ 또는 ‘가정의 공간’을 한 장 찍어, “주님, 이곳에 그물을 내립니다”라는 한 줄 기도와 함께 소그룹 단톡방에 올립니다.</p>
+          </div>
+          <div class="lesson-part">
+            <h4>6. 동행 기도와 암송 <em>5분</em></h4>
+            <blockquote>시몬이 대답하여 이르되 선생님 우리들이 밤이 새도록 수고하였으되 잡은 것이 없지마는 말씀에 의지하여 내가 그물을 내리리이다 하고 (누가복음 5:5)</blockquote>
+            <p>📲 암송 구절은 잠금화면 이미지로 받아 한 주 동안 봅니다.</p>
+          </div>
+          <div class="lesson-more">— 제2과 「하나님의 원래 설계」로 이어집니다 —</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="grid grid-2">
+          <div class="card g">
+            <span class="pill-note">🧑‍🎓 청소년용 준비 중</span>
+            <h3 style="margin-top:14px">중고등부 청소년을 위한 판</h3>
+            <p>같은 흐름을 청소년의 학교·가정·친구 관계에 맞게 다시 쓰고 있습니다. Book 1 제1과 청소년판 샘플이 나왔고, 차례로 이어서 준비합니다.</p>
+          </div>
+          <div class="card s">
+            <span class="pill-note">🌱 에듀플로우와 함께</span>
+            <h3 style="margin-top:14px">주일에서 소그룹까지</h3>
+            <p>주일학교는 <a href="에듀플로우.html">에듀플로우</a>로, 장년 소그룹은 제자훈련플로우로. 같은 교회 안에서 말씀이 세대를 따라 이어지게 합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="contact-band">
+          <h2>우리 교회 제자훈련에 도입하고 싶으시다면</h2>
+          <p>교재 구성, 인도자 준비, 청소년판 일정까지 메일로 편하게 물어 주세요.</p>
+          <a class="btn btn-main" href="mailto:help@lowspot.net?subject=%EC%A0%9C%EC%9E%90%ED%9B%88%EB%A0%A8%ED%94%8C%EB%A1%9C%EC%9A%B0%20%EB%8F%84%EC%9E%85%20%EB%AC%B8%EC%9D%98">✉️ 제자훈련플로우 도입 문의하기</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="border-bottom:0">
+      <div class="wrap">
+        <div class="flow-nav">
+          <a href="목회시스템.html"><small>← 전체</small>목회시스템</a>
+          <a href="설교플로우.html"><small>다른 플로우</small>📖 설교플로우 →</a>
+          <a href="에듀플로우.html"><small>다른 플로우</small>🌱 에듀플로우 →</a>
+          <span class="here"><small>지금 보는 곳</small>☕ 제자훈련플로우</span>
+          <span class="soon"><small>준비 중</small>🏛️ 교회운영플로우</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><a href="오레브.html">오레브</a> · <a href="약관.html">이용약관</a> · <a href="개인정보.html">개인정보 처리 안내</a> · <a href="mailto:help@lowspot.net">help@lowspot.net</a></p>
+      <p>© 2026 민경우 · 낮은자리 (lowspot.net) — 세상엔 강하고 하나님껜 아이처럼</p>
+    </div>
+  </footer>
+
+  <script>
+    // 상단 메뉴 펼침 (다른 페이지와 같음)
+    function toggleDropdown(itemId, e) {
+      e.stopPropagation();
+      const el = document.getElementById(itemId);
+      const wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    }
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+    });
+  </script>
+</body>
+</html>
