@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>낮은자리 — 레퍼런스 5: Cursor & Vercel 딥 스포트라이트</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #1A1816;
+      --card: #24211E;
+      --line: #3A3530;
+      --ink: #FEFDFC;
+      --sub: #A89E94;
+      --sprout: #8CC464;
+      --sprout-glow: rgba(140, 196, 100, 0.25);
+      --sky: #6DB3E2;
+      --sky-glow: rgba(109, 179, 226, 0.25);
+      --serif: 'Gowun Batang', serif;
+      --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; color: #ffffff; }
+
+    /* 상단 안내띠 */
+    .style-banner {
+      background: #8CC464;
+      color: #1A1816;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 13.5px;
+      font-weight: 700;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0;
+      background: rgba(26,24,22,0.9);
+      backdrop-filter: blur(16px);
+      z-index: 50;
+    }
+    .top-in { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-family: var(--serif); font-size: 22px; font-weight: 700; text-decoration: none; color: inherit; }
+    .logo-box { width: 36px; height: 36px; background: #2A2622; border: 1px solid var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
+    /* 딥 스포트라이트 히어로 (Vercel + Cursor) */
+    .hero {
+      position: relative;
+      padding: 90px 0 100px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-glow-1 {
+      position: absolute; top: -150px; left: 30%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, var(--sprout-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-glow-2 {
+      position: absolute; top: 0; right: 25%;
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, var(--sky-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .badge-pop {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(140, 196, 100, 0.12);
+      border: 1px solid var(--sprout);
+      color: var(--sprout);
+      padding: 6px 18px;
+      border-radius: 99px;
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      box-shadow: 0 0 24px var(--sprout-glow);
+    }
+    .hero h1 {
+      font-size: 52px; line-height: 1.25; margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffffff 40%, #A89E94 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    @media (max-width: 768px) { .hero h1 { font-size: 36px; } }
+    .hero p { font-size: 19px; color: var(--sub); max-width: 680px; margin: 0 auto 45px; }
+
+    /* 실시간 모핑 사역 스튜디오 캔버스 (Cursor / Vercel Showcase 스타일) */
+    .morph-canvas {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+      max-width: 960px;
+      margin: 0 auto;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      text-align: left;
+    }
+    @media (max-width: 860px) { .morph-canvas { grid-template-columns: 1fr; } }
+    .morph-left {
+      padding: 34px;
+      border-right: 1px solid var(--line);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    @media (max-width: 860px) { .morph-left { border-right: none; border-bottom: 1px solid var(--line); } }
+    .ml-header {
+      font-size: 14px; font-weight: 700; color: var(--sprout);
+      letter-spacing: 0.1em; margin-bottom: 16px;
+    }
+    .prompt-typing-box {
+      background: #1A1816;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      min-height: 110px;
+      margin-bottom: 24px;
+      line-height: 1.6;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .morph-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .m-btn {
+      background: #1A1816; border: 1px solid var(--line); color: var(--sub);
+      padding: 10px 16px; border-radius: 99px; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .m-btn:hover, .m-btn.active {
+      background: var(--sprout); color: #1A1816; border-color: var(--sprout); font-weight: 700;
+    }
+
+    .morph-right {
+      padding: 34px;
+      background: #1D1A18;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative;
+    }
+    .preview-card {
+      background: #282420;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 26px;
+      width: 100%;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.4);
+      transition: all 0.3s;
+    }
+    .preview-card:hover { border-color: var(--sky); transform: scale(1.02); }
+    .pc-badge {
+      font-size: 12px; font-weight: 700; color: var(--sky);
+      background: rgba(109, 179, 226, 0.15); padding: 4px 10px; border-radius: 99px;
+      display: inline-block; margin-bottom: 12px;
+    }
+    .pc-title { font-size: 22px; margin-bottom: 8px; color: #ffffff; }
+    .pc-desc { color: var(--sub); font-size: 15px; margin-bottom: 20px; }
+    .pc-action {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--sky); color: #1A1816; font-weight: 700; padding: 10px 20px;
+      border-radius: 8px; width: 100%; text-decoration: none;
+    }
+
+    /* 하단 라이트 네온 그리드 */
+    .grid-section {
+      padding: 80px 0 100px;
+      border-top: 1px solid var(--line);
+    }
+    .sec-h { text-align: center; margin-bottom: 50px; }
+    .sec-h h2 { font-size: 36px; margin-bottom: 12px; }
+    .sec-h p { font-size: 17px; color: var(--sub); }
+    .dark-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    @media (max-width: 860px) { .dark-grid { grid-template-columns: 1fr; } }
+    .d-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+      padding: 32px 28px; transition: all 0.25s; position: relative;
+    }
+    .d-card:hover {
+      border-color: var(--sprout); transform: translateY(-6px);
+      box-shadow: 0 20px 40px var(--sprout-glow);
+    }
+    .d-card h3 { font-size: 24px; margin: 12px 0; }
+    .d-card p { color: var(--sub); font-size: 15.5px; }
+  </style>
+</head>
+<body>
+
+  <div class="style-banner">
+    🔥 눈에 확 띄는 역대급 시안 5 / Cursor & Vercel 딥 스포트라이트 — 강렬한 대조와 실시간 모핑 사역 스튜디오
+  </div>
+
+  <header>
+    <div class="wrap top-in">
+      <a href="#" class="brand">
+        <div class="logo-box">⚡</div>
+        <span>낮은자리 <small style="font-size:12px; color:var(--sub); font-weight:400; margin-left:6px;">lowspot.kr</small></span>
+      </a>
+      <span style="font-size:14px; color:var(--sprout); font-weight:700;">DEEP SPOTLIGHT STUDIO</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    <div class="wrap">
+      <div class="badge-pop">
+        <span>🌱</span>
+        <span>목회 사역을 위한 바이브 코딩 (VIBE CODING)</span>
+      </div>
+      <h1>상상했던 사역 도구가<br>자연어 한글 코딩으로 완성됩니다</h1>
+      <p>
+        평범한 위아래 문단 문서에서 벗어난 압도적인 스포트라이트 무드.<br>
+        목회자님이 한국어 프롬프트를 건네면, 작동하는 사역 도구가 즉각 생성됩니다.
+      </p>
+
+      <!-- 모핑 스튜디오 캔버스 -->
+      <div class="morph-canvas">
+        <div class="morph-left">
+          <div>
+            <div class="ml-header">PROMPT TO MINISTRY APP</div>
+            <div class="prompt-typing-box" id="typingBox">
+              "청소년부 공과 모임에서 10초 동안 맞추는 말씀 퀴즈 게임 웹앱 만들어줘. 성경 구절 17종 포함해 줘."
+            </div>
+          </div>
+          <div class="morph-tabs">
+            <button class="m-btn active" onclick="morphApp(0)">🌿 1. 묵상 게임</button>
+            <button class="m-btn" onclick="morphApp(1)">📋 2. 주보·행정 자동화</button>
+            <button class="m-btn" onclick="morphApp(2)">✍️ 3. 서피스펜 성경노트</button>
+          </div>
+        </div>
+
+        <div class="morph-right">
+          <div class="preview-card">
+            <div class="pc-badge" id="pcBadge">WEB PWA · INSTANT ACCESS</div>
+            <h3 class="pc-title" id="pcTitle">🎮 10초게임 (17종 성경 및 나눔 게임)</h3>
+            <p class="pc-desc" id="pcDesc">설치 필요 없이 스마트폰 브라우저 하나로 소그룹 전체가 참여하는 묵상 게임입니다.</p>
+            <a href="#" class="pc-action" onclick="alert('실시간 구동 화면 시연합니다.')" id="pcBtn">웹앱 즉시 실행 →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="grid-section">
+    <div class="wrap">
+      <div class="sec-h">
+        <h2>역동적인 사역 도구와 강의 과정</h2>
+        <p>어둠 속에서 환하게 켜지는 스포트라이트처럼, 현장에 빛이 되는 도구들입니다.</p>
+      </div>
+
+      <div class="dark-grid">
+        <div class="d-card">
+          <span style="color:var(--sprout); font-size:13px; font-weight:700;">ACADEMY COURSE 1~3</span>
+          <h3>AI 목회 활용 & 바이브 코딩</h3>
+          <p>어려운 코딩 문법 대신 AI와 소통하는 영성과 대화법, 우리 교회 전용 앱과 홈페이지를 짓는 3단계 강좌입니다.</p>
+        </div>
+        <div class="d-card">
+          <span style="color:var(--sky); font-size:13px; font-weight:700;">DESKTOP APP (.EXE)</span>
+          <h3>성경노트 & 교회재정</h3>
+          <p>서피스 펜 햅틱을 지원하는 묵상 연구 노트와, 회계 오류 없는 직관적인 교회 수입·지출 앱입니다.</p>
+        </div>
+        <div class="d-card">
+          <span style="color:var(--sprout); font-size:13px; font-weight:700;">MEDIA & WORSHIP</span>
+          <h3>설교프레젠터</h3>
+          <p>성경 구절과 찬양 가사, 설교 화면을 방송팀 스크린에 0.1초 만에 송출하는 빠르고 가벼운 프레젠터입니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const morphData = [
+      {
+        prompt: '"청소년부 공과 모임에서 10초 동안 맞추는 말씀 퀴즈 게임 웹앱 만들어줘. 성경 구절 17종 포함해 줘."',
+        badge: 'WEB PWA · INSTANT ACCESS',
+        title: '🎮 10초게임 (17종 성경 및 나눔 게임)',
+        desc: '설치 필요 없이 스마트폰 브라우저 하나로 소그룹 전체가 참여하는 묵상 게임입니다.',
+        btnText: '웹앱 즉시 실행 →'
+      },
+      {
+        prompt: '"오늘 주보 공지사항을 성도님들에게 안내할 3문장 심방 알림 카드로 만들어줘."',
+        badge: 'ADMIN AUTO · AI HELPER',
+        title: '📋 주보 및 심방 행정 AI 도우미',
+        desc: '매주 반복되는 문서 정리와 성도 소통 시간을 80% 줄여 사역에 집중하게 돕습니다.',
+        btnText: '행정 도구 실현 →'
+      },
+      {
+        prompt: '"서피스 펜의 필압과 햅틱을 느끼며 성경 본문 주해를 쓰도록 종이 질감 ノート를 만들어줘."',
+        badge: 'WINDOWS DESKTOP (.EXE)',
+        title: '✍️ 성경노트 (서피스펜 햅틱 지원)',
+        desc: '한 장의 정결한 화면 위에 필기 및 설교 주해를 마음에 새기는 도구입니다.',
+        btnText: '윈도우 앱 내려받기 →'
+      }
+    ];
+
+    function morphApp(idx) {
+      document.querySelectorAll('.m-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+      document.getElementById('typingBox').textContent = morphData[idx].prompt;
+      document.getElementById('pcBadge').textContent = morphData[idx].badge;
+      document.getElementById('pcTitle').textContent = morphData[idx].title;
+      document.getElementById('pcDesc').textContent = morphData[idx].desc;
+      document.getElementById('pcBtn').textContent = morphData[idx].btnText;
+    }
+  </script>
+</body>
+</html>

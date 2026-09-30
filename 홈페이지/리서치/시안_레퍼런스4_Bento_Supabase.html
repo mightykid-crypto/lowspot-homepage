@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>낮은자리 — 레퍼런스 4: Bento & Supabase 스타일</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #FEFDFC;
+      --card: #F3EFE4;
+      --line: #E6E1D5;
+      --ink: #332F2A;
+      --sub: #6B5C4D;
+      --sprout: #6E9A4F;
+      --sprout-tx: #52733B;
+      --sprout-btn: #52733B;
+      --sprout-btn-tx: #ffffff;
+      --sky: #4E7C99;
+      --sky-tx: #3F6B87;
+      --soil: #4A3E33;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --serif: 'Gowun Batang', serif;
+      --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; }
+
+    /* 상단 안내 바 */
+    .style-badge-bar {
+      background: #4E7C99;
+      color: #FEFDFC;
+      font-size: 13.5px;
+      text-align: center;
+      padding: 10px 16px;
+      font-weight: 600;
+    }
+
+    /* 헤더 */
+    header {
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0;
+      background: rgba(254,253,252,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+    .top-in { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 21px; font-weight: 700; text-decoration: none; color: inherit; }
+    .logo-box { width: 34px; height: 34px; background: #F1F3F3; border-radius: 8px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
+    /* 히어로 */
+    .hero {
+      padding: 70px 0 50px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 44px; line-height: 1.25; margin-bottom: 16px; }
+    .hero p { font-size: 18px; color: var(--sub); max-width: 640px; margin: 0 auto; }
+
+    /* 벤토 그리드 (Bento & Supabase 스타일) */
+    .bento-section {
+      padding: 20px 0 90px;
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      grid-auto-rows: minmax(180px, auto);
+    }
+    @media (max-width: 960px) {
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .bento-grid { grid-template-columns: 1fr; }
+    }
+
+    .bento-item {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .bento-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(51, 47, 42, 0.08);
+      border-color: var(--sprout);
+    }
+    /* Supabase 스타일 보더 하이라이트 액센트 */
+    .bento-item.sprout-accent { border-top: 4px solid var(--sprout); }
+    .bento-item.sky-accent { border-top: 4px solid var(--sky); }
+
+    /* 벤토 칸 크기 변형 */
+    .span-2x2 { grid-column: span 2; grid-row: span 2; }
+    .span-2x1 { grid-column: span 2; }
+    .span-4x1 { grid-column: span 4; }
+    @media (max-width: 960px) {
+      .span-4x1 { grid-column: span 2; }
+    }
+    @media (max-width: 640px) {
+      .span-2x2, .span-2x1, .span-4x1 { grid-column: span 1; }
+    }
+
+    .bi-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; margin-bottom: 12px; display: inline-block; }
+    .bi-tag.sprout { color: var(--sprout-tx); }
+    .bi-tag.sky { color: var(--sky-tx); }
+    .bi-title { font-size: 24px; margin-bottom: 10px; }
+    .bi-desc { color: var(--sub); font-size: 15px; line-height: 1.65; margin: 0 0 20px; }
+
+    /* 2x2 카드 내부 라이브 퀴즈 위젯 */
+    .widget-box {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin: 16px 0;
+    }
+    .wb-title { font-weight: 700; font-size: 14.5px; margin-bottom: 8px; }
+    .wb-desc { font-size: 13.5px; color: var(--sub); margin-bottom: 12px; }
+    .wb-btn {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--sprout-tx);
+    }
+
+    .bi-foot {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--sub);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="style-badge-bar">
+    ★ 최우수 레퍼런스 4 / Bento & Supabase 스타일 — 사역 도구와 강의를 위젯 형태로 촘촘히 큐레이션하는 고밀도 벤토 아카이브
+  </div>
+
+  <header>
+    <div class="wrap top-in">
+      <a href="#" class="brand">
+        <div class="logo-box">🍱</div>
+        <span>낮은자리 <small style="font-size:12px; color:var(--sub); font-weight:400; margin-left:6px;">lowspot.kr</small></span>
+      </a>
+      <span style="font-size:14px; color:var(--sub); font-weight:600;">고밀도 모듈형 벤토 시안</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>사역 도구와 AI 강의 벤토 아카이브</h1>
+      <p>한눈에 직관적으로 탐색하고 즉시 실행하는 낮은자리의 사역 도구함입니다.</p>
+    </div>
+  </section>
+
+  <section class="bento-section">
+    <div class="wrap">
+      <div class="bento-grid">
+
+        <!-- 큰 2x2 카드: 10초게임 -->
+        <div class="bento-item span-2x2 sprout-accent">
+          <div>
+            <span class="bi-tag sprout">WEB PWA · MOST POPULAR</span>
+            <h3 class="bi-title">🎮 10초게임 (17종 성경 및 나눔 게임)</h3>
+            <p class="bi-desc">
+              교회 소그룹 모임과 주일학교 공과 시간의 어색함을 깨뜨리는 앱입니다.
+              설치 없이 스마트폰 링크 하나로 10초 동안 맞추는 말씀 퀴즈와 빙고 게임을 지원합니다.
+            </p>
+
+            <div class="widget-box">
+              <div class="wb-title">💡 카드 내 라이브 위젯: 오늘의 말씀 퀴즈</div>
+              <div class="wb-desc">"태초에 하나님이 [ ? ]을(를) 창조하시니라" (창세기 1:1)</div>
+              <button class="wb-btn" onclick="alert('정답: 천지! 10초게임 웹앱으로 연결됩니다.')">정답 맞추기 & 앱 열기 →</button>
+            </div>
+          </div>
+          <div class="bi-foot">
+            <span>인터넷 연결 필요 없음</span>
+            <span style="color:var(--sprout-tx);">웹앱 바로 실행 →</span>
+          </div>
+        </div>
+
+        <!-- 2x1 가로 카드: 성경노트 -->
+        <div class="bento-item span-2x1 sky-accent">
+          <div>
+            <span class="bi-tag sky">WINDOWS DESKTOP APP</span>
+            <h3 class="bi-title">✍️ 성경노트 (서피스펜 햅틱 연구 노트)</h3>
+            <p class="bi-desc">
+              서피스 펜의 필압과 햅틱 피드백을 지원하는 목회자 연구 노트입니다.
+              본문 주해와 설교 메모를 정결한 한지 화면에 담습니다.
+            </p>
+          </div>
+          <div class="bi-foot">
+            <span>v0.2.2 (19.7 MB)</span>
+            <span style="color:var(--sky-tx);">설치본 내려받기 →</span>
+          </div>
+        </div>
+
+        <!-- 1x1 카드: 낮은꼬들 -->
+        <div class="bento-item">
+          <div>
+            <span class="bi-tag sprout">WEB PWA</span>
+            <h3 style="font-size:20px; margin-bottom:8px;">📖 낮은꼬들</h3>
+            <p class="bi-desc" style="font-size:14px;">설교 본문 단어를 힌트와 함께 맞추는 한글 묵상 워들 도구</p>
+          </div>
+          <div class="bi-foot">
+            <span>44,937 단어</span>
+            <span style="color:var(--sprout-tx);">실행 →</span>
+          </div>
+        </div>
+
+        <!-- 1x1 카드: 교회재정 -->
+        <div class="bento-item">
+          <div>
+            <span class="bi-tag sky">WINDOWS APP</span>
+            <h3 style="font-size:20px; margin-bottom:8px;">📊 교회재정</h3>
+            <p class="bi-desc" style="font-size:14px;">상업 프로그램 없이 쉽고 안전한 교회 수입·지출 및 통계 앱</p>
+          </div>
+          <div class="bi-foot">
+            <span>v1.0.0</span>
+            <span style="color:var(--sky-tx);">받기 →</span>
+          </div>
+        </div>
+
+        <!-- 4x1 와이드 배너: AI 목회 활용 및 바이브 코딩 아카데미 -->
+        <div class="bento-item span-4x1" style="background:var(--card); border-color:var(--line-s);">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px;">
+            <div>
+              <span class="bi-tag sky" style="margin-bottom:6px;">MINISTRY ACADEMY · 3 COURSES</span>
+              <h3 class="bi-title" style="margin-bottom:8px;">🎓 AI 목회 활용 & 사역자 바이브 코딩 커리큘럼</h3>
+              <p class="bi-desc" style="margin:0;">
+                과정 1: 처음 만나는 AI (영성과 대화법) · 과정 2: 자료를 다루다 (행정 자동화) · 과정 3: 만들어 내다 (맞춤 사역 앱 제작)
+              </p>
+            </div>
+            <button style="background:var(--sky-btn); color:var(--sky-btn-tx); border:none; padding:12px 24px; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer;" onclick="alert('3과정 커리큘럼 아코디언 페이지로 이동합니다.')">
+              커리큘럼 살펴보기 →
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

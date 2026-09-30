@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>낮은자리 — 레퍼런스 1: Linear & Raycast 스타일</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #FEFDFC;
+      --card: #F3EFE4;
+      --line: #E6E1D5;
+      --ink: #332F2A;
+      --sub: #6B5C4D;
+      --sprout: #6E9A4F;
+      --sprout-tx: #52733B;
+      --sprout-btn: #52733B;
+      --sprout-btn-tx: #ffffff;
+      --sky: #4E7C99;
+      --sky-tx: #3F6B87;
+      --soil: #4A3E33;
+      --radius: 8px;
+      --radius-lg: 16px;
+      --serif: 'Gowun Batang', serif;
+      --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; }
+
+    /* 상단 안내 바 */
+    .style-badge-bar {
+      background: #1D1F1A;
+      color: #EAE4D7;
+      font-size: 13.5px;
+      text-align: center;
+      padding: 10px 16px;
+      font-weight: 600;
+    }
+    .style-badge-bar span { color: #93BD70; }
+
+    /* 헤더 */
+    header {
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0;
+      background: rgba(254,253,252,0.88);
+      backdrop-filter: blur(16px);
+      z-index: 50;
+    }
+    .top-in { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-size: 21px; font-weight: 700; text-decoration: none; color: inherit; }
+    .logo-box { width: 34px; height: 34px; background: #F1F3F3; border-radius: 6px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; }
+
+    /* 히어로 섹션 (Raycast 커맨드 바 스타일) */
+    .hero {
+      padding: 90px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: 10%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 400px;
+      background: radial-gradient(circle, rgba(78, 124, 153, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .motto {
+      display: inline-block;
+      font-size: 13.5px;
+      color: var(--sprout-tx);
+      background: color-mix(in srgb, var(--sprout) 12%, var(--bg));
+      border: 1px solid color-mix(in srgb, var(--sprout) 30%, var(--bg));
+      padding: 5px 16px;
+      border-radius: 99px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .hero h1 { font-size: 46px; line-height: 1.25; letter-spacing: -0.03em; margin-bottom: 18px; }
+    .hero p { font-size: 18px; color: var(--sub); max-width: 680px; margin: 0 auto 40px; }
+
+    /* Raycast 스타일 대화형 커맨드 바 */
+    .command-bar-wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 40px rgba(51, 47, 42, 0.08);
+      overflow: hidden;
+      text-align: left;
+    }
+    .cmd-input-row {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+      gap: 12px;
+    }
+    .cmd-icon { font-size: 20px; color: var(--sky-tx); }
+    .cmd-input {
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: 16px;
+      width: 100%;
+      color: var(--ink);
+    }
+    .cmd-badge {
+      background: #F1F3F3;
+      color: var(--sub);
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      flex: none;
+    }
+    .cmd-results {
+      padding: 8px;
+      background: var(--bg);
+    }
+    .cmd-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .cmd-item:hover {
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(51, 47, 42, 0.05);
+    }
+    .cmd-item-left { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+    .cmd-item-tag { font-size: 12px; color: var(--sprout-tx); background: color-mix(in srgb, var(--sprout) 14%, var(--bg)); padding: 2px 8px; border-radius: 4px; }
+
+    /* Linear 스타일 커서 글로우 카드 그리드 */
+    .glow-section {
+      padding: 60px 0 90px;
+    }
+    .sec-title {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+    .sec-title h2 { font-size: 34px; margin-bottom: 10px; }
+    .sec-title p { color: var(--sub); font-size: 17px; }
+
+    .glow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 860px) { .glow-grid { grid-template-columns: 1fr; } }
+
+    .glow-card {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+    }
+    /* 커서 글로우 효과: 호버 시 마우스 커서 주변으로 방사형 스포트라이트 생성 */
+    .glow-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(
+        350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(110, 154, 79, 0.12),
+        transparent 80%
+      );
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .glow-card:hover::before { opacity: 1; }
+    .glow-card:hover {
+      border-color: var(--sprout);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(51, 47, 42, 0.08);
+    }
+    .card-top { position: relative; z-index: 1; }
+    .card-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--sprout) 14%, var(--bg));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .glow-card h3 { font-size: 22px; margin-bottom: 10px; }
+    .glow-card p { color: var(--sub); font-size: 15px; line-height: 1.65; margin: 0; }
+
+    .card-bot {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      margin-top: 24px;
+    }
+    .card-meta { font-size: 13px; color: var(--sub); }
+    .card-arrow { color: var(--sprout-tx); font-weight: 700; font-size: 14.5px; }
+  </style>
+</head>
+<body>
+
+  <div class="style-badge-bar">
+    <span>★ 최우수 레퍼런스 1 / Linear & Raycast 스타일</span> — 마우스 커서 스포트라이트와 대화형 커맨드 바를 통한 최첨단 스튜디오 무드
+  </div>
+
+  <header>
+    <div class="wrap top-in">
+      <a href="#" class="brand">
+        <div class="logo-box">🌱</div>
+        <span>낮은자리 <small style="font-size:12px; color:var(--sub); font-weight:400; margin-left:6px;">lowspot.kr</small></span>
+      </a>
+      <span style="font-size:14px; color:var(--sub); font-weight:600;">커서 반응형 글로우 시안</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="wrap">
+      <div class="motto">세상엔 강하게, 하나님 앞엔 아이처럼</div>
+      <h1>사역을 가볍게 돕는 도구,<br>그리고 스스로 짓는 바이브 코딩</h1>
+      <p>
+        복잡한 설명이나 지루한 매뉴얼 대신, 마음에 둔 사역의 아이디어를 바로 탐색해보세요.
+        현장의 검증된 도구와 직접 만드는 3과정 강좌를 나눕니다.
+      </p>
+
+      <!-- Raycast 스타일 커맨드 바 -->
+      <div class="command-bar-wrap">
+        <div class="cmd-input-row">
+          <span class="cmd-icon">⌘</span>
+          <input type="text" class="cmd-input" placeholder="사역 고민이나 필요한 도구를 검색해 보세요... (예: 묵상, 재정, 설교)" readonly value="말씀 묵상 퀴즈 및 소그룹 얼음 깨기 도구 찾기...">
+          <span class="cmd-badge">Raycast UI</span>
+        </div>
+        <div class="cmd-results">
+          <div class="cmd-item" onclick="alert('10초게임 앱(바로 쓰는 웹앱) 실행으로 연결됩니다.')">
+            <div class="cmd-item-left">
+              <span>🎮 10초게임 (17종 성경 및 묵상 놀이)</span>
+              <span class="cmd-item-tag">웹앱 · 설치 없음</span>
+            </div>
+            <span style="color:var(--sub); font-size:13px;">바로 실행 →</span>
+          </div>
+          <div class="cmd-item" onclick="alert('낮은꼬들 (설교 본문 단어 맞추기) 웹앱으로 연결됩니다.')">
+            <div class="cmd-item-left">
+              <span>📖 낮은꼬들 (설교 본문 44,937단어 워들)</span>
+              <span class="cmd-item-tag">웹앱 · 성도 공유</span>
+            </div>
+            <span style="color:var(--sub); font-size:13px;">바로 실행 →</span>
+          </div>
+          <div class="cmd-item" onclick="alert('성경노트 (서피스펜 햅틱 지원) 윈도우 앱으로 연결됩니다.')">
+            <div class="cmd-item-left">
+              <span>✍️ 성경노트 (서피스 펜 햅틱 묵상 주해 노트)</span>
+              <span style="font-size:12px; color:var(--sky-tx); background:color-mix(in srgb, var(--sky) 14%, var(--bg)); padding:2px 8px; border-radius:4px;">윈도우 .exe</span>
+            </div>
+            <span style="color:var(--sub); font-size:13px;">설치파일 받기 →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Linear 스타일 커서 트래킹 글로우 카드 섹션 -->
+  <section class="glow-section">
+    <div class="wrap">
+      <div class="sec-title">
+        <h2>마우스 커서를 따라 빛나는 사역 도구</h2>
+        <p>각 카드 위에 마우스 커서를 올려보세요. 은은한 새싹 스포트라이트가 카드를 비춥니다.</p>
+      </div>
+
+      <div class="glow-grid" id="glowGrid">
+        <div class="glow-card">
+          <div class="card-top">
+            <div class="card-icon">🎮</div>
+            <h3>10초게임</h3>
+            <p>스마트폰 하나로 교회 소그룹 모임 전체가 함께 즐기는 17개 성경 및 나눔 게임 웹앱입니다.</p>
+          </div>
+          <div class="card-bot">
+            <span class="card-meta">인터넷 연결 필요 없음</span>
+            <span class="card-arrow">웹앱 체험 →</span>
+          </div>
+        </div>
+
+        <div class="glow-card">
+          <div class="card-top">
+            <div class="card-icon">📊</div>
+            <h3>교회재정</h3>
+            <p>복잡한 회계 프로그램 대신, 우리 교회에 꼭 맞는 수입·지출 장부와 결산 차트를 제공합니다.</p>
+          </div>
+          <div class="card-bot">
+            <span class="card-meta">v1.0.0 (12.4 MB)</span>
+            <span class="card-arrow">윈도우 설치 →</span>
+          </div>
+        </div>
+
+        <div class="glow-card">
+          <div class="card-top">
+            <div class="card-icon">🎓</div>
+            <h3>AI 목회 강의 (3과정)</h3>
+            <p>AI의 신학적 이해부터 행정 문서 자동화, 그리고 우리 교회 앱을 바이브 코딩으로 짓는 법까지.</p>
+          </div>
+          <div class="card-bot">
+            <span class="card-meta">3과정 실습 커리큘럼</span>
+            <span class="card-arrow">커리큘럼 보기 →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 커서 래디얼 글로우 스크립트 -->
+  <script>
+    document.querySelectorAll('.glow-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
+</body>
+</html>

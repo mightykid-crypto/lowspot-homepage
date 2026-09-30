@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>낮은자리 — 4대 최우수 디자인 레퍼런스 쇼룸</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #FEFDFC;
+      --card: #F3EFE4;
+      --line: #E6E1D5;
+      --ink: #332F2A;
+      --sub: #6B5C4D;
+      --sprout: #6E9A4F;
+      --sprout-tx: #52733B;
+      --sky: #4E7C99;
+      --sky-tx: #3F6B87;
+      --radius: 14px;
+      --serif: 'Gowun Batang', serif;
+      --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans);
+      font-size: 16px; line-height: 1.7; word-break: keep-all; padding: 40px 20px 80px;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; }
+
+    .header { text-align: center; margin-bottom: 50px; }
+    .badge {
+      display: inline-block; background: var(--card); border: 1px solid var(--line);
+      color: var(--sprout-tx); font-size: 13.5px; font-weight: 700; padding: 5px 16px;
+      border-radius: 99px; margin-bottom: 18px;
+    }
+    .header h1 { font-size: 40px; margin-bottom: 14px; }
+    .header p { color: var(--sub); font-size: 18px; max-width: 680px; margin: 0 auto; }
+
+    .grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    }
+    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 34px 30px; display: flex; flex-direction: column; justify-content: space-between;
+      transition: all 0.25s; text-decoration: none; color: inherit; position: relative;
+    }
+    .card:hover {
+      transform: translateY(-5px); box-shadow: 0 18px 40px rgba(51, 47, 42, 0.09);
+      border-color: var(--sprout);
+    }
+    .card-num {
+      width: 36px; height: 36px; background: var(--card); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+      color: var(--ink); margin-bottom: 20px; font-size: 16px;
+    }
+    .tag { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 8px; display: block; }
+    .tag.g { color: var(--sprout-tx); }
+    .tag.s { color: var(--sky-tx); }
+    .card h3 { font-size: 26px; margin-bottom: 12px; }
+    .card p { color: var(--sub); font-size: 15.5px; line-height: 1.7; margin: 0 0 28px; }
+
+    .card-btn {
+      display: inline-flex; align-items: center; justify-content: space-between;
+      background: var(--card); border: 1px solid var(--line); padding: 12px 18px;
+      border-radius: 10px; font-weight: 700; font-size: 14.5px; transition: all 0.2s;
+    }
+    .card:hover .card-btn {
+      background: #52733B; color: #ffffff; border-color: #52733B;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="badge">🌿 lowspot.kr — 4대 최우수 시안 쇼룸</div>
+      <h1>어떤 디자인 무드가 우리 사역에 어울릴까요?</h1>
+      <p>14대 글로벌 레퍼런스 중 가장 훌륭한 4가지 컨셉을 실제로 작동하는 4개의 예제 시안으로 완성했습니다.</p>
+    </div>
+
+    <div class="grid">
+      <!-- 1번 -->
+      <a href="시안_레퍼런스1_Linear_Raycast.html" class="card">
+        <div>
+          <div class="card-num">1</div>
+          <span class="tag g">LINEAR & RAYCAST STYLE</span>
+          <h3>최첨단 소프트웨어 스튜디오</h3>
+          <p>
+            마우스 커서를 따라 비추는 새싹 래디얼 글로우(Radial Glow)와 
+            사역 고민을 즉시 검색하는 Raycast 커맨드 바 UI를 갖춘 세련된 테크 무드입니다.
+          </p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 1 시안 실행하기</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- 2번 -->
+      <a href="시안_레퍼런스2_StripePress.html" class="card">
+        <div>
+          <div class="card-num">2</div>
+          <span class="tag s">STRIPE PRESS & LINEAR METHOD</span>
+          <h3>럭셔리 북 에디토리얼</h3>
+          <p>
+            고운바탕 Bold 명조체의 품격과 넉넉한 여백, 1px 보더 라인이 만드는 
+            최고급 단행본 잡지(Magazine) 및 사역 선언문(Manifesto) 스타일입니다.
+          </p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 2 시안 실행하기</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- 3번 -->
+      <a href="시안_레퍼런스3_Lovable_JoyOfReact.html" class="card">
+        <div>
+          <div class="card-num">3</div>
+          <span class="tag g">LOVABLE & THE JOY OF REACT</span>
+          <h3>웜 앰비언트 & 친근한 학습 아카데미</h3>
+          <p>
+            종이하양 위 파스텔 메쉬 그라데이션 라이팅과 사역 필요에 따라 도구를 
+            즉각 매칭해주는 친절한 대화형 놀이터(Playground) 위젯이 탑재되었습니다.
+          </p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 3 시안 실행하기</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- 4번 -->
+      <a href="시안_레퍼런스4_Bento_Supabase.html" class="card">
+        <div>
+          <div class="card-num">4</div>
+          <span class="tag s">BENTO & SUPABASE STYLE</span>
+          <h3>고밀도 모듈형 벤토 아카이브</h3>
+          <p>
+            2x2, 2x1 칸의 카드들이 완벽한 비율로 맞물리는 벤토(Bento) 레이아웃과 
+            카드 내부에서 실시간으로 퀴즈를 푸는 라이브 위젯을 지원합니다.
+          </p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 4 시안 실행하기</span>
+          <span>→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

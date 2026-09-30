@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 목회 & 바이브 코딩 상세 커리큘럼 — 낮은자리 (v3 Spoke)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #FEFDFC;
+      --card: #F3EFE4;
+      --line: #E6E1D5;
+      --ink: #332F2A;
+      --sub: #6B5C4D;
+      --sprout: #6E9A4F;
+      --sprout-tx: #52733B;
+      --sprout-btn: #52733B;
+      --sprout-btn-tx: #ffffff;
+      --sky: #4E7C99;
+      --sky-tx: #3F6B87;
+      --sky-btn: #3F6B87;
+      --sky-btn-tx: #ffffff;
+      --radius: 8px;
+      --radius-lg: 16px;
+      --card-g: color-mix(in srgb, var(--sprout) 12%, var(--bg));
+      --card-s: color-mix(in srgb, var(--sky) 12%, var(--bg));
+      --serif: 'Gowun Batang', serif;
+      --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans);
+      font-size: 16px; line-height: 1.75; word-break: keep-all; scroll-behavior: smooth;
+    }
+    .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+    h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; margin: 0; }
+
+    header {
+      border-bottom: 1px solid var(--line); position: sticky; top: 0;
+      background: rgba(254,253,252,0.92); backdrop-filter: blur(16px); z-index: 500;
+    }
+    .top-in { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600;
+    }
+    .breadcrumb a { color: var(--sub); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--ink); }
+    .breadcrumb span { color: var(--line); }
+
+    /* ★ 상단 내비게이션 + 드롭다운 메뉴 ★ */
+    nav.main-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .nav-link {
+      font-size: 15px;
+      color: var(--sub);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--ink);
+      background: var(--card);
+    }
+    .nav-arrow {
+      background: transparent;
+      border: none;
+      color: var(--sub);
+      font-size: 13px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-arrow:hover {
+      background: var(--line);
+      color: var(--ink);
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 6px;
+      background: rgba(254, 253, 252, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 16px 40px rgba(51, 47, 42, 0.16);
+      min-width: 260px;
+      max-width: 340px;
+      padding: 12px;
+      z-index: 1000;
+    }
+    .nav-item.open .dropdown-menu {
+      display: block;
+      animation: fadeInDown 0.18s ease-out;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .dd-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--sub);
+      padding: 4px 10px 8px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 6px;
+    }
+    .dd-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+    .dd-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .dd-item:hover {
+      background: var(--card-g);
+      color: var(--sprout-tx);
+    }
+    .dd-icon { font-size: 16px; width: 22px; text-align: center; }
+
+    /* 히어로 */
+    .hero {
+      padding: 70px 0 50px; border-bottom: 1px solid var(--line); text-align: center;
+    }
+    .hero-tag {
+      display: inline-block; background: var(--card-s); color: var(--sky-tx);
+      font-size: 13.5px; font-weight: 700; padding: 5px 14px; border-radius: 99px;
+      margin-bottom: 16px;
+    }
+    .hero h1 { font-size: 42px; margin-bottom: 16px; }
+    .hero p { color: var(--sub); font-size: 18.5px; max-width: 720px; margin: 0 auto; }
+
+    /* 탭 및 커리큘럼 테이블 */
+    .syllabus-section { padding: 60px 0; }
+    .course-tabs {
+      display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 12px 24px; border-radius: 99px; border: 1px solid var(--line);
+      background: var(--bg); color: var(--sub); font-size: 16px; font-weight: 600;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { background: var(--card); color: var(--ink); }
+    .tab-btn.active {
+      background: var(--sky-btn); border-color: var(--sky-btn);
+      color: var(--sky-btn-tx); font-weight: 700;
+    }
+
+    .syllabus-card {
+      background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 36px;
+    }
+    .syl-top {
+      border-bottom: 2px solid var(--line); padding-bottom: 20px; margin-bottom: 28px;
+    }
+    .syl-top h3 { font-size: 28px; margin-bottom: 8px; color: var(--ink); }
+    .syl-top p { color: var(--sub); font-size: 16px; margin: 0; }
+
+    .week-table {
+      width: 100%; border-collapse: collapse; text-align: left;
+    }
+    .week-table th {
+      background: var(--card); padding: 14px 18px; font-size: 14.5px;
+      color: var(--sub); border-bottom: 1px solid var(--line);
+    }
+    .week-table td {
+      padding: 18px; border-bottom: 1px solid var(--line); font-size: 15.5px;
+    }
+    .week-table tr:hover td { background: var(--card-g); }
+    .week-num {
+      font-weight: 700; color: var(--sky-tx); width: 100px; font-family: var(--serif);
+      font-size: 17px;
+    }
+
+    /* 세미나 신청서 카드 */
+    .seminar-section { padding: 40px 0 90px; }
+    .seminar-box {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 44px 36px;
+    }
+    .seminar-box h3 { font-size: 26px; margin-bottom: 10px; }
+    .seminar-box p { color: var(--sub); font-size: 16px; margin-bottom: 28px; }
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;
+    }
+    @media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } }
+    .input-field {
+      width: 100%; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius);
+      font-size: 15px; font-family: var(--sans);
+    }
+    .submit-btn {
+      background: var(--sprout-btn); color: var(--sprout-btn-tx); border: none;
+      padding: 15px 32px; font-size: 16px; font-weight: 700;
+      border-radius: var(--radius); transition: all 0.2s;
+    }
+    .submit-btn:hover { background: var(--sprout-tx); transform: translateY(-2px); }
+
+    /* ★ 세로 우측 플로팅 퀵 메뉴 바 ★ */
+    .vertical-quick-bar {
+      position: fixed;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(254, 253, 252, 0.94);
+      backdrop-filter: blur(18px);
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      padding: 10px 8px;
+      box-shadow: 0 16px 36px rgba(51, 47, 42, 0.15);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .vq-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      gap: 2px;
+    }
+    .vq-btn:hover {
+      background: var(--card-g);
+      color: var(--sprout-tx);
+      transform: scale(1.08);
+    }
+    .vq-btn.s:hover {
+      background: var(--card-s);
+      color: var(--sky-tx);
+    }
+    .vq-icon { font-size: 20px; }
+    .vq-divider {
+      width: 28px;
+      height: 1px;
+      background: var(--line);
+      margin: 4px auto;
+    }
+    .vq-top-btn {
+      background: var(--card);
+      color: var(--ink);
+    }
+    .vq-top-btn:hover {
+      background: var(--sprout-btn);
+      color: #ffffff;
+    }
+
+    .mobile-fab-btn {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      background: var(--sprout-btn);
+      color: #ffffff;
+      border: none;
+      border-radius: 99px;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(82, 115, 59, 0.35);
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .vertical-quick-bar {
+        right: 24px;
+        top: auto;
+        bottom: 84px;
+        transform: translateY(20px);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .vertical-quick-bar.mobile-open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .mobile-fab-btn {
+        display: flex;
+      }
+    }
+
+    footer {
+      border-top: 1px solid var(--line); padding: 36px 0; text-align: center;
+      color: var(--sub); font-size: 14px;
+    }
+      /* 모바일 전체 최적화 보정 (v3) */
+    @media (max-width: 768px) {
+      /* 모바일 공통 타이포그래피 & 레이아웃 보정 */
+      body {
+        font-size: 15px; 
+        line-height: 1.5;
+        word-break: keep-all; 
+        overflow-wrap: break-word; 
+      }
+      
+      .wrap {
+        padding: 0 20px !important;
+      }
+      
+      /* 헤더 세로형 & 좌우 스크롤 내비게이션 */
+      .top-in { flex-direction: column !important; height: auto !important; padding: 12px 0 8px !important; gap: 12px !important; align-items: flex-start !important; }
+      nav.main-nav {
+        width: 100vw; overflow-x: auto; padding: 0 20px 8px; margin-left: -20px; justify-content: flex-start;
+        -webkit-overflow-scrolling: touch; flex-wrap: nowrap; gap: 8px;
+        scrollbar-width: none; /* Firefox */
+      }
+      nav.main-nav::-webkit-scrollbar { display: none; } /* Safari and Chrome */
+      .nav-link { white-space: nowrap; font-size: 15px; padding: 8px 12px; }
+      .brand { padding: 0 20px; }
+      
+      /* 드롭다운 화살표 숨기고 가로 스크롤 메뉴로 쓰기 */
+      .nav-arrow { display: none !important; }
+      .dropdown-menu { display: none !important; }
+      
+      .pc-only { display: none !important; }
+      .m-hide { display: none !important; }
+
+      /* 강의상세 페이지 관련 */
+      .hero h1 { font-size: 28px !important; line-height: 1.35 !important; letter-spacing: -0.02em !important; word-break: keep-all !important; overflow-wrap: break-word !important; }
+      .hero p { font-size: 15px !important; line-height: 1.6 !important; }
+      .hero { padding: 40px 0 30px !important; }
+      
+      .course-tabs { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 12px; justify-content: flex-start; scrollbar-width: none; }
+      .course-tabs::-webkit-scrollbar { display: none; }
+      .tab-btn { white-space: nowrap; font-size: 14.5px !important; padding: 10px 16px !important; }
+      
+      .syllabus-card { padding: 24px 20px !important; }
+      .syl-top h3 { font-size: 22px !important; line-height: 1.4 !important; }
+      .syl-top p { font-size: 15px !important; line-height: 1.6 !important; margin-bottom: 20px !important; }
+      
+      .week-table th, .week-table td { padding: 12px 14px !important; font-size: 14.5px !important; line-height: 1.5 !important; display: block; width: 100%; box-sizing: border-box; }
+      .week-table thead { display: none; }
+      .week-table tr { display: block; border-bottom: 1px solid var(--line); padding: 16px 0; }
+      .week-table tr td { border-bottom: none; padding: 4px 0 !important; }
+      .week-num { width: auto !important; font-size: 14px !important; color: var(--sky-tx); margin-bottom: 4px; display: inline-block !important; background: var(--card-s); padding: 2px 8px !important; border-radius: 4px; }
+      .week-table td:nth-child(2) { font-size: 16px !important; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+      
+      .seminar-section { padding: 50px 0 !important; }
+      .seminar-box { padding: 30px 24px !important; }
+      .seminar-box h3 { font-size: 22px !important; line-height: 1.4 !important; }
+      .seminar-box p { font-size: 15px !important; line-height: 1.6 !important; margin-bottom: 24px !important; }
+      .form-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+      .submit-btn { width: 100%; box-sizing: border-box; padding: 14px 20px !important; font-size: 15px !important; }
+    }
+</style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="index.html" class="brand">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 100 100" fill="none">
+            <path d="M15 75 Q 50 65 85 75 L 85 95 L 15 95 Z" fill="#4A3E33"/>
+            <path d="M50 70 Q 50 40 35 25 M50 50 Q 65 35 70 20" stroke="#6E9A4F" stroke-width="8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">낮은자리</div>
+          <div class="brand-motto">세상엔 강하고 하나님껜 아이같길.</div>
+        </div>
+      </a>
+
+      <!-- 상단 내비게이션 -->
+      <nav class="main-nav">
+        <a href="index.html#hero" class="nav-link">처음</a>
+        <a href="index.html#intro" class="nav-link">소개</a>
+
+        <!-- 사역 도구 (10) 드롭다운 -->
+        <div class="nav-item" id="navItemApps">
+          <a href="index.html#apps" class="nav-link">사역 도구 (10)</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemApps', event)" title="10개 앱 하위 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">만든 사역 도구 목록</div>
+            <div class="dd-list">
+              <a href="도구상세_통합.html?id=bible-note" class="dd-item"><span class="dd-icon">✍️</span> <strong>성경노트</strong> (서피스펜 햅틱)</a>
+              <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
+              <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
+              <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (0.1초 송출)</a>
+              <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
+              <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
+              <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
+              <a href="도구상세_통합.html?id=qr" class="dd-item"><span class="dd-icon">📱</span> <strong>QR메이커</strong> (주보·현수막 QR)</a>
+              <a href="도구상세_통합.html?id=typing" class="dd-item"><span class="dd-icon">⌨️</span> <strong>타자 말씀 암송</strong> (100선 묵상)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 강의 드롭다운 -->
+        <div class="nav-item" id="navItemLectures">
+          <a href="index.html#lectures" class="nav-link">AI 강의</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-list">
+              <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
+              <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
+              <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+            </div>
+          </div>
+        </div>
+
+        <a href="index.html#usecases" class="nav-link">활용사례</a>
+        <a href="index.html#faq" class="nav-link">FAQ</a>
+        <a href="index.html#contact" class="nav-link">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="hero-tag">AI MINISTRY & VIBE CODING SYLLABUS</span>
+      <h1>교회를 섬기는 바이브 코딩 : 3과정 전체 실습표</h1>
+      <p>
+        이론 20%, 실습 80% 비율로 진행되는 실전 목회자 세미나 및 교육 교안입니다.<br>
+        아래 탭을 눌러 각 과정의 주차별 커리큘럼을 확인하실 수 있습니다.
+      </p>
+    </div>
+  </section>
+
+  <section class="syllabus-section">
+    <div class="wrap">
+      <div class="course-tabs">
+        <button class="tab-btn active" onclick="showSyllabus(1, this)">🌱 1과정. 목회적 이해와 기본 대화</button>
+        <button class="tab-btn" onclick="showSyllabus(2, this)">📋 2과정. 문서·행정·주해 리서치</button>
+        <button class="tab-btn" onclick="showSyllabus(3, this)">⚡ 3과정. 바이브 코딩 실전 (앱 짓기)</button>
+      </div>
+
+      <!-- 1과정 -->
+      <div class="syllabus-card" id="syl1">
+        <div class="syl-top">
+          <h3>1과정. 처음 만나는 AI : 목회적 이해와 기본 대화법</h3>
+          <p>AI를 두려움의 대상이나 과신할 우상이 아닌, 목회자의 보조자로 삼는 영성과 프롬프트 실습</p>
+        </div>
+        <table class="week-table">
+          <thead>
+            <tr>
+              <th>주차</th>
+              <th>주제</th>
+              <th>세부 실습 및 다루는 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="week-num">1주차</td>
+              <td><strong>AI 시대의 신학적 이해</strong></td>
+              <td>생성형 AI의 작동 원리 이해, 신학적 영성과 보조 도구로서의 경계 설정하기</td>
+            </tr>
+            <tr>
+              <td class="week-num">2주차</td>
+              <td><strong>좋은 질문(프롬프트) 설계</strong></td>
+              <td>목회 전용 프롬프트 프레임워크 실습 (페르소나, 맥락, 조건, 형식 지정법)</td>
+            </tr>
+            <tr>
+              <td class="week-num">3주차</td>
+              <td><strong>새벽 묵상과 기도 보조</strong></td>
+              <td>매일 새벽 묵상 본문의 성찰 질문 추출 및 소그룹 아이스브레이킹 대화 템플릿</td>
+            </tr>
+            <tr>
+              <td class="week-num">4주차</td>
+              <td><strong>소그룹 나눔 질문서 완성</strong></td>
+              <td>주일학교 및 부서 모임 연령별(유초등부, 청소년부, 장년부) 맞춤 질문지 자동 생성</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 2과정 -->
+      <div class="syllabus-card" id="syl2" style="display:none;">
+        <div class="syl-top">
+          <h3>2과정. 자료를 다루다 : 행정 문서·주해·도서 리서치 자동화</h3>
+          <p>매주 반복되는 주보 정리, 심방 카드, 방대한 성경 주해 리서치 시간을 80% 단축하는 실전 실습</p>
+        </div>
+        <table class="week-table">
+          <thead>
+            <tr>
+              <th>주차</th>
+              <th>주제</th>
+              <th>세부 실습 및 다루는 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="week-num">1주차</td>
+              <td><strong>주보 소식 자동 요약</strong></td>
+              <td>긴 주보 공지사항을 성도님들에게 안내할 3줄 심방 알림 메시지로 변환하기</td>
+            </tr>
+            <tr>
+              <td class="week-num">2주차</td>
+              <td><strong>성경 본문 주해 AI 리서치</strong></td>
+              <td>헬라어·히브리어 원어 의미 및 전통 정통 주석 학자들의 해석 대조 검색</td>
+            </tr>
+            <tr>
+              <td class="week-num">3주차</td>
+              <td><strong>교회 교적 및 통계 가공</strong></td>
+              <td>부서별 출석률, 헌금 통계 데이터를 익명화하여 분석하고 인포그래픽 도표 만들기</td>
+            </tr>
+            <tr>
+              <td class="week-num">4주차</td>
+              <td><strong>설교 주간 리서치 파이프라인</strong></td>
+              <td>목회자의 주일 설교 준비 일주일에 최적화된 리서치 자동화 워크플로우 실습</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 3과정 -->
+      <div class="syllabus-card" id="syl3" style="display:none;">
+        <div class="syl-top">
+          <h3>3과정. 만들어 내다 : 사역자가 직접 짓는 바이브 코딩 (Vibe Coding)</h3>
+          <p>코딩 문법을 단 한 줄도 몰라도 괜찮습니다. AI와 한국어로 대화하며 우리 교회 맞춤 앱을 만드는 과정</p>
+        </div>
+        <table class="week-table">
+          <thead>
+            <tr>
+              <th>주차</th>
+              <th>주제</th>
+              <th>세부 실습 및 다루는 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="week-num">1주차</td>
+              <td><strong>바이브 코딩의 첫걸음</strong></td>
+              <td>개발 도구(Cursor / Antigravity CLI) 기초 설치 및 자연어로 프로그래밍하는 원리</td>
+            </tr>
+            <tr>
+              <td class="week-num">2주차</td>
+              <td><strong>우리 부서 웹앱 짓기 1</strong></td>
+              <td>10초게임 같은 말씀 퀴즈 게임 웹앱을 우리 교회 비전 문구로 커스텀하기</td>
+            </tr>
+            <tr>
+              <td class="week-num">3주차</td>
+              <td><strong>행정 자동화 앱 짓기 2</strong></td>
+              <td>교인 심방 신청 폼 또는 부서 교사 간편 출석 체크 모바일 앱 제작</td>
+            </tr>
+            <tr>
+              <td class="week-num">4주차</td>
+              <td><strong>웹 및 윈도우 앱 무료 배포</strong></td>
+              <td>Vercel 웹 호스팅 및 윈도우 설치파일(.exe)을 만들어 전 성도와 공유하는 법</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="seminar-section">
+    <div class="wrap">
+      <div class="seminar-box">
+        <h3>교회·노회 세미나 출강 및 온라인 강의 신청</h3>
+        <p>목회자 코호트나 노회 사역자 수련회에서 AI 목회 실전 세미나를 요청하실 수 있습니다.</p>
+        <div class="form-grid">
+          <input type="text" class="input-field" placeholder="교회명 또는 기관명 (예: 낮은자리 교회)">
+          <input type="text" class="input-field" placeholder="신청자 성함 및 직분 (예: 홍길동 목사)">
+          <input type="text" class="input-field" placeholder="연락처 (휴대폰 또는 이메일)">
+          <input type="text" class="input-field" placeholder="희망 세미나 과정 (예: 1과정 또는 3과정 바이브 코딩)">
+        </div>
+        <button class="submit-btn" onclick="alert('세미나 출강 문의가 성공적으로 접수되었습니다. 곧 연락드리겠습니다.')">
+          🌿 세미나 출강 신청하기
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>© 2026 민경우 · 낮은자리 (lowspot.kr) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
+    </div>
+  </footer>
+
+  <!-- ★ 우측 세로 플로팅 퀵 메뉴 바 ★ -->
+  <div class="vertical-quick-bar" id="vqBar">
+    <a href="시안_v3_하이브리드.html" class="vq-btn" title="메인 홈으로">
+      <span class="vq-icon">🏠</span>
+      <span>홈</span>
+    </a>
+    <a href="시안_v3_하이브리드.html#apps" class="vq-btn" title="사역 도구 10종">
+      <span class="vq-icon">🛠️</span>
+      <span>도구</span>
+    </a>
+    <a href="시안_v3_하이브리드.html#lectures" class="vq-btn s" title="AI 목회 강의">
+      <span class="vq-icon">🎓</span>
+      <span>강의</span>
+    </a>
+    <a href="시안_v3_하이브리드.html#contact" class="vq-btn" title="문의하기">
+      <span class="vq-icon">✉️</span>
+      <span>문의</span>
+    </a>
+    <div class="vq-divider"></div>
+    <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="vq-btn vq-top-btn" title="맨 위로">
+      <span class="vq-icon">↑</span>
+      <span>위로</span>
+    </a>
+  </div>
+
+  <button class="mobile-fab-btn" onclick="toggleMobileQuickBar()">
+    <span>⚡</span>
+    <span>퀵메뉴</span>
+  </button>
+
+  <script>
+    function toggleDropdown(itemId, e) {
+      e.stopPropagation();
+      const el = document.getElementById(itemId);
+      const wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    }
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+    });
+    function toggleMobileQuickBar() {
+      document.getElementById('vqBar').classList.toggle('mobile-open');
+    }
+
+    function showSyllabus(idx, el) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+
+      document.getElementById('syl1').style.display = idx === 1 ? 'block' : 'none';
+      document.getElementById('syl2').style.display = idx === 2 ? 'block' : 'none';
+      document.getElementById('syl3').style.display = idx === 3 ? 'block' : 'none';
+    }
+
+    // URL 파라미터 ?tab=1, 2, 3 체크하여 자동 탭 열기
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('tab')) {
+        const tabIdx = parseInt(params.get('tab'), 10);
+        const tabBtn = document.querySelectorAll('.tab-btn')[tabIdx - 1];
+        if (tabBtn) showSyllabus(tabIdx, tabBtn);
+      }
+    });
+  </script>
+</body>
+</html>
+

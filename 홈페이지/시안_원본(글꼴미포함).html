@@ -1,0 +1,766 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>낮은자리 — 홈페이지 시안</title>
+
+<style>
+
+  :root{
+    --bg:#FEFDFC; --card:#F3EFE4; --line:#E6E1D5; --ink:#332F2A; --sub:#6B5C4D;
+    --sprout:#6E9A4F; --sprout-tx:#52733B; --sprout-btn:#52733B; --sprout-btn-tx:#fff;
+    --sprout-2:#A9C687;
+    --sky:#4E7C99; --sky-tx:#3F6B87; --sky-btn:#3F6B87; --sky-btn-tx:#fff;
+    --soil:#4A3E33; --radius:2px;
+    /* ★2026-08-02 오너 지적 — 박스가 전부 한지색이라 칙칙하다. 연한 녹색·연한 하늘로.
+       원색을 그대로 깔면 브랜드 원칙 1("하늘은 배경으로 쓰지 않는다")과 부딪히므로
+       **바탕에 조금만 타서** 쓴다. 그러면 색은 분명히 보이면서 원색의 무게는 안 온다.
+       ★비율은 16% → **12%** (오너 2026-08-02: "색깔 구분이 되어 느낌은 좋은데 12% 정도").
+       실측: 먹빛 글자 대비 연녹 11.60 · 연하늘 11.36 (기준 4.5) — 넉넉하다.
+       카드 안 버튼·링크도 4.6 이상. 8%까지 내리면 거의 흰색, 20% 넘으면 대비가 빡빡해진다.
+       ★경계선은 일부러 안 낮췄다 — 카드가 옅어질수록 배경과 구분이 약해져
+         경계선이 할 일이 더 커진다(브랜드 규정 §5 "경계선을 반드시 그린다").
+       color-mix 로 두는 이유는 어두운 화면에서도 저절로 따라오게 하기 위함이다. */
+    --card-g: color-mix(in srgb, var(--sprout) 12%, var(--bg));   /* 연한 새싹 #EDF1E7 */
+    --card-s: color-mix(in srgb, var(--sky)    12%, var(--bg));   /* 연한 하늘 #E9EEF0 */
+    --line-g: color-mix(in srgb, var(--sprout) 34%, var(--bg));
+    --line-s: color-mix(in srgb, var(--sky)    34%, var(--bg));
+    --serif:'GowunBatang',"Gowun Batang",serif;
+    --sans:'PretendardKR',"Pretendard","Malgun Gothic",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --bg:#1D1F1A; --card:#272A22; --line:#3B3F34; --ink:#EAE4D7; --sub:#B3AA98;
+      --sprout:#93BD70; --sprout-tx:#A9CE89; --sprout-btn:#93BD70; --sprout-btn-tx:#1D1F1A;
+      --sprout-2:#6E9A4F; --sky:#8FAEC4; --sky-tx:#A3BFD2; --sky-btn:#8FAEC4; --sky-btn-tx:#1D1F1A;
+      --soil:#C9BCA9; }
+  }
+  :root[data-theme="dark"]{ --bg:#1D1F1A; --card:#272A22; --line:#3B3F34; --ink:#EAE4D7; --sub:#B3AA98;
+    --sprout:#93BD70; --sprout-tx:#A9CE89; --sprout-btn:#93BD70; --sprout-btn-tx:#1D1F1A;
+    --sprout-2:#6E9A4F; --sky:#8FAEC4; --sky-tx:#A3BFD2; --sky-btn:#8FAEC4; --sky-btn-tx:#1D1F1A;
+    --soil:#C9BCA9; }
+  :root[data-theme="light"]{ --bg:#FEFDFC; --card:#F3EFE4; --line:#E6E1D5; --ink:#332F2A; --sub:#6B5C4D;
+    --sprout:#6E9A4F; --sprout-tx:#52733B; --sprout-btn:#52733B; --sprout-btn-tx:#fff;
+    --sprout-2:#A9C687; --sky:#4E7C99; --sky-tx:#3F6B87; --sky-btn:#3F6B87; --sky-btn-tx:#fff;
+    --soil:#4A3E33; }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+       font-size:17px;line-height:1.75;word-break:keep-all;-webkit-text-size-adjust:100%}
+  .wrap{max-width:46rem;margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:var(--serif);font-weight:700;margin:0;text-wrap:balance}
+  p{margin:0}
+  a{color:inherit}
+
+  /* 시안 안내띠 */
+  .demo-note{background:var(--card);border-bottom:1px solid var(--line);
+    font-size:13px;color:var(--sub);text-align:center;padding:7px 16px}
+  .demo-note b{color:var(--sprout-tx)}
+
+  /* 머리 */
+  header.top{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
+  .topin{display:flex;align-items:center;gap:11px;padding:14px 0}
+  .mark{width:30px;height:30px;border-radius:18%;overflow:hidden;flex:none;display:block}
+  .brandname{font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:-.01em}
+  nav{margin-left:auto;display:flex;gap:4px}
+  nav button{font-family:inherit;font-size:15px;color:var(--sub);background:none;border:0;
+    padding:7px 11px;border-radius:var(--radius);cursor:pointer}
+  nav button[aria-current="page"]{color:var(--ink);font-weight:700;background:var(--card)}
+
+  section.pg{display:none;padding:0 0 72px}
+  section.pg.on{display:block}
+
+  /* 히어로 */
+  .hero{padding:56px 0 8px}
+  .motto{font-family:var(--serif);font-weight:700;font-size:15px;color:var(--sprout-tx);
+    letter-spacing:.01em;margin-bottom:14px}
+  .hero h1{font-size:38px;line-height:1.32}
+  .hero .say{margin-top:20px;font-size:17px;color:var(--sub);max-width:34rem}
+
+  /* 두 기둥 */
+  .pillars{display:grid;gap:14px;margin-top:44px}
+  @media(min-width:640px){.pillars{grid-template-columns:1fr 1fr}}
+  .pillar{display:block;text-align:left;width:100%;font-family:inherit;cursor:pointer;
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 22px 22px;color:inherit}
+  /* 도구=새싹(자라남·만듦) · 강의=하늘(위·가르침) — 브랜드 의미 구조 그대로 */
+  .pillar.g{background:var(--card-g);border-color:var(--line-g)}
+  .pillar.s{background:var(--card-s);border-color:var(--line-s)}
+  .pillar .tag{font-size:12.5px;letter-spacing:.13em;font-weight:700;color:var(--sky-tx)}
+  .pillar h2{font-size:23px;margin:8px 0 8px}
+  .pillar p{font-size:15px;color:var(--sub)}
+  .pillar .go{margin-top:16px;font-size:15px;color:var(--sprout-tx);font-weight:700}
+  .pillar.g:hover{border-color:var(--sprout)}
+  .pillar.s:hover{border-color:var(--sky)}
+
+  /* 잇는 문장 */
+  .bridge{margin-top:44px;border-left:3px solid var(--sprout);padding:4px 0 4px 18px}
+  .bridge p{font-family:var(--serif);font-weight:700;font-size:21px;line-height:1.6}
+  .bridge small{display:block;margin-top:9px;font-family:var(--sans);font-weight:400;
+    font-size:15px;color:var(--sub)}
+
+  /* 소식받기 */
+  .news{margin-top:52px;background:var(--card-g);border:1px solid var(--line-g);
+    border-radius:var(--radius);padding:24px 22px}
+  .news h3{font-size:19px}
+  .news p{font-size:15px;color:var(--sub);margin-top:6px}
+  .row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .inp{flex:1;min-width:11rem;height:44px;padding:0 13px;font-family:inherit;font-size:16px;
+    background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);color:var(--ink)}
+  .btn{height:44px;padding:0 20px;border-radius:var(--radius);border:1px solid transparent;
+    font-family:inherit;font-size:16px;cursor:pointer;white-space:nowrap;display:inline-flex;
+    align-items:center;justify-content:center;text-decoration:none}
+  .btn.main{background:var(--sprout-btn);color:var(--sprout-btn-tx);font-weight:700}
+  .btn.sub{background:var(--sky-btn);color:var(--sky-btn-tx);font-weight:700}
+  .btn.out{background:transparent;border-color:var(--line);color:var(--ink)}
+  .btn.sm{height:38px;font-size:15px;padding:0 15px}
+
+  /* 앱 목록 */
+  .pghead{padding:48px 0 0}
+  .pghead h1{font-size:31px}
+  .pghead p{margin-top:14px;color:var(--sub);font-size:16px;max-width:33rem}
+  .group{margin-top:44px}
+  .grouphead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .grouphead h2{font-size:21px}
+  .grouphead span{font-size:14px;color:var(--sub)}
+  .apps{display:grid;gap:12px;margin-top:16px}
+  @media(min-width:640px){.apps{grid-template-columns:1fr 1fr}}
+  .app{border:1px solid var(--line);border-radius:var(--radius);
+    padding:19px 18px;display:flex;flex-direction:column;gap:7px}
+  /* 바로 쓰는 것=연한 새싹 · 내려받는 것=연한 하늘 (두 무리를 색으로 구분한다) */
+  .apps.g .app{background:var(--card-g);border-color:var(--line-g)}
+  .apps.s .app{background:var(--card-s);border-color:var(--line-s)}
+  .apps.g .getbox{border-top-color:var(--line-g)}
+  .apps.s .getbox{border-top-color:var(--line-s)}
+  .app h3{font-size:18px}
+  .app .one{font-size:15px;color:var(--sub);flex:1}
+  .app .who{font-size:13.5px;color:var(--sky-tx)}
+  /* ★'받는 곳' — 나중에 이 자리가 '구매하기'로 바뀐다 */
+  .getbox{margin-top:9px;padding-top:13px;border-top:1px dashed var(--line);
+    display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .getbox .meta{font-size:12.5px;color:var(--sub);margin-left:auto}
+  .badge{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;
+    border-radius:var(--radius);background:var(--sprout-2);color:var(--soil)}
+  .badge.wait{background:transparent;border:1px solid var(--line);color:var(--sub)}
+
+  .guide{margin-top:44px;border:1px solid var(--line-s);border-left:4px solid var(--sky);
+    border-radius:var(--radius);background:var(--card-s);padding:20px 22px}
+  .guide h3{font-size:18px}
+  .guide p{font-size:15px;color:var(--sub);margin-top:8px}
+
+  footer{border-top:1px solid var(--line);padding:26px 0 46px;font-size:14px;color:var(--sub)}
+  footer .f{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  :focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+
+  /* ── 강의 ─────────────────────────── */
+  .lead2{margin-top:16px;font-size:17px;color:var(--sub);max-width:34rem}
+  .creed{margin-top:30px;background:var(--card-s);border:1px solid var(--line-s);
+    border-radius:var(--radius);padding:22px 22px}
+  .creed p{font-family:var(--serif);font-weight:700;font-size:18px;line-height:1.7}
+  .creed small{display:block;margin-top:10px;font-family:var(--sans);font-weight:400;
+    font-size:14.5px;color:var(--sub)}
+  .units{display:grid;gap:12px;margin-top:18px}
+  .unit{background:var(--card-s);border:1px solid var(--line-s);border-radius:var(--radius);
+    padding:20px 20px}
+  .unit .no{font-size:12.5px;letter-spacing:.13em;font-weight:700;color:var(--sky-tx)}
+  .unit h3{font-size:19px;margin:6px 0 8px}
+  .unit p{font-size:15px;color:var(--sub)}
+  .unit .time{margin-top:10px;font-size:13.5px;color:var(--sub)}
+  .courses{display:grid;gap:12px;margin-top:18px}
+  @media(min-width:700px){.courses{grid-template-columns:repeat(3,1fr)}}
+  .course{background:var(--card-g);border:1px solid var(--line-g);border-radius:var(--radius);
+    padding:18px 18px;display:flex;flex-direction:column;gap:6px}
+  .course .step{font-size:12.5px;letter-spacing:.1em;font-weight:700;color:var(--sprout-tx)}
+  .course h3{font-size:18px}
+  .course p{font-size:14.5px;color:var(--sub);flex:1}
+  .course .mins{font-size:13px;color:var(--sub);padding-top:8px;border-top:1px dashed var(--line-g)}
+  .plan{margin-top:18px;display:grid;gap:9px}
+  .plan div{display:grid;grid-template-columns:6.5rem 1fr;gap:12px;font-size:15px;
+    padding-bottom:9px;border-bottom:1px solid var(--line)}
+  .plan b{color:var(--sub);font-weight:400;font-size:14px}
+
+  /* ── 앱 상세 ───────────────────────── */
+  .back{margin:34px 0 0;font-size:14.5px;color:var(--sky-tx);background:none;border:0;
+    font-family:inherit;cursor:pointer;padding:0}
+  .shots{display:grid;gap:10px;margin-top:22px;
+    /* 사진이 하나면 넓게, 여럿이면 나란히 — 앱마다 장수가 다르다 */
+    grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+  .shot{aspect-ratio:16/10;border:1px dashed var(--line-g);border-radius:var(--radius);
+    background:var(--card-g);display:grid;place-items:center;text-align:center;padding:12px}
+  .shot span{font-size:13px;color:var(--sub);line-height:1.5}
+  /* 실제 사진이 든 칸 */
+  .shot.ph{aspect-ratio:auto;border-style:solid;padding:0;margin:0;overflow:hidden;
+    display:flex;flex-direction:column}
+  .shot.ph img{width:100%;display:block;background:var(--bg)}
+  .shot.ph figcaption{font-size:13px;color:var(--sub);padding:9px 12px;text-align:left;
+    border-top:1px solid var(--line-g)}
+  /* 목록 카드의 작은 미리보기 */
+  .thumb{width:100%;border:1px solid var(--line-g);border-radius:var(--radius);
+    display:block;margin-bottom:4px;background:var(--bg)}
+  .facts{margin-top:26px;display:grid;gap:9px}
+  .facts div{display:grid;grid-template-columns:6.5rem 1fr;gap:12px;font-size:15px;
+    padding-bottom:9px;border-bottom:1px solid var(--line)}
+  .facts b{color:var(--sub);font-weight:400;font-size:14px}
+  .steps{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+  .steps li{display:grid;grid-template-columns:1.6rem 1fr;gap:10px;font-size:15px}
+  .steps li b{font-family:var(--serif);color:var(--sprout-tx)}
+  /* ★'받는 곳' — 나중에 이 덩어리만 '구매하기'로 바뀐다 */
+  .getbig{margin-top:28px;background:var(--card-g);border:1px solid var(--line-g);
+    border-radius:var(--radius);padding:22px 22px}
+  .getbig h3{font-size:18px}
+  .getbig .price{font-family:var(--serif);font-weight:700;font-size:24px;margin-top:4px}
+  .getbig p{font-size:14px;color:var(--sub);margin-top:8px}
+
+  /* ── 설치 안내 ─────────────────────── */
+  .win{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    background:var(--bg);max-width:23rem;margin-top:12px}
+  .win .bar{background:var(--card);border-bottom:1px solid var(--line);
+    padding:7px 12px;font-size:12.5px;color:var(--sub)}
+  .win .in{padding:16px 14px;font-size:14px}
+  .win .h{font-weight:700;font-size:15px;margin-bottom:5px}
+  .win .btns{display:flex;gap:7px;justify-content:flex-end;margin-top:14px}
+  .win .b{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:2px}
+  .win .b.on{border-color:var(--sprout);color:var(--sprout-tx);font-weight:700}
+  .stepbox{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+  .stepbox:first-of-type{border-top:0;padding-top:0}
+  .stepbox h3{font-size:18px}
+  .stepbox p{font-size:15px;color:var(--sub);margin-top:7px}
+
+  /* 모바일 화면 조정 */
+  @media(max-width:639px){
+    .wrap { padding:0 16px; }
+    .hero { padding:32px 0 8px; }
+    .hero h1 { font-size:32px; }
+    .pghead { padding:32px 0 0; }
+    .pghead h1 { font-size:26px; }
+    .news, .guide, .creed, .getbig { padding:18px 16px; }
+    .pillar { padding:20px 18px 18px; }
+  }
+</style>
+
+<div class="demo-note">이 화면은 <b>시안</b>입니다 · 화면 이동은 됩니다 · 내려받기·요청서·화면 사진은 아직 자리만 잡아 두었습니다</div>
+
+<header class="top"><div class="wrap topin">
+  <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
+    <rect width="100" height="100" fill="#F1F3F3"/>
+    <path d="M0 74 Q30 62 50 70 Q70 78 100 66 L100 100 L0 100 Z" fill="#4A3E33"/>
+    <path d="M50 70 L50 34" stroke="#6E9A4F" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M50 44 Q34 40 32 24 Q48 24 50 42 Z" fill="#6E9A4F"/>
+    <path d="M50 40 Q66 36 68 20 Q52 20 50 38 Z" fill="#6E9A4F"/>
+  </svg>
+  <span class="brandname">낮은자리</span>
+  <nav>
+    <button data-go="home" aria-current="page">처음</button>
+    <button data-go="apps">도구</button>
+    <button data-go="lec">강의</button>
+  </nav>
+</div></header>
+
+<!-- ─────────── 메인 ─────────── -->
+<section class="pg on" id="home"><div class="wrap">
+  <div class="hero">
+    <p class="motto">세상엔 강하게, 하나님 앞엔 아이처럼</p>
+    <h1>목회 현장에서<br>필요해서 만든 것들을<br>나눕니다.</h1>
+    <p class="say">
+      교회에서 쓰는 작은 도구들과, AI를 목회에 바르게 쓰는 법.
+      대단한 것은 아닙니다. 다만 쓰는 사람이 목회자라는 것을 알고 만들었습니다.
+    </p>
+  </div>
+
+  <div class="pillars">
+    <button class="pillar g" data-go="apps">
+      <span class="tag">도구</span>
+      <h2>교회에서 쓰는<br>작은 앱들</h2>
+      <p>성경 노트, 교회 재정, 찬양 콘티, 함께 노는 게임까지. 대부분 그냥 쓰시면 됩니다.</p>
+      <p class="go">앱 보러 가기 →</p>
+    </button>
+    <button class="pillar s" data-go="lec">
+      <span class="tag">강의</span>
+      <h2>AI,<br>목회에 쓰기</h2>
+      <p>맹신하지도 두려워하지도 않으려 합니다. 신학의 기준을 먼저 세우고 시작합니다.</p>
+      <p class="go">강의 보러 가기 →</p>
+    </button>
+  </div>
+
+  <div class="bridge">
+    <p>“강의에서 가르치는 그 방법으로,<br>여기 있는 도구들을 실제로 만들었습니다.”</p>
+    <small>배운 것이 쓸모가 되는지, 만들어 본 것으로 보여 드립니다.</small>
+  </div>
+
+  <div class="news">
+    <h3>새로 나오면 알려 드릴까요</h3>
+    <p>새 도구가 나오거나 강의가 열릴 때만 보내 드립니다. 그 외에는 조용합니다.</p>
+    <div class="row">
+      <input class="inp" placeholder="이름" aria-label="이름">
+      <input class="inp" placeholder="이메일" aria-label="이메일">
+      <button class="btn main">받아 볼게요</button>
+    </div>
+  </div>
+</div></section>
+
+<!-- ─────────── 앱 목록 ─────────── -->
+<section class="pg" id="apps"><div class="wrap">
+  <div class="pghead">
+    <h1>교회에서 쓰는 작은 앱들</h1>
+    <p>필요해서 만들었고, 쓰시라고 내어 둡니다. 설치가 필요 없는 것부터 보여 드립니다.</p>
+  </div>
+
+  <div class="group">
+    <div class="grouphead">
+      <h2>바로 써 보기</h2><span>설치하지 않습니다. 누르면 열립니다</span>
+    </div>
+    <div class="apps g">
+      <div class="app">
+        <h3>10초게임</h3>
+        <img class="thumb" src="{{th:10초게임}}" alt="10초게임 화면">
+        <p class="one">폰 하나를 돌려가며 한 사람씩 10초 도전. 게임 17종이 들어 있습니다.</p>
+        <p class="who">수련회·구역모임·중고등부에서</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="10sec">자세히 보기</button>
+          <span class="meta">무료 · 설치 없음</span>
+        </div>
+      </div>
+      <div class="app">
+        <h3>낮은꼬들</h3>
+        <img class="thumb" src="{{th:낮은꼬들}}" alt="낮은꼬들 화면">
+        <p class="one">그 주 설교 단어를 맞히는 한글 낱말 놀이. 하루 한 번, 다 같이.</p>
+        <p class="who">교회학교·청년부에서</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="kkodle">자세히 보기</button>
+          <span class="meta">무료 · 설치 없음</span>
+        </div>
+      </div>
+      <div class="app">
+        <h3>타자 말씀 암송</h3>
+        <p class="one">말씀을 손으로 치며 외웁니다. 하루치가 잔디처럼 쌓입니다.</p>
+        <p class="who">개인 경건 생활에</p>
+        <div class="getbox">
+          <span class="badge wait">준비 중</span>
+          <span class="meta">곧 열립니다</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="grouphead">
+      <h2>내려받아 쓰기</h2><span>윈도우 컴퓨터에 설치합니다</span>
+    </div>
+    <div class="apps s">
+      <div class="app">
+        <h3>성경노트</h3>
+        <img class="thumb" src="{{th:성경노트}}" alt="성경노트 화면">
+        <p class="one">본문을 나란히 펴 놓고 그 옆에 바로 씁니다. 서피스펜의 촉감까지 살렸습니다.</p>
+        <p class="who">설교 준비하는 목회자에게</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="biblenote">자세히 보기</button>
+          <span class="meta">무료 · 19.7MB</span>
+        </div>
+      </div>
+      <div class="app">
+        <h3>사역노트</h3>
+        <img class="thumb" src="{{th:사역노트}}" alt="사역노트 화면">
+        <p class="one">한 해 사역과 절기를 열두 달 판에 펼쳐 놓고 준비합니다. 해마다 물려줄 수 있습니다.</p>
+        <p class="who">연간 계획을 짜는 담임·행정 목회자에게</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="sayeok">자세히 보기</button>
+          <span class="meta">무료</span>
+        </div>
+      </div>
+      <div class="app">
+        <h3>교회재정</h3>
+        <img class="thumb" src="{{th:교회재정}}" alt="교회재정 화면">
+        <p class="one">헌금과 지출을 적고 결산까지 냅니다. 비밀번호로 잠기고, 자료는 그 컴퓨터에만 있습니다.</p>
+        <p class="who">재정 담당자에게</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="finance">자세히 보기</button>
+          <span class="meta">무료 · 12.4MB</span>
+        </div>
+      </div>
+      <div class="app">
+        <h3>설교프레젠터</h3>
+        <img class="thumb" src="{{th:설교프레젠터}}" alt="설교프레젠터 화면">
+        <p class="one">찬송과 성경 본문을 예배 화면에 띄웁니다.</p>
+        <p class="who">예배 영상 담당자에게</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="presenter">자세히 보기</button>
+          <span class="meta">무료 · 2.4MB</span>
+        </div>
+      </div>
+      <div class="app">
+        <h3>찬양콘티</h3>
+        <img class="thumb" src="{{th:찬양콘티}}" alt="찬양콘티 화면">
+        <p class="one">이번 주 찬양 순서를 짜고 정리합니다.</p>
+        <p class="who">찬양 인도자에게</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="conti">자세히 보기</button>
+          <span class="meta">무료 · 1.9MB</span>
+        </div>
+      </div>
+      <div class="app">
+        <h3>말씀뽑기</h3>
+        <img class="thumb" src="{{th:말씀뽑기}}" alt="말씀뽑기 화면">
+        <p class="one">오늘의 말씀을 한 장 뽑습니다. 구역모임이나 심방 자리에서.</p>
+        <p class="who">모임을 여는 자리에</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="draw">자세히 보기</button>
+          <span class="meta">무료 · 1.8MB</span>
+        </div>
+      </div>
+      <div class="app">
+        <h3>PDF변환</h3>
+        <img class="thumb" src="{{th:PDF변환}}" alt="PDF변환 화면">
+        <p class="one">주보·악보 같은 문서를 다루기 쉽게 바꿉니다.</p>
+        <p class="who">사무 일을 맡으신 분께</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="pdf">자세히 보기</button>
+          <span class="meta">무료 · 2.4MB</span>
+        </div>
+      </div>
+      <div class="app">
+        <h3>QR메이커</h3>
+        <img class="thumb" src="{{th:QR메이커}}" alt="QR메이커 화면">
+        <p class="one">주보나 안내지에 붙일 QR을 만듭니다.</p>
+        <p class="who">행사·안내 준비에</p>
+        <div class="getbox">
+          <button class="btn main sm" data-app="qr">자세히 보기</button>
+          <span class="meta">무료 · 가벼움</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide">
+    <h3>내려받을 때 “Windows에서 PC를 보호했습니다”가 뜨면</h3>
+    <p>
+      낯선 프로그램에 윈도우가 붙이는 안내입니다. 잘못된 것이 아니니 놀라지 않으셔도 됩니다.
+      넘어가는 법을 그림으로 정리해 두었습니다.
+    </p>
+    <div class="row"><button class="btn out sm" data-go="install">설치 안내 보기</button></div>
+  </div>
+</div></section>
+
+<!-- ─────────── 강의 ─────────── -->
+<section class="pg" id="lec"><div class="wrap">
+  <div class="pghead">
+    <h1>AI, 목회에 쓰기</h1>
+    <p class="lead2">
+      기술을 맹신하지도, 두려워하지도 않으려 합니다.
+      처음 접하시는 분도 괜찮습니다 — <b>1과정은 한 번도 써 보지 않은 분을 위한 시간</b>입니다.
+    </p>
+  </div>
+
+  <div class="creed">
+    <p>“이걸 써도 되는가”라는 질문에서부터 시작합니다.</p>
+    <small>
+      일반 은총과 문화 명령의 관점에서 기술을 이해합니다. 개혁주의 신학의 기준을 먼저 세우기
+      때문에, 도구를 잘 쓰는 법보다 <b>어디까지 쓰고 어디서 멈출 것인가</b>를 함께 정합니다.
+    </small>
+  </div>
+
+  <div class="group">
+    <div class="grouphead"><h2>다루는 것</h2><span>여섯 시간, 여섯 가지</span></div>
+    <div class="units">
+      <div class="unit"><span class="no">하나</span>
+        <h3>AI와 목회의 만남</h3>
+        <p>AI가 어디서 왔고 지금 어디까지 왔는지, 목회자가 이것을 어떤 눈으로 보아야 하는지.
+           제미나이를 열어 직접 써 보는 시간까지 함께합니다.</p>
+        <p class="time">120분 · 이론 90 + 실습 30 · 처음 시작하는 분께</p></div>
+      <div class="unit"><span class="no">둘</span>
+        <h3>나의 목소리를 지키는 법 — 맞춤형 비서 ‘젬’ 만들기</h3>
+        <p>AI가 목회자의 고유한 목소리를 훼손하지 않게 하는 것이 가장 중요합니다.
+           자신의 설교 스타일을 객관적으로 진단하고, 반복 업무를 대신할 나만의 비서를 만듭니다.</p>
+        <p class="time">100분 · 시연 50 + 실습 50</p></div>
+      <div class="unit"><span class="no">셋</span>
+        <h3>내 자료로 조사하기 — 노트북</h3>
+        <p>내가 가진 자료만 읽고 답하게 합니다. 지어내지 않도록 울타리를 치는 방법입니다.</p>
+        <p class="time">자료를 다루는 시간</p></div>
+      <div class="unit"><span class="no">넷</span>
+        <h3>함께 결과물을 만드는 작업 공간 — 캔버스</h3>
+        <p>일반 대화가 답을 받는 곳이라면, 이곳은 문서를 함께 고쳐 나가는 작업대입니다.</p>
+        <p class="time">자료를 다루는 시간</p></div>
+      <div class="unit"><span class="no">다섯</span>
+        <h3>보이게 하는 사역 — 이미지 생성</h3>
+        <p>성막의 양식과 성전의 장식이 그러했듯, 시각적 아름다움도 진리를 전하는 방편입니다.
+           오용을 경계하면서 오늘의 성도에게 가 닿는 시각 언어를 다룹니다.</p>
+        <p class="time">100분 · 이론 60 + 실습 40</p></div>
+      <div class="unit"><span class="no">여섯</span>
+        <h3>대화로 만드는 나만의 목회 앱 — 바이브 코딩</h3>
+        <p>코딩을 배우지 않아도 됩니다. 필요한 것을 말로 설명하면 앱이 만들어집니다.
+           <b>이 홈페이지에 있는 도구들이 실제로 그렇게 만들어졌습니다.</b></p>
+        <p class="time">100분 · 시연 60 + 실습 40</p></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="grouphead"><h2>묶음으로 하실 때</h2><span>한 강씩도, 묶어서도 하실 수 있습니다</span></div>
+    <div class="courses">
+      <div class="course"><span class="step">1과정</span><h3>처음 만나는 AI</h3>
+        <p>AI를 쓰기 시작하는 단계입니다. 무엇인지 알고, 내 목소리를 지키며 씁니다.</p>
+        <p class="mins">하나 + 둘 · 약 220분</p></div>
+      <div class="course"><span class="step">2과정</span><h3>자료를 다루다</h3>
+        <p>가진 자료를 가지고 일합니다. 조사하고, 함께 고쳐 나갑니다.</p>
+        <p class="mins">셋 + 넷</p></div>
+      <div class="course"><span class="step">3과정</span><h3>만들어 내다</h3>
+        <p>없던 것을 만듭니다. 3과정까지 오시면 자기 앱을 갖고 돌아가십니다.</p>
+        <p class="mins">다섯 + 여섯 · 약 200분</p></div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="grouphead"><h2>예정된 강의</h2></div>
+    <div class="units"><div class="unit">
+      <span class="no">2026년 11월</span>
+      <h3>한남노회 AI 특별세미나</h3>
+      <p>여섯 강으로 구성된 특별세미나입니다.</p>
+    </div></div>
+  </div>
+
+  <div class="group">
+    <div class="grouphead"><h2>어떻게 진행되나요</h2></div>
+    <div class="plan">
+      <div><b>형식</b><span>오프라인이 기준입니다. 온라인은 문의해 주시면 상의드립니다.</span></div>
+      <div><b>단위</b><span>한 강씩도, 위 묶음(과정)으로도 하실 수 있습니다.</span></div>
+      <div><b>대상</b><span>목회자. AI를 한 번도 써 보지 않으셨어도 괜찮습니다.</span></div>
+      <div><b>준비물</b><span>참석하시는 분의 노트북이나 태블릿. 실습이 있습니다.</span></div>
+    </div>
+  </div>
+
+  <div class="news" style="background:var(--card-s);border-color:var(--line-s)">
+    <h3>강의를 요청하시려면</h3>
+    <p>교회·노회·기관 어디든 좋습니다. 날짜와 대상, 원하시는 과정을 알려 주시면 상의드리겠습니다.</p>
+    <div class="row">
+      <button class="btn sub">요청서 쓰기</button>
+      <a class="btn out" href="mailto:문의@lowspot.kr">문의@lowspot.kr</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- ─────────── 앱 상세 (틀 하나 · 내용은 아래 스크립트의 APPS) ─────────── -->
+<section class="pg" id="detail"><div class="wrap">
+  <button class="back" data-go="apps">← 도구 목록으로</button>
+  <div class="pghead" style="padding-top:18px">
+    <h1 id="d-name"></h1>
+    <p class="lead2" id="d-lead"></p>
+  </div>
+  <div class="shots" id="d-shots"></div>
+  <div class="group">
+    <div class="grouphead"><h2 id="d-whoTitle">이런 분께</h2></div>
+    <ul class="steps" id="d-who"></ul>
+  </div>
+  <div class="group">
+    <div class="grouphead"><h2>쓰는 법</h2></div>
+    <ul class="steps" id="d-how"></ul>
+  </div>
+  <div class="facts" id="d-facts"></div>
+  <!-- ★이 덩어리가 나중에 '구매하기'로 바뀐다 -->
+  <div class="getbig">
+    <h3>받는 곳</h3>
+    <p class="price" id="d-price">무료</p>
+    <p>지금은 그냥 쓰시면 됩니다. 값을 받게 되면 이 자리에 안내드리겠습니다.</p>
+    <div class="row" id="d-get"></div>
+  </div>
+</div></section>
+
+<!-- ─────────── 설치 안내 ─────────── -->
+<section class="pg" id="install"><div class="wrap">
+  <button class="back" data-go="apps">← 도구 목록으로</button>
+  <div class="pghead" style="padding-top:18px">
+    <h1>“Windows에서 PC를 보호했습니다”가 뜨면</h1>
+    <p class="lead2">
+      놀라지 않으셔도 됩니다. <b>바이러스라는 뜻이 아닙니다.</b>
+      아직 많이 알려지지 않은 프로그램에 윈도우가 붙이는 안내입니다.
+      세 번만 누르시면 됩니다.
+    </p>
+  </div>
+
+  <div class="stepbox">
+    <h3>1. 이런 화면이 뜹니다</h3>
+    <p>파란 창에 “Windows에서 PC를 보호했습니다”라고 적혀 있습니다.</p>
+    <div class="win">
+      <div class="bar">Windows 보안</div>
+      <div class="in">
+        <div class="h">Windows에서 PC를 보호했습니다</div>
+        <div style="color:var(--sub);font-size:13px">
+          Microsoft Defender SmartScreen에서 인식할 수 없는 앱의 시작을 차단했습니다.
+        </div>
+        <div class="btns"><span class="b">실행 안 함</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepbox">
+    <h3>2. <b style="color:var(--sprout-tx)">추가 정보</b>를 누릅니다</h3>
+    <p>글자가 작아 잘 안 보입니다. “실행 안 함” 단추 <b>왼쪽 위</b>에 있습니다.</p>
+    <div class="win">
+      <div class="bar">Windows 보안</div>
+      <div class="in">
+        <div class="h">Windows에서 PC를 보호했습니다</div>
+        <div style="color:var(--sprout-tx);font-size:13px;font-weight:700;margin-top:6px">추가 정보</div>
+        <div class="btns"><span class="b">실행 안 함</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stepbox">
+    <h3>3. <b style="color:var(--sprout-tx)">실행</b>을 누릅니다</h3>
+    <p>누르고 나면 다음부터는 이 창이 뜨지 않습니다.</p>
+    <div class="win">
+      <div class="bar">Windows 보안</div>
+      <div class="in">
+        <div class="h">Windows에서 PC를 보호했습니다</div>
+        <div style="color:var(--sub);font-size:13px">앱 : 성경노트 &nbsp;·&nbsp; 게시자 : 알 수 없음</div>
+        <div class="btns"><span class="b on">실행</span><span class="b">실행 안 함</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide" style="margin-top:34px">
+    <h3>왜 이런 안내가 뜨나요</h3>
+    <p>
+      윈도우는 많은 사람이 내려받은 프로그램을 “아는 것”으로 봅니다. 아직 그만큼 알려지지 않은
+      프로그램에는 이 안내가 붙습니다. <b>프로그램에 문제가 있어서가 아닙니다.</b>
+      이 안내를 없애려면 해마다 비용이 드는 증명서를 사야 하는데, 지금은 그 값을 앱을 만드는 데
+      쓰는 편이 낫다고 판단했습니다. 정직하게 말씀드립니다.
+    </p>
+  </div>
+</div></section>
+
+<footer><div class="wrap f">
+  <span>만든 곳 : 낮은자리</span><span>·</span><span>© 2026 민경우</span>
+  <a href="mailto:문의@lowspot.kr" style="margin-left:auto">문의@lowspot.kr</a>
+</div></footer>
+
+<script>
+
+  // ── 앱 상세 내용 (여기만 고치면 상세 페이지가 바뀐다) ─────────────────
+  // ★확인필요:true 는 제가 화면만 보고 쓴 것이라 목사님 확인이 필요한 항목입니다.
+  const APPS = {
+   '10sec':{이름:'10초게임', 웹:true, 확인필요:false,
+    소개:'폰 하나를 옆으로 돌려가며 한 사람씩 10초씩 도전합니다. 준비물은 폰 한 대뿐이고, 열일곱 가지 놀이가 들어 있습니다.',
+    사진:['{{shot:10초게임_2_종목고르기}}|열일곱 종목 중에서 고릅니다',
+          '{{shot:10초게임_3_다른색찾기}}|색이 다른 칸 하나를 찾는 놀이',
+          '{{shot:10초게임_1_사람등록}}|이름은 비워 두셔도 됩니다'],
+    누구:['수련회·야유회에서 순서가 비었을 때','구역모임·소그룹에서 어색함을 풀 때','중고등부·교회학교 레크리에이션'],
+    방법:['참가하시는 분들의 이름을 적습니다. 비워 두시면 1번·2번으로 붙습니다.',
+          '종목을 고릅니다. 고르는 시간이 아까우면 뽑기로 그 자리에서 정할 수 있습니다.',
+          '폰을 한 사람씩 넘겨 가며 10초씩 합니다. 끝나면 순위가 나옵니다.'],
+    표:[['필요한 것','폰 한 대. 여럿이 돌려 씁니다'],['설치','필요 없습니다. 주소를 열면 바로 시작합니다'],
+        ['인터넷','한 번 연 뒤에는 없어도 됩니다'],['기록','그 자리에서만 남고 저장하지 않습니다'],
+        ['주의','흔들기·소리 지르기 종목이 있습니다. 손목 끈을 걸고 앉아서 해 주세요']],
+    링크:'https://lowspot-10games.mightykid.workers.dev'},
+
+   'kkodle':{이름:'낮은꼬들', 웹:true, 확인필요:true,
+    소개:'그 주 설교에 나온 단어를 맞히는 한글 낱말 놀이입니다. 자모 여섯 칸을 여섯 번 안에 맞히시면 됩니다.',
+    사진:['{{th:낮은꼬들}}|여섯 칸을 여섯 번 안에'],
+    누구:['교회학교·청년부에서 한 주를 여는 놀이로','설교를 다시 떠올리게 하고 싶으실 때','매일 하나씩, 가볍게'],
+    방법:['그 주 설교 단어가 정답으로 올라옵니다.','자모를 여섯 칸에 채워 넣습니다.',
+          '맞은 자리와 있지만 다른 자리를 색으로 알려 드립니다.'],
+    표:[['필요한 것','폰이나 컴퓨터'],['설치','필요 없습니다'],
+        ['색 구분','적록색약을 배려해 초록·파랑으로 구분합니다'],['기록','그 자리에서만 남습니다']]},
+
+   'biblenote':{이름:'성경노트', 웹:false, 확인필요:false, 크기:'19.7MB',
+    소개:'본문과 주석을 나란히 펴 놓고, 그 옆에 펜으로 바로 씁니다. 종이 성경 여백에 적던 습관을 그대로 옮겨 왔습니다.',
+    사진:['{{th:성경노트}}|본문·주석·필기가 한 화면에'],
+    누구:['본문에 직접 표시하며 설교를 준비하시는 목회자','펜이 되는 화면을 쓰시는 분','종이 성경의 여백에 적던 습관을 옮기고 싶으신 분'],
+    방법:['읽으실 본문을 펴면 개역개정과 주석이 나란히 뜹니다.',
+          '오른쪽 노트 칸에 펜으로 바로 씁니다. 형광펜과 지우개도 있습니다.',
+          '적은 것은 저장해 두었다가 다시 불러올 수 있습니다.'],
+    표:[['필요한 것','윈도우 컴퓨터. 펜이 되는 화면이면 더 좋습니다'],
+        ['펜 촉감','서피스펜 촉감(햅틱)을 지원합니다'],
+        ['자료는 어디에','그 컴퓨터에만 있습니다. 어디로도 보내지 않습니다'],
+        ['인터넷','없어도 됩니다']]},
+
+   'sayeok':{이름:'사역노트', 웹:false, 확인필요:true,
+    소개:'한 해 사역과 절기를 열두 달 판에 펼쳐 놓고 준비합니다. 준비물과 유의할 점을 함께 적어 두면 이듬해에 그대로 물려받을 수 있습니다.',
+    사진:['{{th:사역노트}}|열두 달을 한 판에'],
+    누구:['연간 사역 계획을 짜시는 담임·행정 목회자','해마다 같은 절기를 준비하는 부서 담당자','전임자가 남긴 것을 이어받아야 하는 분'],
+    방법:['사역과 행사를 달마다 올려 놓습니다. 기간·담당 부서·담당자를 함께 적습니다.',
+          '준비하며 알게 된 점을 팁으로 남기고, 할 일은 체크리스트로 둡니다.',
+          '연도를 바꿔 복제하면 지난해 것이 그대로 넘어옵니다. 엑셀로 내려받거나 보고용으로 인쇄할 수 있습니다.'],
+    표:[['필요한 것','윈도우 컴퓨터'],['보기 방식','열두 달 타임라인 · 월간 달력 · 체크리스트 모아보기'],
+        ['해마다','연도별 복제·상속으로 지난해 것을 이어받습니다'],
+        ['내보내기','엑셀 내려받기 · 보고용 인쇄']]},
+
+   'finance':{이름:'교회재정', 웹:false, 확인필요:true, 크기:'12.4MB',
+    소개:'헌금과 지출을 적고 결산까지 냅니다. 비밀번호로 잠기고, 자료는 그 컴퓨터 밖으로 나가지 않습니다.',
+    사진:['{{th:교회재정}}|헌금 관리 화면'],
+    누구:['교회 재정을 맡으신 분','결산을 내야 하는 회계 담당자','자료가 밖으로 나가는 것이 걱정되시는 분'],
+    방법:['비밀번호를 정해 잠급니다. 열 때마다 비밀번호를 넣습니다.',
+          '헌금과 지출을 그때그때 적습니다.','기간을 정해 결산을 냅니다.'],
+    표:[['필요한 것','윈도우 컴퓨터'],['잠금','비밀번호로 잠깁니다'],
+        ['자료는 어디에','그 컴퓨터에만 있습니다'],['인터넷','없어도 됩니다']]},
+
+   'presenter':{이름:'설교프레젠터', 웹:false, 확인필요:true, 크기:'2.4MB',
+    소개:'찬송과 성경 본문을 예배 화면에 띄웁니다.',
+    사진:['{{th:설교프레젠터}}|예배 화면에 띄우는 모습'],
+    누구:['예배 영상을 맡으신 분','찬송과 본문을 화면에 띄워야 하는 자리'],
+    방법:['띄울 찬송이나 본문을 고릅니다.','예배 화면으로 내보냅니다.'],
+    표:[['필요한 것','윈도우 컴퓨터. 화면이 두 개면 더 좋습니다'],['인터넷','없어도 됩니다']]},
+
+   'conti':{이름:'찬양콘티', 웹:false, 확인필요:true, 크기:'1.9MB',
+    소개:'이번 주 찬양 순서를 짜고 정리합니다.',
+    사진:['{{th:찬양콘티}}|이번 주 찬양 네 곡'],
+    누구:['찬양을 인도하시는 분','주보에 찬양 순서를 실어야 하는 분'],
+    방법:['부를 곡을 골라 순서를 잡습니다.','정리한 콘티를 팀과 나눕니다.'],
+    표:[['필요한 것','윈도우 컴퓨터'],['인터넷','없어도 됩니다']]},
+
+   'draw':{이름:'말씀뽑기', 웹:false, 확인필요:true, 크기:'1.8MB',
+    소개:'오늘의 말씀을 한 장 뽑습니다. 구역모임이나 심방 자리에서 함께 여는 데 씁니다.',
+    사진:['{{th:말씀뽑기}}|오늘의 말씀 한 장'],
+    누구:['구역모임·소그룹을 여실 때','심방 자리에서 말씀 한 절을 나누실 때'],
+    방법:['뽑기를 누르면 구절이 한 장 나옵니다.','설정에서 뽑을 범위를 정할 수 있습니다.'],
+    표:[['필요한 것','윈도우 컴퓨터'],['성경','개역개정'],['인터넷','없어도 됩니다']]},
+
+   'pdf':{이름:'PDF변환', 웹:false, 확인필요:true, 크기:'2.4MB',
+    소개:'주보·악보 같은 문서를 다루기 쉽게 바꿉니다.',
+    사진:['{{th:PDF변환}}|문서를 다루기 쉽게'],
+    누구:['주보·안내지를 만드시는 분','악보를 정리해 두시는 분'],
+    방법:['바꿀 문서를 불러옵니다.','원하시는 형태로 바꿔 저장합니다.'],
+    표:[['필요한 것','윈도우 컴퓨터'],['인터넷','없어도 됩니다']]},
+
+   'qr':{이름:'QR메이커', 웹:false, 확인필요:false,
+    소개:'주보나 안내지에 붙일 QR을 만듭니다. 주소뿐 아니라 와이파이·명함·이메일·전화도 담을 수 있습니다.',
+    사진:['{{th:QR메이커}}|주소를 넣으면 바로 QR로'],
+    누구:['주보에 QR을 넣으시는 분','행사 안내지를 만드시는 분','교회 와이파이를 손님께 알려 주실 때'],
+    방법:['무엇을 담을지 고릅니다 — 주소·글·와이파이·명함·이메일·전화.',
+          '내용을 넣으면 오른쪽에 QR이 바로 그려집니다. 색을 바꾸거나 가운데 로고를 넣을 수 있습니다.',
+          'PNG(고해상도)나 SVG(벡터)로 저장합니다. 인쇄물에는 SVG가 좋습니다.'],
+    표:[['필요한 것','윈도우 컴퓨터'],['담을 수 있는 것','주소 · 자유 글 · 와이파이 · 명함(vCard) · 이메일 · 전화'],
+        ['저장','PNG 고해상도 · SVG 벡터'],['인터넷','없어도 됩니다']]}
+  };
+
+  function openDetail(k){
+    const a = APPS[k]; if(!a) return;
+    document.getElementById('d-name').textContent = a.이름;
+    document.getElementById('d-lead').textContent = a.소개;
+    document.getElementById('d-shots').innerHTML = a.사진.map(x => {
+      const i = x.indexOf('|'), src = x.slice(0,i), cap = x.slice(i+1);
+      return '<figure class="shot ph"><img src="' + src + '" alt="' + a.이름 + ' 화면"><figcaption>' + cap + '</figcaption></figure>';
+    }).join('');
+    document.getElementById('d-who').innerHTML = a.누구.map(t => '<li><b>·</b><span>' + t + '</span></li>').join('');
+    document.getElementById('d-how').innerHTML = a.방법.map((t,i) => '<li><b>' + (i+1) + '</b><span>' + t + '</span></li>').join('');
+    let facts = a.표.map(r => '<div><b>' + r[0] + '</b><span>' + r[1] + '</span></div>').join('');
+    if (a.확인필요) facts += '<div><b style="color:#A8602F">시안 메모</b><span style="color:#A8602F">이 앱의 소개는 화면만 보고 쓴 것입니다 — 목사님 확인이 필요합니다.</span></div>';
+    document.getElementById('d-facts').innerHTML = facts;
+    document.getElementById('d-get').innerHTML = a.웹
+      ? '<a class="btn main" href="' + (a.링크 || '#') + '" target="_blank" rel="noopener">바로 쓰기</a>'
+      : '<button class="btn main">내려받기' + (a.크기 ? ' · ' + a.크기 : '') + '</button>';
+    go('detail');
+  }
+
+  // 하위 페이지에서도 위 메뉴가 제 자리를 가리키게 한다
+  const parent = { 'detail':'apps', 'install':'apps' };
+  const go = id => {
+    document.querySelectorAll('section.pg').forEach(s => s.classList.toggle('on', s.id === id));
+    const cur = parent[id] || id;
+    document.querySelectorAll('nav button').forEach(b =>
+      b.getAttribute('data-go') === cur
+        ? b.setAttribute('aria-current','page') : b.removeAttribute('aria-current'));
+    window.scrollTo({top:0, behavior:'instant'});
+  };
+  document.addEventListener('click', e => {
+    const d = e.target.closest('[data-app]');
+    if (d) { e.preventDefault(); openDetail(d.getAttribute('data-app')); return; }
+    const t = e.target.closest('[data-go]');
+    if (t) { e.preventDefault(); go(t.getAttribute('data-go')); }
+  });
+</script>

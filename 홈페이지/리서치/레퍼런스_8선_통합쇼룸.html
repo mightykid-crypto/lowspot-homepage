@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>낮은자리 — 8대 최우수 디자인 레퍼런스 통합 쇼룸</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #FEFDFC;
+      --card: #F3EFE4;
+      --line: #E6E1D5;
+      --ink: #332F2A;
+      --sub: #6B5C4D;
+      --sprout: #6E9A4F;
+      --sprout-tx: #52733B;
+      --sky: #4E7C99;
+      --sky-tx: #3F6B87;
+      --radius: 16px;
+      --serif: 'Gowun Batang', serif;
+      --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans);
+      font-size: 16px; line-height: 1.7; word-break: keep-all; padding: 50px 20px 100px;
+    }
+    .wrap { max-width: 1140px; margin: 0 auto; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; }
+
+    .header { text-align: center; margin-bottom: 60px; }
+    .badge {
+      display: inline-block; background: var(--card); border: 1px solid var(--line);
+      color: var(--sprout-tx); font-size: 14px; font-weight: 700; padding: 6px 18px;
+      border-radius: 99px; margin-bottom: 20px;
+    }
+    .header h1 { font-size: 42px; margin-bottom: 16px; }
+    .header p { color: var(--sub); font-size: 18px; max-width: 720px; margin: 0 auto; }
+
+    .group-title {
+      font-size: 24px; margin: 50px 0 24px; padding-bottom: 12px; border-bottom: 2px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .group-badge {
+      font-size: 13px; font-family: var(--sans); font-weight: 700; padding: 4px 12px; border-radius: 6px;
+    }
+    .gb-bold { background: #1D1A18; color: #8CC464; }
+    .gb-calm { background: var(--card); color: var(--sub); }
+
+    .grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    }
+    @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 34px 30px; display: flex; flex-direction: column; justify-content: space-between;
+      transition: all 0.25s; text-decoration: none; color: inherit; position: relative;
+    }
+    .card:hover {
+      transform: translateY(-6px); box-shadow: 0 20px 45px rgba(51, 47, 42, 0.1);
+      border-color: var(--sprout);
+    }
+    .card.bold-card {
+      background: #191715; color: #ffffff; border-color: #332F2A;
+    }
+    .card.bold-card:hover {
+      border-color: #8CC464; box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+    }
+    .card-num {
+      width: 36px; height: 36px; background: var(--card); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-weight: 700;
+      color: var(--ink); margin-bottom: 20px; font-size: 16px;
+    }
+    .card.bold-card .card-num { background: #2A2622; color: #8CC464; }
+
+    .tag { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 8px; display: block; }
+    .tag.g { color: var(--sprout-tx); }
+    .tag.s { color: var(--sky-tx); }
+    .tag.b { color: #8CC464; }
+    .tag.bs { color: #6DB3E2; }
+
+    .card h3 { font-size: 26px; margin-bottom: 12px; }
+    .card p { color: var(--sub); font-size: 15.5px; line-height: 1.7; margin: 0 0 28px; }
+    .card.bold-card p { color: #A89E94; }
+
+    .card-btn {
+      display: inline-flex; align-items: center; justify-content: space-between;
+      background: var(--card); border: 1px solid var(--line); padding: 13px 20px;
+      border-radius: 10px; font-weight: 700; font-size: 15px; transition: all 0.2s;
+      color: var(--ink);
+    }
+    .card.bold-card .card-btn {
+      background: #282420; border-color: #3E3832; color: #ffffff;
+    }
+    .card:hover .card-btn {
+      background: #52733B; color: #ffffff; border-color: #52733B;
+    }
+    .card.bold-card:hover .card-btn {
+      background: #8CC464; color: #11100F; border-color: #8CC464;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="badge">🌿 lowspot.kr — 리서치 및 시안 아카이브 폴더</div>
+      <h1>낮은자리 8대 최우수 디자인 레퍼런스 쇼룸</h1>
+      <p>
+        차분하고 경건한 프리미엄 시안 4가지(A그룹)와, 눈에 확 띄고 시선을 사로잡는 
+        다이나믹·입체 시안 4가지(B그룹)를 비교해 보실 수 있습니다.
+      </p>
+    </div>
+
+    <!-- B그룹: 눈에 확 띄는 다이나믹 시안 (추천) -->
+    <div class="group-title">
+      <span>🔥 B그룹: 눈에 확 띄는 과감하고 매력적인 시안 (신규 4선)</span>
+      <span class="group-badge gb-bold">다크 · 3D 입체 · 실시간 모핑</span>
+    </div>
+    <div class="grid">
+      <!-- 5번 -->
+      <a href="시안_레퍼런스5_Cursor_Morphing.html" class="card bold-card">
+        <div>
+          <div class="card-num">5</div>
+          <span class="tag b">CURSOR & VERCEL SPOTLIGHT</span>
+          <h3>딥 스포트라이트 & 실시간 모핑</h3>
+          <p>
+            다크 테마 배경에 강력한 새싹·하늘 네온 빛이 떨어지며, 한글 프롬프트를 입력하면 
+            실시간 코드로 변형되며 사역 앱이 생성되는 대화형 스튜디오입니다.
+          </p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 5 (스포트라이트 모핑) 실행</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- 6번 -->
+      <a href="시안_레퍼런스6_ShiftNudge_Masterclass.html" class="card bold-card">
+        <div>
+          <div class="card-num">6</div>
+          <span class="tag bs">SHIFT NUDGE & MAVEN</span>
+          <h3>시네마틱 마스터클래스</h3>
+          <p>
+            온라인 최고급 마스터클래스처럼 웅장한 타이포그래피와 과감한 네온 악센트. 
+            과정을 클릭하면 우측 캔버스가 영화 스틸컷처럼 드라마틱하게 전환됩니다.
+          </p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 6 (시네마틱 클래스) 실행</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- 7번 -->
+      <a href="시안_레퍼런스7_Craft_3DLayered.html" class="card">
+        <div>
+          <div class="card-num">7</div>
+          <span class="tag g">CRAFT.DO & BENTO 3D</span>
+          <h3>3D 입체 틸트 캔버스</h3>
+          <p>
+            카드 위에 마우스를 움직이면 공간 속에 떠 있는 종이와 유리판이 
+            3차원으로 반응하며 회전하는 압도적인 3D 레이어드 인터랙션입니다.
+          </p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 7 (3D 입체 틸트) 실행</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- 8번 -->
+      <a href="시안_레퍼런스8_Supabase_DualGlow.html" class="card bold-card">
+        <div>
+          <div class="card-num">8</div>
+          <span class="tag b">SUPABASE DUAL THEME</span>
+          <h3>듀얼 모드 & 펄스 글로우</h3>
+          <p>
+            클릭 한 번으로 경건한 주간 모드와 화려한 야간 네온 스튜디오 모드를 즉각 오가며, 
+            살아 숨 쉬듯 반짝이는 펄스 글로우(Pulse Glow) 테두리가 특징입니다.
+          </p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 8 (듀얼 테마 & 펄스) 실행</span>
+          <span>→</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- A그룹: 차분한 프리미엄 시안 -->
+    <div class="group-title" style="margin-top:70px;">
+      <span>📖 A그룹: 차분하고 경건한 프리미엄 에디토리얼 시안 (기존 4선)</span>
+      <span class="group-badge gb-calm">종이하양 · 단행본 · 아카이브</span>
+    </div>
+    <div class="grid">
+      <!-- 1번 -->
+      <a href="시안_레퍼런스1_Linear_Raycast.html" class="card">
+        <div>
+          <div class="card-num">1</div>
+          <span class="tag g">LINEAR & RAYCAST</span>
+          <h3>커서 스포트라이트 & 커맨드 바</h3>
+          <p>마우스 움직임을 따라가는 은은한 래디얼 글로우와 Raycast 스타일 사역 검색창</p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 1 시안 실행</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- 2번 -->
+      <a href="시안_레퍼런스2_StripePress.html" class="card">
+        <div>
+          <div class="card-num">2</div>
+          <span class="tag s">STRIPE PRESS & LINEAR METHOD</span>
+          <h3>럭셔리 북 에디토리얼</h3>
+          <p>고운바탕 명조체와 넉넉한 여백이 만드는 최고급 단행본 및 선언문(Manifesto) 스타일</p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 2 시안 실행</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- 3번 -->
+      <a href="시안_레퍼런스3_Lovable_JoyOfReact.html" class="card">
+        <div>
+          <div class="card-num">3</div>
+          <span class="tag g">LOVABLE & JOY OF REACT</span>
+          <h3>웜 앰비언트 & 친숙한 놀이터</h3>
+          <p>파스텔 메쉬 그라데이션 위에 "지금 필요한 사역 도움"을 매칭해주는 대화형 위젯</p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 3 시안 실행</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- 4번 -->
+      <a href="시안_레퍼런스4_Bento_Supabase.html" class="card">
+        <div>
+          <div class="card-num">4</div>
+          <span class="tag s">BENTO & SUPABASE</span>
+          <h3>고밀도 모듈형 벤토 아카이브</h3>
+          <p>2x2, 2x1 규격의 카드들이 맞물리며 카드 안에서 즉석 퀴즈를 푸는 모듈형 구성</p>
+        </div>
+        <div class="card-btn">
+          <span>레퍼런스 4 시안 실행</span>
+          <span>→</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</body>
+</html>

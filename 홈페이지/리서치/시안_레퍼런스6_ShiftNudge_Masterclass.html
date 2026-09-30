@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>낮은자리 — 레퍼런스 6: Shift Nudge 시네마틱 마스터클래스</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #0F0E0D;
+      --card: #1C1A18;
+      --line: #2E2A27;
+      --ink: #FEFDFC;
+      --sub: #9E958C;
+      --sprout: #A9C687;
+      --sprout-pop: #7AC143;
+      --sky: #71B2DF;
+      --serif: 'Gowun Batang', serif;
+      --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans);
+      font-size: 16px; line-height: 1.75; word-break: keep-all;
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 700; margin: 0; color: #ffffff; }
+
+    .style-banner {
+      background: #7AC143; color: #0F0E0D; text-align: center; padding: 10px 16px;
+      font-size: 13.5px; font-weight: 700;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line); position: sticky; top: 0;
+      background: rgba(15,14,13,0.92); backdrop-filter: blur(16px); z-index: 50;
+    }
+    .top-in { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-family: var(--serif); font-size: 23px; font-weight: 700; text-decoration: none; color: inherit; }
+    .logo-box { width: 36px; height: 36px; background: #24211E; border: 1px solid var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+
+    /* 시네마틱 마스터클래스 히어로 (Shift Nudge + Maven 스타일) */
+    .hero {
+      padding: 100px 0 90px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-tag {
+      font-size: 13.5px; font-weight: 700; color: var(--sprout-pop);
+      letter-spacing: 0.15em; margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 58px; line-height: 1.2; margin-bottom: 24px; max-width: 900px;
+    }
+    @media (max-width: 768px) { .hero h1 { font-size: 40px; } }
+    .hero p {
+      font-size: 20px; color: var(--sub); max-width: 740px; margin: 0 0 40px;
+    }
+
+    /* 시네마틱 인터랙티브 쇼케이스 비전 보드 */
+    .mc-showcase {
+      padding: 80px 0;
+    }
+    .mc-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start;
+    }
+    @media (max-width: 900px) { .mc-grid { grid-template-columns: 1fr; } }
+
+    .mc-menu {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .mc-item {
+      background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+      padding: 26px 24px; cursor: pointer; transition: all 0.25s;
+    }
+    .mc-item:hover, .mc-item.active {
+      border-color: var(--sprout-pop); background: #262320;
+      transform: translateX(8px);
+    }
+    .mc-item-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .mc-num { font-size: 12.5px; font-weight: 700; color: var(--sprout-pop); }
+    .mc-item h3 { font-size: 22px; margin-bottom: 6px; }
+    .mc-item p { color: var(--sub); font-size: 15px; margin: 0; }
+
+    .mc-display {
+      background: #191715; border: 2px solid var(--line); border-radius: 20px;
+      padding: 40px; position: sticky; top: 100px; box-shadow: 0 24px 50px rgba(0,0,0,0.5);
+    }
+    .mcd-badge {
+      font-size: 13px; background: rgba(122, 193, 67, 0.2); color: var(--sprout-pop);
+      padding: 4px 12px; border-radius: 99px; font-weight: 700; display: inline-block; margin-bottom: 16px;
+    }
+    .mcd-title { font-size: 32px; margin-bottom: 14px; }
+    .mcd-desc { color: var(--sub); font-size: 17px; line-height: 1.7; margin-bottom: 30px; }
+    .mcd-stats {
+      display: flex; gap: 30px; border-top: 1px solid var(--line); padding-top: 24px; margin-bottom: 30px;
+    }
+    .stat-val { font-size: 24px; font-weight: 700; color: var(--ink); font-family: var(--serif); }
+    .stat-label { font-size: 13px; color: var(--sub); }
+
+    .mcd-btn {
+      display: inline-block; background: var(--sprout-pop); color: #0F0E0D;
+      font-weight: 700; font-size: 16px; padding: 14px 28px; border-radius: 10px;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .mcd-btn:hover { background: #8CD653; transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+
+  <div class="style-banner">
+    🔥 눈에 확 띄는 역대급 시안 6 / Shift Nudge & Maven 시네마틱 마스터클래스 — 수강 욕구를 끓어오르게 하는 과감한 마스터클래스 무드
+  </div>
+
+  <header>
+    <div class="wrap top-in">
+      <a href="#" class="brand">
+        <div class="logo-box">🎬</div>
+        <span>낮은자리 <small style="font-size:12px; color:var(--sub); font-weight:400; margin-left:6px;">lowspot.kr</small></span>
+      </a>
+      <span style="font-size:14px; color:var(--sprout-pop); font-weight:700;">CINEMATIC MASTERCLASS</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-tag">AI MINISTRY & VIBE CODING MASTERCLASS</div>
+      <h1>기술을 종으로, 복음을 주인으로.<br>목회자를 위한 최고급 AI 마스터클래스</h1>
+      <p>
+        지루한 강의 요약문이 아닙니다. 실제 현장에서 쓰이는 도구 실습과 
+        우리 교회 맞춤 앱을 코딩 없이 만드는 압도적인 커리큘럼입니다.
+      </p>
+    </div>
+  </section>
+
+  <section class="mc-showcase">
+    <div class="wrap">
+      <div class="mc-grid">
+        <div class="mc-menu">
+          <div class="mc-item active" onclick="selectCourse(0)">
+            <div class="mc-item-top">
+              <span class="mc-num">COURSE 01</span>
+              <span style="font-size:13px; color:var(--sub);">이론 20% · 실습 80%</span>
+            </div>
+            <h3>처음 만나는 AI : 목회적 이해와 대화</h3>
+            <p>AI의 신학적 이해부터 좋은 프롬프트를 건네는 법까지</p>
+          </div>
+
+          <div class="mc-item" onclick="selectCourse(1)">
+            <div class="mc-item-top">
+              <span class="mc-num">COURSE 02</span>
+              <span style="font-size:13px; color:var(--sub);">행정 · 주해 리서치</span>
+            </div>
+            <h3>자료를 다루다 : 교회 행정 고속 자동화</h3>
+            <p>주보·심방 요약 80% 시간 단축 및 성경 본문 주해 검색</p>
+          </div>
+
+          <div class="mc-item" onclick="selectCourse(2)">
+            <div class="mc-item-top">
+              <span class="mc-num">COURSE 03</span>
+              <span style="font-size:13px; color:var(--sub);">바이브 코딩 실전</span>
+            </div>
+            <h3>만들어 내다 : 사역자 스스로 짓는 앱 코딩</h3>
+            <p>코딩을 몰라도 한글로 우리 교회 전용 앱과 홈피 배포</p>
+          </div>
+        </div>
+
+        <div class="mc-display">
+          <div class="mcd-badge" id="mcdBadge">COURSE 01 · FOUNDATION</div>
+          <h2 class="mcd-title" id="mcdTitle">처음 만나는 AI : 목회적 영성과 정교한 프롬프트</h2>
+          <p class="mcd-desc" id="mcdDesc">
+            AI에 대한 막연한 두려움과 과신을 버리고, 사역을 섬기는 보조자로 삼는 지혜를 나눕니다.
+            매일 새벽 묵상과 소그룹 나눔 질문을 풍성하게 돕는 10가지 실전 대화 템플릿을 실습합니다.
+          </p>
+          <div class="mcd-stats">
+            <div>
+              <div class="stat-val" id="mcdStat1">4주 과정</div>
+              <div class="stat-label">온·오프라인 병행</div>
+            </div>
+            <div>
+              <div class="stat-val" id="mcdStat2">10종 템플릿</div>
+              <div class="stat-label">목회 전용 프롬프트 제공</div>
+            </div>
+            <div>
+              <div class="stat-val" id="mcdStat3">100% 실습</div>
+              <div class="stat-label">현장 적용 보장</div>
+            </div>
+          </div>
+          <a href="#" class="mcd-btn" onclick="alert('마스터클래스 수강 안내로 이동합니다.')" id="mcdBtn">과정 1 상세 커리큘럼 보기 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const mcData = [
+      {
+        badge: 'COURSE 01 · FOUNDATION',
+        title: '처음 만나는 AI : 목회적 영성과 정교한 프롬프트',
+        desc: 'AI에 대한 막연한 두려움과 과신을 버리고, 사역을 섬기는 보조자로 삼는 지혜를 나눕니다. 매일 새벽 묵상과 소그룹 나눔 질문을 풍성하게 돕는 10가지 실전 대화 템플릿을 실습합니다.',
+        s1: '4주 과정', s2: '10종 템플릿', s3: '100% 실습',
+        btnText: '과정 1 상세 커리큘럼 보기 →'
+      },
+      {
+        badge: 'COURSE 02 · ADMINISTRATION & EXEGESIS',
+        title: '자료를 다루다 : 행정 문서와 방대한 성경 주해 검색',
+        desc: '매주 반복되는 주보 소식 요약, 교인 심방 메모 정리, 방대한 신학 도서 본문 검색을 자동화합니다. 행정에 들이는 시간을 절반 이하로 줄여 성도님을 섬기는 기도에 집중합니다.',
+        s1: '행정 80% 단축', s2: '주해 AI 리서치', s3: '차트 시각화',
+        btnText: '과정 2 행정 자동화 실습 보기 →'
+      },
+      {
+        badge: 'COURSE 03 · VIBE CODING MASTER',
+        title: '만들어 내다 : 사역자가 직접 하는 실전 바이브 코딩',
+        desc: '코딩 문법을 단 한 줄도 몰라도 괜찮습니다. AI와 한국어로 대화하며 우리 교회에 꼭 필요한 심방 신청 앱이나 노회 안내 홈페이지를 직접 제작하고 배포하는 마스터 과정입니다.',
+        s1: '맞춤 앱 1개 완성', s2: '웹·exe 배포', s3: '평생 소유',
+        btnText: '과정 3 바이브 코딩 실전 보기 →'
+      }
+    ];
+
+    function selectCourse(idx) {
+      document.querySelectorAll('.mc-item').forEach((b, i) => b.classList.toggle('active', i === idx));
+      document.getElementById('mcdBadge').textContent = mcData[idx].badge;
+      document.getElementById('mcdTitle').textContent = mcData[idx].title;
+      document.getElementById('mcdDesc').textContent = mcData[idx].desc;
+      document.getElementById('mcdStat1').textContent = mcData[idx].s1;
+      document.getElementById('mcdStat2').textContent = mcData[idx].s2;
+      document.getElementById('mcdStat3').textContent = mcData[idx].s3;
+      document.getElementById('mcdBtn').textContent = mcData[idx].btnText;
+    }
+  </script>
+</body>
+</html>

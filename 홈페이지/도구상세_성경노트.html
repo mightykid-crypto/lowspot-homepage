@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>성경노트 — 낮은자리 사역 도구 상세 (v3 Spoke)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #FEFDFC;
+      --card: #F3EFE4;
+      --line: #E6E1D5;
+      --ink: #332F2A;
+      --sub: #6B5C4D;
+      --sprout: #6E9A4F;
+      --sprout-tx: #52733B;
+      --sprout-btn: #52733B;
+      --sprout-btn-tx: #ffffff;
+      --sky: #4E7C99;
+      --sky-tx: #3F6B87;
+      --sky-btn: #3F6B87;
+      --sky-btn-tx: #ffffff;
+      --radius: 8px;
+      --radius-lg: 16px;
+      --card-g: color-mix(in srgb, var(--sprout) 12%, var(--bg));
+      --card-s: color-mix(in srgb, var(--sky) 12%, var(--bg));
+      --serif: 'Gowun Batang', serif;
+      --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans);
+      font-size: 16px; line-height: 1.75; word-break: keep-all; scroll-behavior: smooth;
+    }
+    .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+    h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; margin: 0; }
+
+    /* 헤더 */
+    header {
+      border-bottom: 1px solid var(--line); position: sticky; top: 0;
+      background: rgba(254,253,252,0.92); backdrop-filter: blur(12px); z-index: 50;
+    }
+    .top-in { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600;
+    }
+    .breadcrumb a { color: var(--sub); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--ink); }
+    .breadcrumb span { color: var(--line); }
+
+    /* 도구 타이틀 히어로 */
+    .app-hero {
+      padding: 70px 0 50px; border-bottom: 1px solid var(--line);
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center;
+    }
+    @media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; } }
+    .app-tag {
+      display: inline-block; background: var(--card-s); color: var(--sky-tx);
+      font-size: 13px; font-weight: 700; padding: 4px 12px; border-radius: 99px;
+      margin-bottom: 16px;
+    }
+    .app-hero h1 { font-size: 42px; margin-bottom: 16px; line-height: 1.3; }
+    .app-hero p { color: var(--sub); font-size: 18px; margin: 0 0 30px; line-height: 1.7; }
+    
+    .dl-box {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 28px; text-align: center;
+    }
+    .dl-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--sprout-btn); color: var(--sprout-btn-tx); font-size: 16.5px; font-weight: 700;
+      padding: 14px 28px; border-radius: var(--radius); text-decoration: none; width: 100%;
+      margin-bottom: 12px; transition: all 0.2s;
+    }
+    .dl-btn:hover { background: var(--sprout-tx); transform: translateY(-2px); }
+    .dl-meta { font-size: 13.5px; color: var(--sub); margin: 0; }
+
+    /* 핵심 특징 카드 섹션 */
+    .features-section { padding: 70px 0; }
+    .sec-t { text-align: center; margin-bottom: 44px; }
+    .sec-t h2 { font-size: 32px; margin-bottom: 10px; }
+    .sec-t p { color: var(--sub); font-size: 17px; }
+
+    .feat-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    @media (max-width: 860px) { .feat-grid { grid-template-columns: 1fr; } }
+    .feat-card {
+      background: #ffffff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+      padding: 30px 24px;
+    }
+    .feat-icon {
+      width: 48px; height: 48px; background: var(--card-g); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 24px;
+      margin-bottom: 18px;
+    }
+    .feat-card h3 { font-size: 22px; margin-bottom: 10px; }
+    .feat-card p { color: var(--sub); font-size: 15px; margin: 0; }
+
+    /* SmartScreen 보호 안내 카드 */
+    .guide-section {
+      padding: 50px 0 80px;
+    }
+    .guide-box {
+      background: var(--card-s); border: 1px solid var(--line-s);
+      border-radius: var(--radius-lg); padding: 36px;
+    }
+    .guide-box h3 { font-size: 22px; color: var(--sky-tx); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .guide-box p { color: var(--ink); font-size: 15.5px; margin: 0 0 20px; }
+    .guide-steps {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .step-item {
+      background: #ffffff; border: 1px solid var(--line); border-radius: 10px;
+      padding: 16px; flex: 1; min-width: 200px;
+    }
+    .step-num {
+      font-size: 12px; font-weight: 700; color: var(--sky-tx); margin-bottom: 6px;
+    }
+    .step-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .step-desc { font-size: 13.5px; color: var(--sub); margin: 0; }
+
+    /* 우측 하단 플로팅 캡슐 (하이브리드 Spoke 모드) */
+    .floating-capsule {
+      position: fixed; bottom: 28px; right: 28px; z-index: 1000;
+      background: rgba(254, 253, 252, 0.92); backdrop-filter: blur(16px);
+      border: 1px solid var(--line); border-radius: 99px; padding: 6px 8px;
+      display: flex; align-items: center; gap: 4px;
+      box-shadow: 0 12px 36px rgba(51, 47, 42, 0.16);
+    }
+    .capsule-btn {
+      display: flex; align-items: center; gap: 6px; background: transparent;
+      border: none; color: var(--sub); font-size: 13.5px; font-weight: 600;
+      padding: 8px 14px; border-radius: 99px; text-decoration: none; transition: all 0.2s;
+    }
+    .capsule-btn:hover { background: var(--card-g); color: var(--sprout-tx); }
+    .capsule-div { width: 1px; height: 20px; background: var(--line); margin: 0 4px; }
+    .capsule-top { background: var(--card); color: var(--ink); }
+    .capsule-top:hover { background: var(--sprout-btn); color: #ffffff; }
+
+    footer {
+      border-top: 1px solid var(--line); padding: 36px 0; text-align: center;
+      color: var(--sub); font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap top-in">
+      <div class="breadcrumb">
+        <a href="시안_v3_하이브리드.html">🏠 메인 홈</a>
+        <span>/</span>
+        <a href="시안_v3_하이브리드.html#apps">사역 도구</a>
+        <span>/</span>
+        <strong style="color:var(--ink);">성경노트 (상세 Spoke)</strong>
+      </div>
+      <a href="시안_v3_하이브리드.html" style="font-size:14px; font-weight:700; color:var(--sprout-tx); text-decoration:none;">← 메인 홈으로 돌아가기</a>
+    </div>
+  </header>
+
+  <section class="app-hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="app-tag">WINDOWS DESKTOP APPLICATION</span>
+          <h1>성경노트 : 서피스 펜으로 짓는 성찰과 묵상</h1>
+          <p>
+            종이 위에 만년필로 쓰듯 정결한 디지털 묵상 연구 노트입니다.<br>
+            서피스 펜의 필압과 햅틱 피드백을 지원하며, 복잡한 기능 대신<br>
+            성경 본문 주해와 기도문을 한 장의 한지에 온전히 집중하게 돕습니다.
+          </p>
+          <div style="display:flex; gap:16px; font-size:14.5px; color:var(--sub); font-weight:600;">
+            <span>✓ 서피스 펜 햅틱 지원</span>
+            <span>✓ 오프라인 단독 구동</span>
+            <span>✓ 한지 질감 테마</span>
+          </div>
+        </div>
+
+        <div class="dl-box">
+          <div style="font-size:13.5px; font-weight:700; color:var(--sprout-tx); margin-bottom:12px;">현재 최신 안정 버전</div>
+          <h2 style="font-size:28px; margin-bottom:16px;">v0.2.2 (64-bit)</h2>
+          <a href="#" onclick="alert('성경노트_0.2.2_setup.exe (19.7MB) 다운로드가 시작됩니다.')" class="dl-btn">
+            <span>📥 윈도우 설치파일 다운로드</span>
+          </a>
+          <p class="dl-meta">용량: 19.7 MB · 지원 OS: Windows 10/11 x64</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <div class="wrap">
+      <div class="sec-t">
+        <h2>성경노트가 제공하는 3가지 사역적 유익</h2>
+        <p>기존 메모장이나 태블릿 앱에서 경험하지 못했던 묵상의 깊이를 드립니다.</p>
+      </div>
+
+      <div class="feat-grid">
+        <div class="feat-card">
+          <div class="feat-icon">✍️</div>
+          <h3>서피스 펜 햅틱 반응</h3>
+          <p>화면에 펜이 닿을 때 실제 종이에 필기하는 듯한 미세 진동 피드백(Haptic)을 지원하여 묵상의 감각을 일깨웁니다.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">📖</div>
+          <h3>본문 주해와 기도 분할</h3>
+          <p>좌측에는 성경 본문 구절, 우측에는 나의 묵상과 설교 주해 메모를 동기화하여 한 번에 대조하며 묵상할 수 있습니다.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon">🔒</div>
+          <h3>완전한 오프라인 보안</h3>
+          <p>서버에 개인 기도문이 전송되지 않으며, 사역자의 컴퓨터 내부 저장소에 안전하고 정결하게 영구 보존됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guide-section">
+    <div class="wrap">
+      <div class="guide-box">
+        <h3><span>🛡️</span> 윈도우 SmartScreen 보호 알림 안내</h3>
+        <p>
+          개인 오픈소스 소프트웨어 특성상, 초기 설치 시 윈도우 보호 경고가 표시될 수 있습니다. 
+          안전한 프로그램이므로 아래 2단계로 즉시 정상 설치하실 수 있습니다.
+        </p>
+        <div class="guide-steps">
+          <div class="step-item">
+            <div class="step-num">STEP 01</div>
+            <div class="step-title">파란 팝업창 [추가 정보] 클릭</div>
+            <div class="step-desc">Windows Defender 알림창에서 문장 아래 링크된 '추가 정보' 글자를 클릭합니다.</div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">STEP 02</div>
+            <div class="step-title">[실행] 버튼 누르기</div>
+            <div class="step-desc">우측 하단에 나타나는 '실행' 버튼을 클릭하시면 안전하게 설치가 완료됩니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>© 2026 민경우 · 낮은자리 (lowspot.kr) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
+    </div>
+  </footer>
+
+  <!-- 우측 하단 플로팅 캡슐 (Spoke 전용 바) -->
+  <div class="floating-capsule">
+    <a href="시안_v3_하이브리드.html" class="capsule-btn">🏠 메인 홈으로</a>
+    <a href="시안_v3_하이브리드.html#apps" class="capsule-btn">🛠️ 다른 도구 보기</a>
+    <div class="capsule-div"></div>
+    <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'})" class="capsule-btn capsule-top" style="display:flex;">↑ 맨위로</a>
+  </div>
+</body>
+</html>

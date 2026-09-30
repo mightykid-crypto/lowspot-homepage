@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>낮은자리 — 레퍼런스 2: Stripe Press & Linear Method 스타일</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #FEFDFC;
+      --card: #F3EFE4;
+      --line: #E6E1D5;
+      --ink: #332F2A;
+      --sub: #6B5C4D;
+      --sprout: #6E9A4F;
+      --sprout-tx: #52733B;
+      --sprout-btn: #52733B;
+      --sprout-btn-tx: #ffffff;
+      --sky: #4E7C99;
+      --sky-tx: #3F6B87;
+      --soil: #4A3E33;
+      --radius: 4px;
+      --radius-lg: 8px;
+      --serif: 'Gowun Batang', serif;
+      --sans: 'Pretendard', -apple-system, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 32px; }
+    h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; margin: 0; color: var(--ink); }
+
+    /* 상단 안내 바 */
+    .style-badge-bar {
+      background: #332F2A;
+      color: #FEFDFC;
+      font-size: 13.5px;
+      text-align: center;
+      padding: 10px 16px;
+      font-weight: 600;
+    }
+    .style-badge-bar span { color: #A9C687; }
+
+    /* 헤더 */
+    header {
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0;
+      background: rgba(254,253,252,0.95);
+      z-index: 50;
+    }
+    .top-in { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-family: var(--serif); font-size: 22px; font-weight: 700; text-decoration: none; color: inherit; }
+    .logo-box { width: 32px; height: 32px; background: #F1F3F3; border-radius: 4px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+
+    /* 에디토리얼 선언문 히어로 */
+    .hero {
+      padding: 110px 0 90px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-meta {
+      font-size: 13.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sub);
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+    .hero h1 {
+      font-size: 54px;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 30px;
+      max-width: 860px;
+    }
+    @media (max-width: 768px) { .hero h1 { font-size: 38px; } }
+    .hero p {
+      font-size: 20px;
+      color: var(--sub);
+      line-height: 1.75;
+      max-width: 720px;
+      margin: 0 0 40px;
+    }
+    .hero-quote {
+      border-left: 3px solid var(--sprout);
+      padding-left: 20px;
+      font-family: var(--serif);
+      font-size: 20px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* 단행본 스타일 도서/카드 섹션 (Stripe Press 북 카드 스타일) */
+    .books-section {
+      padding: 90px 0 100px;
+    }
+    .sec-head {
+      margin-bottom: 50px;
+    }
+    .sec-head h2 { font-size: 36px; margin-bottom: 12px; }
+    .sec-head p { font-size: 18px; color: var(--sub); max-width: 600px; }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+    @media (max-width: 768px) { .book-grid { grid-template-columns: 1fr; } }
+
+    .book-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 42px 38px;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02), 0 12px 20px -3px rgba(0,0,0,0.04);
+      text-decoration: none;
+      color: inherit;
+    }
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(51, 47, 42, 0.09);
+      border-color: var(--sprout);
+    }
+    .book-tag {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      color: var(--sky-tx);
+      margin-bottom: 18px;
+      display: block;
+    }
+    .book-card h3 {
+      font-size: 30px;
+      line-height: 1.35;
+      margin-bottom: 16px;
+    }
+    .book-card p {
+      color: var(--sub);
+      font-size: 16.5px;
+      line-height: 1.75;
+      margin: 0 0 32px;
+    }
+    .book-foot {
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 14.5px;
+      font-weight: 600;
+    }
+    .book-foot-left { color: var(--sub); }
+    .book-foot-right { color: var(--sprout-tx); }
+
+    /* 인라인 CTA */
+    .inline-cta {
+      margin-top: 60px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 50px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .cta-text h3 { font-size: 26px; margin-bottom: 8px; }
+    .cta-text p { color: var(--sub); margin: 0; font-size: 16px; }
+    .cta-btn {
+      background: var(--sprout-btn);
+      color: var(--sprout-btn-tx);
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: var(--sprout-tx); }
+  </style>
+</head>
+<body>
+
+  <div class="style-badge-bar">
+    <span>★ 최우수 레퍼런스 2 / Stripe Press & Linear Method 스타일</span> — 명조(고운바탕 Bold)와 넉넉한 여백이 만드는 럭셔리 출판·에디토리얼 무드
+  </div>
+
+  <header>
+    <div class="wrap top-in">
+      <a href="#" class="brand">
+        <div class="logo-box">📖</div>
+        <span>낮은자리</span>
+      </a>
+      <span style="font-size:14.5px; color:var(--sub); font-weight:600;">에디토리얼 · 도서/아카이브 스타일</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-meta">MINISTRY PHILOSOPHY & TOOLS · lowspot.kr</div>
+      <h1>기술의 현란함을 앞세우기보다<br>목회 사역의 본질을 깊이 섬깁니다.</h1>
+      <p>
+        낮은자리는 하나님 앞엔 아이처럼 겸손히 서며, 세상엔 강하게 복음을 섬기려는 목회자들을 위해 
+        정결하고 유용한 사역 도구와 AI 바이브 코딩 지혜를 출판·나눔합니다.
+      </p>
+      <div class="hero-quote">
+        "세상엔 강하게, 하나님 앞엔 아이처럼" — 낮은자리가 지향하는 사역의 마음가짐
+      </div>
+    </div>
+  </section>
+
+  <section class="books-section">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>사역 도구와 강의 아카이브</h2>
+        <p>엄선하여 만들고 검증한 도구들과 3단계 사역자 교육 과정을 한 권의 단행본을 보듯 둘러보세요.</p>
+      </div>
+
+      <div class="book-grid">
+        <!-- 책 1: 성경노트 -->
+        <a href="#" class="book-card" onclick="alert('성경노트(서피스 펜 햅틱 묵상 도구) 페이지로 이동합니다.')">
+          <div>
+            <span class="book-tag">WINDOWS DESKTOP TOOL</span>
+            <h3>성경노트 : 서피스 펜으로 짓는 성찰과 묵상</h3>
+            <p>
+              종이 위에 만년필로 쓰듯 정결한 디지털 묵상 연구 노트입니다. 
+              서피스 펜 햅틱 피드백과 본문 주해 도구를 완벽히 결합했습니다.
+            </p>
+          </div>
+          <div class="book-foot">
+            <span class="book-foot-left">단독 설치 프로그램 · v0.2.2</span>
+            <span class="book-foot-right">사양 및 안내 보기 →</span>
+          </div>
+        </a>
+
+        <!-- 책 2: AI 목회 강좌 -->
+        <a href="#" class="book-card" onclick="alert('AI 목회 활용 및 바이브 코딩 강의 안내 페이지로 이동합니다.')">
+          <div>
+            <span class="book-tag">MINISTRY ACADEMY · 3 COURSES</span>
+            <h3>처음 만나는 AI, 그리고 사역자 바이브 코딩</h3>
+            <p>
+              AI에 대한 두려움을 없애고, 우리 교회에 꼭 맞는 행정 문서 자동화와 
+              사역 앱·웹사이트를 직접 자연어로 프로그래밍하는 3과정 강좌입니다.
+            </p>
+          </div>
+          <div class="book-foot">
+            <span class="book-foot-left">온·오프라인 코호트 커리큘럼</span>
+            <span class="book-foot-right">커리큘럼 살펴보기 →</span>
+          </div>
+        </a>
+
+        <!-- 책 3: 10초게임 & 낮은꼬들 -->
+        <a href="#" class="book-card" onclick="alert('바로 쓰는 사역 웹앱 갤러리로 이동합니다.')">
+          <div>
+            <span class="book-tag">WEB PWA · INSTANT ACCESS</span>
+            <h3>10초게임 & 낮은꼬들 : 공동체를 잇는 나눔 도구</h3>
+            <p>
+              인터넷 설치 없이 스마트폰 브라우저에서 바로 열어, 소그룹 모임과 
+              청소년부 공과 시간의 마음을 여는 17종 묵상 게임 웹앱입니다.
+            </p>
+          </div>
+          <div class="book-foot">
+            <span class="book-foot-left">인터넷 연결 필요 없음</span>
+            <span class="book-foot-right">웹앱 실행하기 →</span>
+          </div>
+        </a>
+
+        <!-- 책 4: 교회재정 & 프레젠터 -->
+        <a href="#" class="book-card" onclick="alert('교회 행정 및 프레젠테이션 도구 안내로 이동합니다.')">
+          <div>
+            <span class="book-tag">ADMIN & MEDIA TOOLS</span>
+            <h3>교회재정 & 설교프레젠터 : 정갈한 행정의 기준</h3>
+            <p>
+              어려운 상업 회계 프로그램 대신 교회에 맞춘 수입·지출 관리 도구와, 
+              방송 스크린에 찬양·설교 본문을 송출하는 프레젠터 프로그램입니다.
+            </p>
+          </div>
+          <div class="book-foot">
+            <span class="book-foot-left">윈도우 단독 프로그램</span>
+            <span class="book-foot-right">안내 및 받기 →</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="inline-cta">
+        <div class="cta-text">
+          <h3>사역 세미나 및 강의를 요청하시고 싶으신가요?</h3>
+          <p>노회 세미나, 사역자 모임, 교회 도구 제작 문의를 정직하게 안내해 드립니다.</p>
+        </div>
+        <button class="cta-btn" onclick="alert('문의 이메일: 문의@lowspot.kr')">강의·세미나 문의하기</button>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

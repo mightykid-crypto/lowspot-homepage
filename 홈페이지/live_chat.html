@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>낮은자리 라이브톡 - 실시간 강의자료 나눔방</title>
+  
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; font-family: 'Pretendard', 'Malgun Gothic', sans-serif; background-color: #b2c7d9; }
+    
+    #loginOverlay { position: fixed; inset: 0; background: #fff; z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .login-box { text-align: center; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 90%; max-width: 360px; border: 1px solid #eee; }
+    .login-box h2 { margin-top: 0; color: #333; font-size: 22px; }
+    .login-box p { color: #666; font-size: 14px; margin-bottom: 20px; }
+    .login-box input { width: 100%; padding: 12px; margin: 6px 0 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 15px; outline: none; }
+    .login-box input:focus { border-color: #fee500; }
+    .login-box button { width: 100%; padding: 14px; background: #fee500; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; color: #333; margin-top: 10px; transition: 0.2s; }
+    .login-box button:hover { background: #f4dc00; }
+    
+    #chatContainer { display: flex; flex-direction: column; height: 100%; display: none; max-width: 800px; margin: 0 auto; background: #b2c7d9; box-shadow: 0 0 20px rgba(0,0,0,0.1); position: relative;}
+    
+    .chat-header { background: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 10; box-shadow: 0 1px 3px rgba(0,0,0,0.05);}
+    .chat-header h1 { margin: 0; font-size: 18px; color: #333; display: flex; align-items: center; gap: 8px;}
+    .chat-header .btn-group { display: flex; gap: 8px; }
+    .chat-header button { background: #eee; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; color:#555; }
+    .chat-header button.bookmark-btn { background: #ffe066; color: #333; }
+    
+    .messages-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+    
+    .msg-wrapper { display: flex; gap: 10px; align-items: flex-start; max-width: 85%; }
+    .msg-wrapper.mine { margin-left: auto; flex-direction: row-reverse; }
+    
+    .profile-pic { width: 42px; height: 42px; border-radius: 40%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .msg-wrapper.admin-msg .profile-pic { background: #2c3e50; color: white; }
+    
+    .msg-content { display: flex; flex-direction: column; gap: 4px; }
+    .msg-wrapper.mine .msg-content { align-items: flex-end; }
+    
+    .sender-name { font-size: 12px; color: #44515c; font-weight: bold; margin-left: 2px; }
+    .msg-wrapper.mine .sender-name { display: none; }
+    
+    .bubble-row { display: flex; align-items: flex-end; gap: 6px; }
+    .msg-wrapper.mine .bubble-row { flex-direction: row-reverse; }
+    
+    .bubble { background: #fff; padding: 12px 16px; border-radius: 12px; font-size: 15px; color: #222; line-height: 1.5; box-shadow: 0 1px 2px rgba(0,0,0,0.05); word-break: break-all; white-space: pre-wrap; position: relative; }
+    .msg-wrapper.mine .bubble { background: #fee500; }
+    .bubble.prompt-mode { background: #2b303b; color: #c0c5ce; font-family: monospace; border: 1px solid #1c1f26; }
+    
+    .time { font-size: 11px; color: #7a8a98; margin-bottom: 2px; white-space: nowrap; }
+    
+    .msg-tools { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+    .tool-btn { display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 12px; padding: 5px 10px; background: #f0f4f8; border: 1px solid #d9e2ec; border-radius: 6px; cursor: pointer; font-weight: bold; color: #334e68; transition: 0.1s; }
+    .tool-btn:hover { background: #e2e8f0; }
+    .tool-btn:active { transform: scale(0.95); }
+    .reaction-btn { background: #fff; border-color: #ddd; }
+    .reaction-btn.reacted { background: #fee500; border-color: #f4dc00; }
+
+    .cnt-badge { display: inline-flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.1); color: #333; border-radius: 10px; padding: 2px 6px; font-size: 10px; margin-left: 4px; font-weight: bold;}
+    .reaction-btn.reacted .cnt-badge { background: rgba(0,0,0,0.2); }
+    
+    .download-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; background: #ebf5ff; border: 1px solid #bce3ff; border-radius: 6px; color: #0070f3; text-decoration: none; font-weight: bold; font-size: 14px; margin-top: 5px; }
+    .download-link:hover { background: #d3ebff; }
+    .bubble.prompt-mode .download-link { background: #3b4252; border-color: #4c566a; color: #88c0d0; }
+
+    .input-area { background: #fff; padding: 12px 15px; display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; box-shadow: 0 -2px 10px rgba(0,0,0,0.02);}
+    .input-controls { width: 100%; display: flex; gap: 10px; margin-bottom: 5px; font-size: 13px; color: #555;}
+    .input-area textarea { flex: 1; border: 1px solid #ddd; border-radius: 18px; padding: 10px 15px; font-size: 15px; resize: none; max-height: 100px; min-height: 20px; outline: none; line-height: 1.4; background: #f9f9f9; }
+    .input-area textarea:focus { border-color: #fee500; background: #fff; }
+    .input-area button.send-btn { background: #fee500; border: none; width: 42px; height: 42px; border-radius: 50%; font-weight: bold; cursor: pointer; color: #333; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; transition: 0.1s;}
+    
+    .readonly-notice { width: 100%; text-align: center; color: #888; font-size: 13px; padding: 15px 0; background: #f5f5f5; display: none; font-weight: bold; box-shadow: 0 -2px 10px rgba(0,0,0,0.02); }
+    .date-divider { text-align: center; margin: 15px 0; position: relative; }
+    .date-divider span { background: #9bbbd4; color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; }
+
+    #bookmarkModal { display: none; position: absolute; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; padding: 20px;}
+    .modal-content { background: #fff; width: 100%; max-width: 500px; max-height: 80%; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; }
+    .modal-header { padding: 15px; background: #ffe066; font-weight: bold; display: flex; justify-content: space-between; align-items: center;}
+    .modal-body { padding: 15px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 10px; background: #f5f5f5;}
+    .bm-item { background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); font-size: 14px; position: relative;}
+    .bm-text { white-space: pre-wrap; margin-bottom: 10px; }
+    .bm-delete { position: absolute; top: 10px; right: 10px; background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 16px; }
+
+  </style>
+</head>
+<body>
+
+  <div id="loginOverlay">
+    <div class="login-box">
+      <h2>강의 라이브톡</h2>
+      <p>강사님이 공유하는 프롬프트와 링크를<br>실시간으로 받아보세요.</p>
+      
+      <div style="text-align: left; margin-bottom: 5px; font-size: 13px; font-weight: bold; color: #555;">이름 (닉네임)</div>
+      <input type="text" id="nicknameInput" placeholder="예: 홍길동 목사">
+      
+      <div style="text-align: left; margin-bottom: 5px; font-size: 13px; font-weight: bold; color: #555; margin-top: 10px;">입장 비밀번호</div>
+      <div style="position: relative; margin: 6px 0 12px;">
+        <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요" style="margin: 0; padding-right: 55px;">
+        <span id="pwToggleBtn" onclick="togglePassword()" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 11px; color: #555; font-weight: bold; user-select: none; background: #eee; padding: 4px 8px; border-radius: 4px;" title="비밀번호 보기">보기</span>
+      </div>
+      
+      <button onclick="login()">입장하기</button>
+      <div style="margin-top: 15px; font-size: 11px; color: #999;">* 강사님은 강사용 비밀번호를 입력하면 공지 권한이 부여됩니다.</div>
+    </div>
+  </div>
+
+  <div id="chatContainer">
+    <div class="chat-header">
+      <h1>💬 라이브톡</h1>
+      <div class="btn-group">
+        <button class="bookmark-btn" onclick="openBookmarks()">⭐ 내 보관함</button>
+        <button class="logout-btn" onclick="logout()">나가기</button>
+      </div>
+    </div>
+    
+    <div class="messages-area" id="messagesArea">
+      <div class="date-divider"><span>오늘의 나눔</span></div>
+    </div>
+    
+    <div class="input-area" id="inputArea" style="display: none;">
+      <div class="input-controls">
+        <label><input type="checkbox" id="chkPromptMode"> 💻 프롬프트(코드) 모드로 보내기</label>
+      </div>
+      <textarea id="msgInput" rows="1" placeholder="링크(URL)를 넣으면 자동으로 다운로드 버튼으로 변환됩니다."></textarea>
+      <button class="send-btn" onclick="sendMessage()">➤</button>
+    </div>
+    
+    <div class="readonly-notice" id="readonlyNotice">
+      🔒 강사님만 자료를 올릴 수 있는 공지 전용 방입니다.
+    </div>
+
+    <div id="bookmarkModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span>⭐ 내 보관함 (저장된 프롬프트/링크)</span>
+          <button onclick="closeBookmarks()" style="border:none; background:none; font-size:18px; cursor:pointer;">✖</button>
+        </div>
+        <div class="modal-body" id="bookmarkList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 💡 파이어베이스 설정 (DB 연결용)
+    // ==========================================
+    const firebaseConfig = {
+      // apiKey: "API_KEY",
+      // databaseURL: "https://PROJECT_ID-default-rtdb.firebaseio.com",
+      // projectId: "PROJECT_ID"
+    };
+
+    let isFirebaseReady = false;
+    if(firebaseConfig.apiKey) {
+      firebase.initializeApp(firebaseConfig);
+      isFirebaseReady = true;
+    }
+
+    const USER_PW = "qwer";         
+    const ASST_PW = "서브1234";      
+    const MAIN_PW = "4141";   
+
+    let currentUser = { name: "", role: "user" }; 
+    let myBookmarks = JSON.parse(localStorage.getItem('my_bookmarks') || '[]');
+    
+    // 자동 로그인 세션 복구
+    const savedSession = JSON.parse(localStorage.getItem('live_chat_session'));
+    if(savedSession && savedSession.expiry > Date.now()) {
+      currentUser = { name: savedSession.name, role: savedSession.role };
+    }
+
+    const msgsRef = isFirebaseReady ? firebase.database().ref('live_messages') : null;
+    const messagesArea = document.getElementById('messagesArea');
+    const msgInput = document.getElementById('msgInput');
+
+    function togglePassword() {
+      const pwInput = document.getElementById('passwordInput');
+      if (pwInput.type === 'password') pwInput.type = 'text';
+      else pwInput.type = 'password';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // 자동 로그인 처리
+      if(currentUser.name) {
+        document.getElementById('loginOverlay').style.display = 'none';
+        document.getElementById('chatContainer').style.display = 'flex';
+        applyRoleUI();
+        if(isFirebaseReady) loadMessages();
+      }
+
+      document.getElementById('passwordInput').addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') login();
+      });
+      document.getElementById('nicknameInput').addEventListener('keydown', (e) => {
+        if(e.key === 'Enter') document.getElementById('passwordInput').focus();
+      });
+    });
+
+    function applyRoleUI() {
+      if(currentUser.role === "main" || currentUser.role === "asst") {
+        document.getElementById('inputArea').style.display = 'flex';
+        document.getElementById('readonlyNotice').style.display = 'none';
+      } else {
+        document.getElementById('inputArea').style.display = 'none';
+        document.getElementById('readonlyNotice').style.display = 'block';
+      }
+    }
+
+    function login() {
+      const name = document.getElementById('nicknameInput').value.trim();
+      const pw = document.getElementById('passwordInput').value.trim();
+      if(!name) { alert("이름을 입력해주세요."); return; }
+      
+      if(pw === MAIN_PW) currentUser.role = "main";
+      else if(pw === ASST_PW) currentUser.role = "asst";
+      else if (pw === USER_PW) currentUser.role = "user";
+      else { alert("비밀번호가 틀렸습니다."); return; }
+
+      currentUser.name = name;
+      
+      // 세션 저장 (12시간 유지)
+      localStorage.setItem('live_chat_session', JSON.stringify({
+        name: currentUser.name,
+        role: currentUser.role,
+        expiry: Date.now() + (12 * 60 * 60 * 1000)
+      }));
+
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('chatContainer').style.display = 'flex';
+
+      applyRoleUI();
+
+      if(isFirebaseReady) {
+        loadMessages();
+      } else {
+        appendSystemMessage("파이어베이스 미연결: 카운트(복사, 다운로드, 좋아요) 기능은 연결 후 정상 동작합니다.");
+      }
+    }
+
+    function logout() { 
+      localStorage.removeItem('live_chat_session');
+      location.reload(); 
+    }
+
+    function sendMessage() {
+      const text = msgInput.value.trim();
+      if(!text) return;
+      const isPrompt = document.getElementById('chkPromptMode').checked;
+      const msgId = 'msg_' + Date.now();
+      
+      const msgData = {
+        id: msgId,
+        sender: currentUser.name,
+        text: text,
+        time: new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }),
+        role: currentUser.role,
+        isPrompt: isPrompt
+      };
+
+      if(isFirebaseReady) msgsRef.child(msgId).set(msgData);
+      else renderMessage(msgData); 
+
+      msgInput.value = "";
+      msgInput.style.height = "auto";
+    }
+
+    function loadMessages() {
+      messagesArea.innerHTML = '<div class="date-divider"><span>오늘의 나눔</span></div>';
+      msgsRef.on('child_added', (snapshot) => { renderMessage(snapshot.val()); });
+      
+      msgsRef.on('child_changed', (snapshot) => {
+        const data = snapshot.val();
+        updateCounts(data);
+      });
+    }
+
+    function linkify(text, msgId) {
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      return text.replace(urlRegex, function(url) {
+        return '<br><a href="' + url + '" target="_blank" onclick="trackAction(\'' + msgId + '\', \'downloads\')" class="download-link">🔗 열기 / 다운로드 <span class="cnt-badge" id="dl-count-'+msgId+'">0</span></a>';
+      });
+    }
+
+    function escapeHtml(unsafe) {
+      return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function renderMessage(data) {
+      const msgRole = data.role || (data.isAdmin ? "main" : "user"); 
+      const isMe = (data.sender === currentUser.name && msgRole === currentUser.role);
+      
+      const wrapper = document.createElement('div');
+      wrapper.id = 'msg-wrap-' + data.id;
+      const isAdminMsg = (msgRole === "main" || msgRole === "asst");
+      wrapper.className = 'msg-wrapper ' + (isMe ? 'mine' : '') + (isAdminMsg ? ' admin-msg' : '');
+      
+      let profileHtml = '';
+      if(!isMe) {
+        let icon = '👤';
+        if(msgRole === "main") icon = '👑'; 
+        else if(msgRole === "asst") icon = '👨‍🏫'; 
+        profileHtml = '<div class="profile-pic">' + icon + '</div>';
+      }
+
+      const bubbleClass = data.isPrompt ? 'bubble prompt-mode' : 'bubble';
+      const safeText = escapeHtml(data.text);
+      const htmlText = linkify(safeText, data.id);
+      const textId = 'txt_' + data.id;
+
+      wrapper.innerHTML = profileHtml +
+        '<div class="msg-content">' +
+          (isMe ? '' : '<div class="sender-name">' + data.sender + '</div>') +
+          '<div class="bubble-row">' +
+            '<div class="' + bubbleClass + '" id="' + textId + '">' + htmlText + '</div>' +
+            '<div class="time">' + data.time + '</div>' +
+          '</div>' +
+          '<div class="msg-tools">' +
+            '<button class="tool-btn" onclick="copyText(\'' + textId + '\', \'' + data.id + '\')">📋 복사 <span class="cnt-badge" id="copy-count-'+data.id+'">0</span></button>' +
+            '<button class="tool-btn" onclick="saveBookmark(\'' + data.id + '\')">⭐ 저장</button>' +
+            (isAdminMsg ? '<button id="like-btn-'+data.id+'" class="tool-btn reaction-btn" onclick="trackAction(\'' + data.id + '\', \'likes\')">👍 최고 <span class="cnt-badge" id="like-count-'+data.id+'">0</span></button>' : '') +
+          '</div>' +
+        '</div>';
+
+      messagesArea.appendChild(wrapper);
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+      
+      updateCounts(data);
+    }
+
+    function updateCounts(data) {
+      const getCount = (type) => data.actions && data.actions[type] ? Object.keys(data.actions[type]).length : 0;
+      
+      const copyCnt = getCount('copies');
+      const dlCnt = getCount('downloads');
+      const likeCnt = getCount('likes');
+
+      const elCopy = document.getElementById('copy-count-' + data.id);
+      if(elCopy) elCopy.innerText = copyCnt > 0 ? copyCnt + '명' : '0';
+
+      const elDl = document.getElementById('dl-count-' + data.id);
+      if(elDl) elDl.innerText = dlCnt > 0 ? dlCnt + '명' : '0';
+
+      const elLike = document.getElementById('like-count-' + data.id);
+      if(elLike) {
+        elLike.innerText = likeCnt > 0 ? likeCnt + '명' : '0';
+        const likeBtn = document.getElementById('like-btn-' + data.id);
+        if(data.actions && data.actions.likes && data.actions.likes[currentUser.name]) {
+          likeBtn.classList.add('reacted');
+        } else {
+          likeBtn.classList.remove('reacted');
+        }
+      }
+    }
+
+    function trackAction(msgId, actionType) {
+      if(!isFirebaseReady) return;
+      const ref = msgsRef.child(msgId).child('actions').child(actionType).child(currentUser.name);
+      
+      if(actionType === 'likes') {
+        ref.once('value').then(snap => {
+          if(snap.exists()) ref.remove(); 
+          else ref.set(true);
+        });
+      } else {
+        ref.set(true); 
+      }
+    }
+
+    function copyText(elementId, msgId) {
+      const el = document.getElementById(elementId);
+      navigator.clipboard.writeText(el.innerText).then(() => {
+        alert("복사되었습니다!");
+        trackAction(msgId, 'copies'); 
+      }).catch(e => alert("실패: "+e));
+    }
+
+    function saveBookmark(msgId) {
+      const el = document.getElementById('txt_' + msgId);
+      if(!el) return;
+      
+      const text = el.innerText;
+      if(!myBookmarks.includes(text)) {
+        myBookmarks.push(text);
+        localStorage.setItem('my_bookmarks', JSON.stringify(myBookmarks));
+        alert("내 보관함에 저장되었습니다!");
+      } else {
+        alert("이미 저장된 항목입니다.");
+      }
+    }
+
+    function openBookmarks() {
+      const list = document.getElementById('bookmarkList');
+      list.innerHTML = '';
+      if(myBookmarks.length === 0) {
+        list.innerHTML = '<div style="text-align:center; color:#888; padding:30px 0;">저장된 내용이 없습니다.</div>';
+      } else {
+        myBookmarks.forEach((text, index) => {
+          list.innerHTML += 
+            '<div class="bm-item">' +
+              '<button class="bm-delete" onclick="deleteBookmark(' + index + ')">✖</button>' +
+              '<div class="bm-text">' + escapeHtml(text) + '</div>' +
+              '<button class="tool-btn" onclick="navigator.clipboard.writeText(this.previousElementSibling.innerText); alert(\'복사완료\')">📋 전체 복사</button>' +
+            '</div>';
+        });
+      }
+      document.getElementById('bookmarkModal').style.display = 'flex';
+    }
+
+    function closeBookmarks() {
+      document.getElementById('bookmarkModal').style.display = 'none';
+    }
+
+    function deleteBookmark(index) {
+      myBookmarks.splice(index, 1);
+      localStorage.setItem('my_bookmarks', JSON.stringify(myBookmarks));
+      openBookmarks(); 
+    }
+
+    function appendSystemMessage(text) {
+      const div = document.createElement('div');
+      div.style.textAlign = "center"; div.style.fontSize = "12px"; div.style.color = "#555"; div.style.margin = "10px 0";
+      div.innerText = text;
+      messagesArea.appendChild(div);
+    }
+
+    msgInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    });
+    msgInput.addEventListener('input', function() {
+      this.style.height = "auto";
+      this.style.height = (this.scrollHeight) + "px";
+    });
+  </script>
+</body>
+</html>

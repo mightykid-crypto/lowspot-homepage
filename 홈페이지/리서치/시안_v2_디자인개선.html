@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>낮은자리 — 차세대 홈페이지 프리미엄 시안 (v2)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    :root {
+      --bg: #FEFDFC;
+      --card: #F3EFE4;
+      --line: #E6E1D5;
+      --ink: #332F2A;
+      --sub: #6B5C4D;
+      --sprout: #6E9A4F;
+      --sprout-tx: #52733B;
+      --sprout-btn: #52733B;
+      --sprout-btn-tx: #ffffff;
+      --sprout-2: #A9C687;
+      --sky: #4E7C99;
+      --sky-tx: #3F6B87;
+      --sky-btn: #3F6B87;
+      --sky-btn-tx: #ffffff;
+      --soil: #4A3E33;
+      --radius: 6px;
+      --radius-lg: 12px;
+      --card-g: color-mix(in srgb, var(--sprout) 12%, var(--bg));
+      --card-s: color-mix(in srgb, var(--sky) 12%, var(--bg));
+      --line-g: color-mix(in srgb, var(--sprout) 34%, var(--bg));
+      --line-s: color-mix(in srgb, var(--sky) 34%, var(--bg));
+      --serif: 'Gowun Batang', 'GowunBatang', serif;
+      --sans: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.75;
+      word-break: keep-all;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--serif);
+      font-weight: 700;
+      margin: 0;
+      color: var(--ink);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* 안내 바 */
+    .top-banner {
+      background: var(--card-s);
+      border-bottom: 1px solid var(--line-s);
+      color: var(--sky-tx);
+      font-size: 13.5px;
+      text-align: center;
+      padding: 8px 16px;
+      font-weight: 600;
+    }
+
+    /* 헤더 */
+    header.top {
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: rgba(254, 253, 252, 0.9);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+    .top-in {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: #F1F3F3;
+      border-radius: 18%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+    }
+    .brand-name {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 21px;
+      letter-spacing: -0.02em;
+    }
+    .brand-motto {
+      font-size: 12px;
+      color: var(--sub);
+      display: none;
+    }
+    @media (min-width: 640px) { .brand-motto { display: block; } }
+
+    nav.main-nav {
+      display: flex;
+      gap: 8px;
+    }
+    nav.main-nav a {
+      font-size: 15px;
+      color: var(--sub);
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+      font-weight: 600;
+    }
+    nav.main-nav a:hover, nav.main-nav a.active {
+      color: var(--ink);
+      background: var(--card);
+    }
+
+    /* 히어로 섹션 (Linear / Raycast 앰비언트 글로우 적용) */
+    .hero {
+      position: relative;
+      padding: 80px 0 70px;
+      overflow: hidden;
+    }
+    .hero-bg-glow {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 480px;
+      background: radial-gradient(circle, color-mix(in srgb, var(--sky) 14%, transparent) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .motto-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-g);
+      border: 1px solid var(--line-g);
+      color: var(--sprout-tx);
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 99px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 44px;
+      line-height: 1.28;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 640px) { .hero h1 { font-size: 32px; } }
+    .hero-desc {
+      font-size: 18px;
+      color: var(--sub);
+      line-height: 1.65;
+      margin-bottom: 38px;
+    }
+
+    /* AI 프롬프트 ↔ 라이브 사역 앱 시뮬레이터 카드 (Cursor / Raycast 영감) */
+    .sim-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 16px 36px rgba(51, 47, 42, 0.06);
+      max-width: 720px;
+      margin: 0 auto 50px;
+      overflow: hidden;
+      text-align: left;
+    }
+    .sim-header {
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sim-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .sim-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+    .sim-title {
+      font-size: 13px;
+      color: var(--sub);
+      font-weight: 600;
+    }
+    .sim-body { padding: 22px; }
+    .sim-prompt-box {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sim-prompt-text {
+      font-size: 15px;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .sim-prompt-tag {
+      font-size: 12px;
+      background: var(--card-s);
+      color: var(--sky-tx);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+    .sim-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .sim-btn {
+      font-size: 13px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--sub);
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+    }
+    .sim-btn:hover, .sim-btn.active {
+      background: var(--sprout-btn);
+      border-color: var(--sprout-btn);
+      color: var(--sprout-btn-tx);
+      font-weight: 700;
+    }
+    .sim-output {
+      border-top: 1px dashed var(--line);
+      padding-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sim-out-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--card-g);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex: none;
+    }
+    .sim-out-text h4 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .sim-out-text p {
+      font-size: 14px;
+      color: var(--sub);
+      margin: 0;
+    }
+
+    /* 두 기둥 (도구 vs 강의) */
+    .pillars-section {
+      padding: 40px 0 70px;
+    }
+    .sec-header {
+      text-align: center;
+      margin-bottom: 38px;
+    }
+    .sec-header h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .sec-header p {
+      color: var(--sub);
+      font-size: 17px;
+    }
+    .pillars-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) { .pillars-grid { grid-template-columns: 1fr 1fr; } }
+    .pillar-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 34px 30px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .pillar-card.g { background: var(--card-g); border-color: var(--line-g); }
+    .pillar-card.s { background: var(--card-s); border-color: var(--line-s); }
+    .pillar-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(51, 47, 42, 0.08);
+    }
+    .pillar-tag {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .pillar-card.g .pillar-tag { color: var(--sprout-tx); }
+    .pillar-card.s .pillar-tag { color: var(--sky-tx); }
+    .pillar-card h3 {
+      font-size: 26px;
+      margin-bottom: 14px;
+    }
+    .pillar-card p {
+      color: var(--sub);
+      font-size: 16px;
+      margin-bottom: 24px;
+      line-height: 1.7;
+    }
+    .pillar-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .pillar-card.g .pillar-action { color: var(--sprout-tx); }
+    .pillar-card.s .pillar-action { color: var(--sky-tx); }
+
+    /* 도구 갤러리 (Bento + Tabs) */
+    .showcase-section {
+      padding: 70px 0;
+      border-top: 1px solid var(--line);
+    }
+    .tabs-bar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 10px 20px;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--sub);
+      font-size: 15px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .filter-tab:hover { background: var(--card); color: var(--ink); }
+    .filter-tab.active {
+      background: var(--sprout-btn);
+      border-color: var(--sprout-btn);
+      color: var(--sprout-btn-tx);
+    }
+
+    .apps-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 640px) { .apps-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .apps-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .app-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s;
+    }
+    .app-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(51, 47, 42, 0.07);
+      border-color: var(--sprout);
+    }
+    .app-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .app-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--card-g);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .app-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+    .badge-web { background: var(--card-g); color: var(--sprout-tx); }
+    .badge-win { background: var(--card-s); color: var(--sky-tx); }
+    .app-card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .app-card p {
+      color: var(--sub);
+      font-size: 14.5px;
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+    .app-bot {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .app-ver {
+      font-size: 13px;
+      color: var(--sub);
+    }
+    .app-cta {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--sprout-tx);
+    }
+
+    /* AI 강의 3과정 커리큘럼 아코디언 (Maven / Shift Nudge 스타일) */
+    .lecture-section {
+      padding: 70px 0;
+      border-top: 1px solid var(--line);
+    }
+    .curriculum-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .course-item {
+      border: 1px solid var(--line-s);
+      border-radius: var(--radius-lg);
+      margin-bottom: 16px;
+      overflow: hidden;
+      background: #ffffff;
+      transition: all 0.2s;
+    }
+    .course-header {
+      background: var(--card-s);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+    .course-header:hover { background: color-mix(in srgb, var(--sky) 18%, var(--bg)); }
+    .course-title-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .course-num {
+      width: 32px;
+      height: 32px;
+      background: var(--sky-btn);
+      color: var(--sky-btn-tx);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex: none;
+    }
+    .course-header h3 {
+      font-size: 19px;
+      color: var(--ink);
+    }
+    .course-toggle {
+      font-size: 20px;
+      color: var(--sky-tx);
+      font-weight: 700;
+      transition: transform 0.25s;
+    }
+    .course-body {
+      display: none;
+      padding: 24px;
+      border-top: 1px solid var(--line-s);
+      line-height: 1.7;
+    }
+    .course-item.open .course-body { display: block; }
+    .course-item.open .course-toggle { transform: rotate(180deg); }
+    .lecture-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .lecture-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+    .check-mark { color: var(--sprout-tx); font-weight: 700; }
+
+    /* CTA / 문의 엽서 카드 */
+    .cta-section {
+      padding: 70px 0 90px;
+    }
+    .cta-box {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 50px 36px;
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .cta-box h3 {
+      font-size: 28px;
+      margin-bottom: 14px;
+    }
+    .cta-box p {
+      color: var(--sub);
+      font-size: 16.5px;
+      margin-bottom: 28px;
+    }
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-main {
+      background: var(--sprout-btn);
+      color: var(--sprout-btn-tx);
+      border: none;
+      padding: 13px 26px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+    }
+    .btn-main:hover { background: var(--sprout-tx); transform: translateY(-2px); }
+    .btn-sub {
+      background: #ffffff;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 13px 26px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: var(--radius);
+      transition: all 0.2s;
+    }
+    .btn-sub:hover { background: var(--card-s); border-color: var(--sky); }
+
+    /* 푸터 */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 36px 0;
+      text-align: center;
+      color: var(--sub);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 안내띠 -->
+  <div class="top-banner">
+    🌿 낮은자리 홈페이지 v2 — AI 목회 강의와 바이브 코딩 도구를 나누는 프리미엄 시안입니다.
+  </div>
+
+  <!-- 헤더 -->
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="#" class="brand">
+        <div class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 100 100" fill="none">
+            <path d="M15 75 Q 50 65 85 75 L 85 95 L 15 95 Z" fill="#4A3E33"/>
+            <path d="M50 70 Q 50 40 35 25 M50 50 Q 65 35 70 20" stroke="#6E9A4F" stroke-width="8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">낮은자리</div>
+          <div class="brand-motto">세상엔 강하게, 하나님 앞엔 아이처럼</div>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <a href="#hero" class="active">처음</a>
+        <a href="#apps">사역 도구</a>
+        <a href="#lectures">AI 강의</a>
+        <a href="#contact">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 히어로 섹션 -->
+  <section id="hero" class="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="wrap">
+      <div class="hero-content">
+        <div class="motto-badge">
+          <span>🌱</span>
+          <span>목회 현장을 섬기는 도구 제작 · lowspot.kr</span>
+        </div>
+        <h1>목회 현장의 고민을 담은 도구,<br>그리고 스스로 만드는 바이브 코딩</h1>
+        <p class="hero-desc">
+          낮은자리는 목회 현장에서 꼭 필요한 사역 도구를 직접 만들고 나눕니다.<br>
+          또한 AI와 대화하며 우리 교회만의 앱과 홈페이지를 직접 짓는 지혜를 나눕니다.
+        </p>
+
+        <!-- AI 프롬프트 ↔ 라이브 시뮬레이터 -->
+        <div class="sim-card">
+          <div class="sim-header">
+            <div class="sim-dots">
+              <div class="sim-dot" style="background:#E6E1D5"></div>
+              <div class="sim-dot" style="background:#E6E1D5"></div>
+              <div class="sim-dot" style="background:#E6E1D5"></div>
+            </div>
+            <div class="sim-title">사역 바이브 코딩 (Vibe Coding) 체험 시뮬레이터</div>
+            <div></div>
+          </div>
+          <div class="sim-body">
+            <div class="sim-actions">
+              <button class="sim-btn active" onclick="changePrompt(0)">🌿 성경 묵상 게임 만들기</button>
+              <button class="sim-btn" onclick="changePrompt(1)">📋 주보·행정 자동화 도구</button>
+              <button class="sim-btn" onclick="changePrompt(2)">🔍 심방 말씀 카드 생성기</button>
+            </div>
+            <div class="sim-prompt-box">
+              <span class="sim-prompt-text" id="promptText">"부서 공과 모임에서 10초 동안 맞추는 말씀 퀴즈 앱을 만들어줘"</span>
+              <span class="sim-prompt-tag">AI 생성 중...</span>
+            </div>
+            <div class="sim-output">
+              <div class="sim-out-icon" id="outIcon">🎮</div>
+              <div class="sim-out-text">
+                <h4 id="outTitle">10초게임 앱 구현 완료 (웹 PWA)</h4>
+                <p id="outDesc">스마트폰 하나로 청소년부·소그룹 전원이 함께 참여하는 17종 묵상 게임 도구</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 두 기둥 섹션 -->
+  <section class="pillars-section">
+    <div class="wrap">
+      <div class="sec-header">
+        <h2>낮은자리의 두 기둥</h2>
+        <p>현장에서 검증된 도구를 나누고, 직접 만드는 사역의 힘을 기릅니다.</p>
+      </div>
+      <div class="pillars-grid">
+        <!-- 도구 기둥 -->
+        <a href="#apps" class="pillar-card g">
+          <div>
+            <span class="pillar-tag">MINISTRY TOOLS</span>
+            <h3>교회 친화 사역 도구</h3>
+            <p>
+              성경 연구와 말씀 묵상, 교회 재정과 설교 화면 송출까지.
+              목회 현장의 손끝에서 태어난 유용한 도구들을 설치본과 웹앱으로 나눕니다.
+            </p>
+          </div>
+          <div class="pillar-action">사역 도구 모두 보기 →</div>
+        </a>
+        <!-- 강의 기둥 -->
+        <a href="#lectures" class="pillar-card s">
+          <div>
+            <span class="pillar-tag">AI MINISTRY ACADEMY</span>
+            <h3>AI 목회 활용 · 바이브 코딩 강의</h3>
+            <p>
+              기술에 종속되지 않고 하나님 중심의 사역을 돕는 지혜.
+              AI의 원리를 이해하고 우리 교회의 필요를 코드로 실현하는 3과정 커리큘럼입니다.
+            </p>
+          </div>
+          <div class="pillar-action">강의 커리큘럼 살펴보기 →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 도구 갤러리 섹션 -->
+  <section id="apps" class="showcase-section">
+    <div class="wrap">
+      <div class="sec-header">
+        <h2>만든 도구들</h2>
+        <p>복잡한 설정 없이 현장에서 즉시 쓰실 수 있습니다.</p>
+      </div>
+
+      <!-- 필터 탭 -->
+      <div class="tabs-bar">
+        <button class="filter-tab active" onclick="filterApps('all', this)">전체 보기 (6)</button>
+        <button class="filter-tab" onclick="filterApps('web', this)">🌿 바로 쓰는 웹앱 (2)</button>
+        <button class="filter-tab" onclick="filterApps('win', this)">💻 윈도우 단독 프로그램 (4)</button>
+      </div>
+
+      <div class="apps-grid" id="appsGrid">
+        <!-- 10초게임 -->
+        <div class="app-card" data-category="web">
+          <div>
+            <div class="app-top">
+              <div class="app-icon">🎮</div>
+              <span class="app-badge badge-web">바로 쓰는 웹앱</span>
+            </div>
+            <h3>10초게임</h3>
+            <p>보드게임을 폰 하나에 담았습니다. 성경 구절 맞추기 등 17개 놀이로 교회 소그룹 모임의 얼음을 깨뜨립니다.</p>
+          </div>
+          <div class="app-bot">
+            <span class="app-ver">인터넷 연결 필요 없음</span>
+            <span class="app-cta">바로 해보기 →</span>
+          </div>
+        </div>
+
+        <!-- 낮은꼬들 -->
+        <div class="app-card" data-category="web">
+          <div>
+            <div class="app-top">
+              <div class="app-icon">📖</div>
+              <span class="app-badge badge-web">바로 쓰는 웹앱</span>
+            </div>
+            <h3>낮은꼬들</h3>
+            <p>설교 본문 단어를 힌트와 함께 맞추는 한글 워들(Wordle) 묵상 도구입니다. 44,937개 단어 사전을 지원합니다.</p>
+          </div>
+          <div class="app-bot">
+            <span class="app-ver">교회 묵상 참여용</span>
+            <span class="app-cta">바로 해보기 →</span>
+          </div>
+        </div>
+
+        <!-- 성경노트 -->
+        <div class="app-card" data-category="win">
+          <div>
+            <div class="app-top">
+              <div class="app-icon">✍️</div>
+              <span class="app-badge badge-win">윈도우 .exe</span>
+            </div>
+            <h3>성경노트</h3>
+            <p>서피스 펜과 햅틱을 완벽 지원하는 묵상 연구 노트입니다. 본문 주해와 기도를 한 장의 정결한 종이에 담습니다.</p>
+          </div>
+          <div class="app-bot">
+            <span class="app-ver">v0.2.2 (19.7 MB)</span>
+            <span class="app-cta">내려받기 →</span>
+          </div>
+        </div>
+
+        <!-- 교회재정 -->
+        <div class="app-card" data-category="win">
+          <div>
+            <div class="app-top">
+              <div class="app-icon">📊</div>
+              <span class="app-badge badge-win">윈도우 .exe</span>
+            </div>
+            <h3>교회재정</h3>
+            <p>복잡한 회계 프로그램 대신, 우리 교회에 꼭 맞는 직관적인 수입·지출 관리와 결산 통계를 지원합니다.</p>
+          </div>
+          <div class="app-bot">
+            <span class="app-ver">v1.0.0 (12.4 MB)</span>
+            <span class="app-cta">내려받기 →</span>
+          </div>
+        </div>
+
+        <!-- 설교프레젠터 -->
+        <div class="app-card" data-category="win">
+          <div>
+            <div class="app-top">
+              <div class="app-icon">🖥️</div>
+              <span class="app-badge badge-win">윈도우 .exe</span>
+            </div>
+            <h3>설교프레젠터</h3>
+            <p>성경 구절과 찬양 가사, 설교 화면을 방송팀 스크린에 가볍고 안정적으로 송출하는 프레젠테이션 도구입니다.</p>
+          </div>
+          <div class="app-bot">
+            <span class="app-ver">v1.0.0 (2.4 MB)</span>
+            <span class="app-cta">내려받기 →</span>
+          </div>
+        </div>
+
+        <!-- 성경암송타이핑 -->
+        <div class="app-card" data-category="win">
+          <div>
+            <div class="app-top">
+              <div class="app-icon">⌨️</div>
+              <span class="app-badge badge-win">윈도우 .exe</span>
+            </div>
+            <h3>성경 암송 타이핑</h3>
+            <p>주요 암송 구절을 타자로 따라 치며 마음에 새기는 묵상 타이핑 도구입니다. 단독 오프라인 구동을 지원합니다.</p>
+          </div>
+          <div class="app-bot">
+            <span class="app-ver">v1.0.0 (1.95 MB)</span>
+            <span class="app-cta">내려받기 →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI 강의 3과정 커리큘럼 아코디언 -->
+  <section id="lectures" class="lecture-section">
+    <div class="wrap">
+      <div class="sec-header">
+        <h2>AI 목회 활용 · 바이브 코딩 커리큘럼</h2>
+        <p>기술을 두려워하지 않고, 우리 사역의 주도권을 지키는 3과정 안내입니다.</p>
+      </div>
+
+      <div class="curriculum-wrap">
+        <!-- 과정 1 -->
+        <div class="course-item open" onclick="toggleAccordion(this)">
+          <div class="course-header">
+            <div class="course-title-area">
+              <div class="course-num">1</div>
+              <h3>과정 1. 처음 만나는 AI — 목회적 이해와 기본 대화</h3>
+            </div>
+            <div class="course-toggle">▾</div>
+          </div>
+          <div class="course-body">
+            <ul class="lecture-list">
+              <li><span class="check-mark">✓</span> AI 시대의 목회적 영성과 신학적 전제 — 두려움과 과신을 넘어서기</li>
+              <li><span class="check-mark">✓</span> 좋은 질문이 좋은 사역을 만든다 — 목회자를 위한 정교한 대화(프롬프트) 작성법</li>
+              <li><span class="check-mark">✓</span> 심방, 묵상 나눔, 소그룹 나눔 질문을 보조하는 AI 대화 실습</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 과정 2 -->
+        <div class="course-item" onclick="toggleAccordion(this)">
+          <div class="course-header">
+            <div class="course-title-area">
+              <div class="course-num">2</div>
+              <h3>과정 2. 자료를 다루다 — 문서·행정·주해 리서치 자동화</h3>
+            </div>
+            <div class="course-toggle">▾</div>
+          </div>
+          <div class="course-body">
+            <ul class="lecture-list">
+              <li><span class="check-mark">✓</span> 주보 및 교회 행정 문서의 요약·초안 작성 시간 80% 줄이기</li>
+              <li><span class="check-mark">✓</span> 성경 본문 주해와 신학 논문, 방대한 도서 자료 고속 리서치 분석</li>
+              <li><span class="check-mark">✓</span> 교회 교적 자료 및 재정 데이터의 오류 없는 가공과 차트 시각화</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 과정 3 -->
+        <div class="course-item" onclick="toggleAccordion(this)">
+          <div class="course-header">
+            <div class="course-title-area">
+              <div class="course-num">3</div>
+              <h3>과정 3. 만들어 내다 — 사역자가 직접 하는 바이브 코딩 (Vibe Coding)</h3>
+            </div>
+            <div class="course-toggle">▾</div>
+          </div>
+          <div class="course-body">
+            <ul class="lecture-list">
+              <li><span class="check-mark">✓</span> 코드를 한 줄도 몰라도 괜찮습니다 — 자연어로 소프트웨어를 짓는 원리</li>
+              <li><span class="check-mark">✓</span> 우리 교회 맞춤 심방 신청 및 기도 제목 공유 앱 실전 제작</li>
+              <li><span class="check-mark">✓</span> 노회·전도기관 홈페이지 및 행사 안내 페이지 직접 배포하기</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / 문의 영역 -->
+  <section id="contact" class="cta-section">
+    <div class="wrap">
+      <div class="cta-box">
+        <h3>현장의 사역 도구와 강의, 편하게 요청해 주세요</h3>
+        <p>
+          교회나 노회 세미나, 사역자 모임에서의 강의 요청이나<br>
+          우리 교회에 꼭 필요한 도구 아이디어가 있으시다면 귀 기울이겠습니다.
+        </p>
+        <div class="cta-buttons">
+          <button class="btn-main" onclick="alert('강의 및 세미나 문의 창구로 연결됩니다.')">🌿 강의·세미나 문의하기</button>
+          <button class="btn-sub" onclick="alert('문의 이메일: 문의@lowspot.kr')">✉️ 문의@lowspot.kr</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer>
+    <div class="wrap">
+      <p>© 2026 민경우 · 낮은자리 (lowspot.kr) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
+    </div>
+  </footer>
+
+  <!-- 인터랙션 스크립트 -->
+  <script>
+    // 시뮬레이터 데이터
+    const simData = [
+      {
+        prompt: '"부서 공과 모임에서 10초 동안 맞추는 말씀 퀴즈 앱을 만들어줘"',
+        icon: '🎮',
+        title: '10초게임 앱 구현 완료 (웹 PWA)',
+        desc: '스마트폰 하나로 청소년부·소그룹 전원이 함께 참여하는 17종 묵상 게임 도구'
+      },
+      {
+        prompt: '"주일학교 교사들이 간편하게 체크하는 심방·출석 관리 앱 부탁해"',
+        icon: '📋',
+        title: '교사 출석·심방 도우미 앱 구현 완료',
+        desc: '클릭 세 번으로 엑셀 정리까지 완료되는 가벼운 모바일 지원 폼'
+      },
+      {
+        prompt: '"오늘 설교 본문을 마음에 새기는 짧은 묵상 질문 카드를 만들어줘"',
+        icon: '🔍',
+        title: '말씀 묵상 질문 카드 도구 구현 완료',
+        desc: '말씀 구절에 맞춰 매일 새로운 성찰 질문을 띄워주는 미니멀 웹 위젯'
+      }
+    ];
+
+    function changePrompt(idx) {
+      const btns = document.querySelectorAll('.sim-btn');
+      btns.forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+      });
+      document.getElementById('promptText').textContent = simData[idx].prompt;
+      document.getElementById('outIcon').textContent = simData[idx].icon;
+      document.getElementById('outTitle').textContent = simData[idx].title;
+      document.getElementById('outDesc').textContent = simData[idx].desc;
+    }
+
+    // 도구 필터링
+    function filterApps(category, el) {
+      const tabs = document.querySelectorAll('.filter-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+
+      const cards = document.querySelectorAll('.app-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // 아코디언 토글
+    function toggleAccordion(el) {
+      el.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
