@@ -494,6 +494,45 @@
     .pillar-card.g .pillar-action { color: var(--sprout-tx); }
     .pillar-card.s .pillar-action { color: var(--sky-tx); }
 
+
+    /* 오레브·목회시스템 소개 절 (09-30) */
+    .feature-section { padding: 70px 0; border-top: 1px solid var(--line); }
+    .feature-box { display: grid; gap: 36px; align-items: center; grid-template-columns: 1fr; border-radius: var(--radius-lg); padding: 40px 36px; border: 1px solid var(--line-s); background: var(--card-s); }
+    @media (min-width: 960px) { .feature-box { grid-template-columns: 1.05fr 1fr; padding: 48px 48px; } }
+    .feature-eyebrow { display: inline-block; font-size: 13.5px; font-weight: 700; letter-spacing: .06em; color: var(--sky-tx); margin-bottom: 12px; }
+    .feature-eyebrow.g { color: var(--sprout-tx); }
+    .feature-text h2 { font-size: 30px; line-height: 1.35; margin-bottom: 16px; }
+    .feature-text > p { color: var(--sub); font-size: 16.5px; line-height: 1.75; margin-bottom: 18px; }
+    .feature-list { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 9px; }
+    .feature-list li { font-size: 15.5px; color: var(--sub); line-height: 1.6; }
+    .feature-list b { color: var(--ink); }
+    .feature-btns { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+    .feature-btns.center { justify-content: center; margin-top: 34px; }
+    .feature-cta { display: inline-flex; align-items: center; padding: 13px 24px; border-radius: 99px; font-weight: 700; font-size: 15.5px; color: #fff; text-decoration: none; transition: transform .15s, box-shadow .15s; }
+    .feature-cta.s { background: var(--sky-tx); }
+    .feature-cta.g { background: var(--sprout-tx); }
+    .feature-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(51,47,42,.14); }
+    .feature-sub { font-weight: 700; font-size: 15px; color: var(--sky-tx); text-decoration: none; border-bottom: 1px solid currentColor; }
+    .feature-img { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: #fff; box-shadow: 0 16px 36px rgba(51,47,42,.10); }
+    .feature-img img { display: block; width: 100%; height: auto; }
+    .flow-mini-grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+    @media (min-width: 640px) { .flow-mini-grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px) { .flow-mini-grid { grid-template-columns: repeat(4, 1fr); } }
+    .flow-mini { display: flex; flex-direction: column; gap: 8px; padding: 26px 22px; border-radius: var(--radius-lg); background: var(--card-g); border: 1px solid var(--line-g); color: var(--ink); text-decoration: none; transition: transform .2s, box-shadow .2s; }
+    a.flow-mini:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(51,47,42,.08); }
+    .flow-mini .fm-ico { font-size: 28px; }
+    .flow-mini h3 { font-size: 20px; }
+    .flow-mini p { color: var(--sub); font-size: 14.5px; line-height: 1.65; flex: 1; }
+    .flow-mini .fm-go { font-weight: 700; font-size: 14.5px; color: var(--sprout-tx); }
+    .flow-mini.soon { background: #fff; border-style: dashed; border-color: var(--line); }
+    .flow-mini.soon .fm-go { color: var(--sub); font-weight: 600; }
+    .grow-line { font-family: var(--serif); color: var(--sprout-tx) !important; font-size: 18px !important; margin-bottom: 6px; }
+    .app-more { display: flex !important; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; padding: 30px 24px; border: 2px dashed var(--line-g); border-radius: var(--radius-lg); background: color-mix(in srgb, var(--card-g) 45%, #fff); color: var(--sub); font-size: 14.5px; line-height: 1.6; }
+    .app-more-plus { font-size: 34px; color: var(--sprout); line-height: 1; }
+    .app-more strong { font-family: var(--serif); font-size: 21px; color: var(--sprout-tx); }
+    .app-more a { margin-top: 6px; font-weight: 700; color: var(--sprout-tx); text-decoration: none; }
+    @media (max-width: 640px) { .feature-box { padding: 28px 20px; } .feature-text h2 { font-size: 25px; } }
+
     /* 10개 앱 갤러리 */
     .showcase-section { padding: 70px 0; border-top: 1px solid var(--line); }
     .tabs-bar {
@@ -1058,7 +1097,7 @@
             <span>목회 현장을 섬기는 도구 제작 · lowspot.net</span>
           </div>
           <h1>낮은 자리에서 목회를 돕는 <br class="pc-only">도구와 배움을 만듭니다</h1>
-          <p>사역 도구 · AI 목회 강의 · 오레브 · 목회시스템 — 목회 현장에서 태어나 목회 현장으로 돌아갑니다.</p>
+          <p>오레브 · AI 목회 강의 · 사역 도구 · 목회시스템 — 목회 현장에서 태어나 목회 현장으로 돌아갑니다.</p>
         </div>
 
         <!-- 요약 자동 슬라이드 (설명 4 : 사진 6) — 장 수는 스크립트가 알아서 센다 -->
@@ -1067,7 +1106,7 @@
           <!-- 슬라이드 0. 오레브 -->
           <div class="slide-item s active">
             <div class="slide-text">
-              <span class="slide-tag">오레브 · AI 동역 도구</span>
+              <span class="slide-tag">오레브 · 에이전트 오케스트레이션</span>
               <h2>여러 AI를 한 팀으로, <br class="pc-only">목회 일을 이어서</h2>
               <p>클로드·코덱스·제미나이를 팀으로 부려 설교 준비부터 주보·카드뉴스까지 이어 가게 돕는 작업 도구입니다. 세미나에서 함께 설치하고 시작합니다.</p>
               <a href="오레브.html" class="slide-cta s-cta">🕊️ 오레브 알아보기 →</a>
@@ -1169,18 +1208,18 @@
         <p>네 갈래로 목회 현장을 섬깁니다.</p>
       </div>
       <div class="pillars-grid">
-        <a href="#apps" class="pillar-card g">
+        <a href="#orev" class="pillar-card s">
           <div>
-            <span class="pillar-tag"><span class="pillar-num">01</span> 사역 도구</span>
-            <h3>교회를 위한 사역 도구 10종</h3>
+            <span class="pillar-tag"><span class="pillar-num">01</span> 오레브 · 에이전트 오케스트레이션</span>
+            <h3>여러 AI를 한 팀으로 부리는 작업 도구</h3>
             <p>
-              성경 연구와 말씀 묵상, 교회 재정, 설교 송출, 찬양 콘티, 주보 PDF까지.
-              목회 현장의 손끝에서 태어난 도구를 웹앱과 윈도 PC용 앱으로 만들었습니다.
+              클로드·코덱스·제미나이를 팀으로 묶어 설교 준비와 주보·카드뉴스 같은 매주의 일을 이어 가게 돕습니다.
+              세미나에서 함께 설치하고 시작합니다.
             </p>
           </div>
-          <div class="pillar-action">10개 도구 모두 보기 →</div>
+          <div class="pillar-action">오레브 알아보기 →</div>
         </a>
-        <a href="#lectures" class="pillar-card s">
+        <a href="#lectures" class="pillar-card g">
           <div>
             <span class="pillar-tag"><span class="pillar-num">02</span> AI 목회 강의</span>
             <h3>AI 목회 활용 · 바이브 코딩 강의</h3>
@@ -1191,24 +1230,24 @@
           </div>
           <div class="pillar-action">강의 커리큘럼 살펴보기 →</div>
         </a>
-        <a href="오레브.html" class="pillar-card s">
+        <a href="#apps" class="pillar-card g">
           <div>
-            <span class="pillar-tag"><span class="pillar-num">03</span> 오레브</span>
-            <h3>여러 AI를 한 팀으로 부리는 작업 도구</h3>
+            <span class="pillar-tag"><span class="pillar-num">03</span> 사역 도구</span>
+            <h3>교회를 위한 사역 도구 10종</h3>
             <p>
-              클로드·코덱스·제미나이를 팀으로 묶어 설교 준비와 주보·카드뉴스 같은 매주의 일을 이어 가게 돕습니다.
-              세미나에서 함께 설치하고 시작합니다.
+              성경 연구와 말씀 묵상, 교회 재정, 설교 송출, 찬양 콘티, 주보 PDF까지.
+              목회 현장의 손끝에서 태어난 도구를 웹앱과 윈도 PC용 앱으로 만들었습니다.
             </p>
           </div>
-          <div class="pillar-action">오레브 알아보기 →</div>
+          <div class="pillar-action">도구 모두 보기 →</div>
         </a>
-        <a href="목회시스템.html" class="pillar-card g">
+        <a href="#system" class="pillar-card s">
           <div>
             <span class="pillar-tag"><span class="pillar-num">04</span> 목회시스템</span>
             <h3>목회의 일을 하나의 흐름으로</h3>
             <p>
-              교육·설교·교회 운영처럼 되풀이되는 목회의 일을 흐름(플로우)으로 정리합니다.
-              첫 번째로 중고등부 교육성장 과정 에듀플로우를 소개합니다.
+              설교·주일학교·제자훈련·교회 운영처럼 되풀이되는 목회의 일을 흐름(플로우)으로 정리합니다.
+              설교플로우·에듀플로우·제자훈련플로우를 먼저 소개합니다.
             </p>
           </div>
           <div class="pillar-action">목회시스템 살펴보기 →</div>
@@ -1217,11 +1256,124 @@
     </div>
   </section>
 
+  <!-- 01 오레브 간단 소개 (09-30) -->
+  <section id="orev" class="feature-section">
+    <div class="wrap">
+      <div class="feature-box s">
+        <div class="feature-text">
+          <span class="feature-eyebrow"><span class="pillar-num">01</span> 오레브 · 에이전트 오케스트레이션</span>
+          <h2>여러 AI를 한 팀으로, <br class="pc-only">목회 일을 끊기지 않게</h2>
+          <p>AI 하나에게 모든 일을 맡기면 한도가 금방 차고, 대화가 끊기면 정한 것도 사라집니다. 오레브는 클로드·코덱스·제미나이를 <strong>한 팀</strong>으로 묶어, 지휘하는 AI가 일을 나눠 맡기고 서로의 결과를 검토하게 합니다.</p>
+          <ul class="feature-list">
+            <li><b>⛽ 같은 구독으로 더 오래</b> — 일의 성격에 맞춰 AI를 나눠 씁니다.</li>
+            <li><b>📒 기록이 남습니다</b> — 결정 대장·인수인계로 정한 것을 잃지 않습니다.</li>
+            <li><b>🔍 AI끼리 교차 검토</b> — 다른 회사 AI가 서로의 결과를 살핍니다.</li>
+            <li><b>🛡️ 안전선</b> — 돈이 드는 일·바깥으로 보내는 일은 사람의 허락을 받습니다.</li>
+          </ul>
+          <div class="feature-btns">
+            <a href="오레브.html" class="feature-cta s">상세 페이지 보기 →</a>
+            <a href="강의상세_커리큘럼.html#upcoming" class="feature-sub">세미나에서 시작하기</a>
+          </div>
+        </div>
+        <div class="feature-img">
+          <img src="오레브사진/팀티켓.webp" alt="오레브 팀 티켓 화면 — 맡긴 일과 진행 상태" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI 강의 3과정 커리큘럼 아코디언 -->
+  <section id="lectures" class="lecture-section">
+    <div class="wrap">
+      <div class="sec-header">
+        <h2>AI 목회 활용 · 바이브 코딩 커리큘럼</h2>
+        <p>기술을 두려워하지 않고, 우리 사역의 주도권을 지키는 3과정 안내입니다.</p>
+      </div>
+
+      <div class="curriculum-wrap">
+        <div class="course-item open" onclick="toggleAccordion(this)">
+          <div class="course-header">
+            <div class="course-title-area">
+              <div class="course-num">1</div>
+              <h3>과정 1. 처음 만나는 AI — 목회적 이해와 기본 대화</h3>
+            </div>
+            <div class="course-toggle">▾</div>
+          </div>
+          <div class="course-body">
+            <ul class="lecture-list">
+              <li><span class="check-mark">✓</span> AI 시대의 목회적 영성과 신학적 전제 — 두려움과 과신을 넘어서기</li>
+              <li><span class="check-mark">✓</span> 좋은 질문이 좋은 사역을 만든다 — 목회자를 위한 정교한 대화(프롬프트) 작성법</li>
+              <li><span class="check-mark">✓</span> 심방, 묵상 나눔, 소그룹 나눔 질문을 보조하는 AI 대화 실습</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="course-item" onclick="toggleAccordion(this)">
+          <div class="course-header">
+            <div class="course-title-area">
+              <div class="course-num">2</div>
+              <h3>과정 2. 자료를 다루다 — 문서·행정·주해 리서치 자동화</h3>
+            </div>
+            <div class="course-toggle">▾</div>
+          </div>
+          <div class="course-body">
+            <ul class="lecture-list">
+              <li><span class="check-mark">✓</span> 주보와 교회 행정 문서의 요약·초안 작성 시간 크게 줄이기</li>
+              <li><span class="check-mark">✓</span> 성경 본문 주해와 신학 논문, 방대한 도서 자료 고속 리서치 분석</li>
+              <li><span class="check-mark">✓</span> 교회 교적 자료 및 재정 데이터의 오류 없는 가공과 차트 시각화</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="course-item" onclick="toggleAccordion(this)">
+          <div class="course-header">
+            <div class="course-title-area">
+              <div class="course-num">3</div>
+              <h3>과정 3. 만들어 내다 — 사역자가 직접 하는 바이브 코딩 (Vibe Coding)</h3>
+            </div>
+            <div class="course-toggle">▾</div>
+          </div>
+          <div class="course-body">
+            <ul class="lecture-list">
+              <li><span class="check-mark">✓</span> 코드를 한 줄도 몰라도 괜찮습니다 — 자연어로 소프트웨어를 짓는 원리</li>
+              <li><span class="check-mark">✓</span> 우리 교회 맞춤 심방 신청 및 기도 제목 공유 앱 실전 제작</li>
+              <li><span class="check-mark">✓</span> 노회·전도기관 홈페이지 및 행사 안내 페이지 직접 배포하기</li>
+            </ul>
+          </div>
+        </div>
+
+        <a class="upcoming-strip" href="강의상세_커리큘럼.html#upcoming">
+          <span class="us-date"><b>11월</b>16–17일</span>
+          <span class="us-text">
+            <span class="us-label">예정된 세미나 · 확정</span>
+            <strong>한남노회 AI 세미나</strong>
+            <span class="us-meta">2026년 11월 16일(월) – 17일(화) · 소풍교회(예정)</span>
+          </span>
+          <span class="us-go">자세히 →</span>
+        </a>
+        <p class="us-live-line"><a href="live.html"><span class="live-mark" aria-hidden="true"></span> 세미나 참가자이신가요? <b>라이브톡 들어가기 →</b></a></p>
+
+        <div class="curriculum-more-box">
+          <div>
+            <h3>과정별 12주 상세 실습표 및 세미나 안내</h3>
+            <p>과목별 상세 교안과 목회자 세미나 코호트 일정을 독립 전문 페이지에서 확인하실 수 있습니다.</p>
+          </div>
+          <a href="강의상세_커리큘럼.html" class="btn-main" style="text-decoration:none; display:inline-block;">과정별 상세 커리큘럼 페이지 열기 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 활용사례 섹션 (추후 추가) -->
+  <!-- "사역 현장의 이야기"(#usecases) 절은 내용이 생길 때까지 뺐음 (09-30) -->
+
+  <!-- FAQ 섹션 -->
   <!-- ★ 10개 앱 도구 갤러리 (Bento + Tabs + 도구상세_통합.html?id=... 단일 틀 연결) ★ -->
   <section id="apps" class="showcase-section">
     <div class="wrap">
       <div class="sec-header">
-        <h2>만든 도구들 (총 10종)</h2>
+        <h2>만든 도구들</h2>
+        <p class="grow-line">🌱 지금 10종 — 현장의 필요를 따라 <strong>계속 늘어납니다.</strong></p>
         <p>현장에서 쓰기 쉽게 만들었습니다. 카드의 <strong>[상세 페이지 보기]</strong>를 누르시면 실제 화면 사진과 안내를 보실 수 있습니다. 내려받기와 웹앱 주소는 곧 공개합니다.</p>
       </div>
 
@@ -1381,6 +1533,13 @@
             <a href="도구상세_통합.html?id=typing" class="app-cta">상세 페이지 보기 →</a>
           </div>
         </div>
+
+        <div class="app-more">
+          <span class="app-more-plus">＋</span>
+          <strong>계속 늘어납니다</strong>
+          <span>목회 현장에서 "이런 게 있으면" 하신 것이 다음 도구가 됩니다.</span>
+          <a href="#contact">필요한 도구 알려 주기 →</a>
+        </div>
       </div>
 
       <div class="sim-card">
@@ -1419,92 +1578,42 @@
     </div>
   </section>
 
-  <!-- AI 강의 3과정 커리큘럼 아코디언 -->
-  <section id="lectures" class="lecture-section">
+  <!-- 04 목회시스템 간단 소개 (09-30) -->
+  <section id="system" class="feature-section">
     <div class="wrap">
       <div class="sec-header">
-        <h2>AI 목회 활용 · 바이브 코딩 커리큘럼</h2>
-        <p>기술을 두려워하지 않고, 우리 사역의 주도권을 지키는 3과정 안내입니다.</p>
+        <span class="feature-eyebrow g"><span class="pillar-num">04</span> 목회시스템</span>
+        <h2>목회의 일을 흐름으로 정리합니다</h2>
+        <p>되풀이되는 목회의 일을 단계와 순서로 세워, 누가 맡아도 같은 품질로 이어지게 합니다.</p>
       </div>
-
-      <div class="curriculum-wrap">
-        <div class="course-item open" onclick="toggleAccordion(this)">
-          <div class="course-header">
-            <div class="course-title-area">
-              <div class="course-num">1</div>
-              <h3>과정 1. 처음 만나는 AI — 목회적 이해와 기본 대화</h3>
-            </div>
-            <div class="course-toggle">▾</div>
-          </div>
-          <div class="course-body">
-            <ul class="lecture-list">
-              <li><span class="check-mark">✓</span> AI 시대의 목회적 영성과 신학적 전제 — 두려움과 과신을 넘어서기</li>
-              <li><span class="check-mark">✓</span> 좋은 질문이 좋은 사역을 만든다 — 목회자를 위한 정교한 대화(프롬프트) 작성법</li>
-              <li><span class="check-mark">✓</span> 심방, 묵상 나눔, 소그룹 나눔 질문을 보조하는 AI 대화 실습</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="course-item" onclick="toggleAccordion(this)">
-          <div class="course-header">
-            <div class="course-title-area">
-              <div class="course-num">2</div>
-              <h3>과정 2. 자료를 다루다 — 문서·행정·주해 리서치 자동화</h3>
-            </div>
-            <div class="course-toggle">▾</div>
-          </div>
-          <div class="course-body">
-            <ul class="lecture-list">
-              <li><span class="check-mark">✓</span> 주보와 교회 행정 문서의 요약·초안 작성 시간 크게 줄이기</li>
-              <li><span class="check-mark">✓</span> 성경 본문 주해와 신학 논문, 방대한 도서 자료 고속 리서치 분석</li>
-              <li><span class="check-mark">✓</span> 교회 교적 자료 및 재정 데이터의 오류 없는 가공과 차트 시각화</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="course-item" onclick="toggleAccordion(this)">
-          <div class="course-header">
-            <div class="course-title-area">
-              <div class="course-num">3</div>
-              <h3>과정 3. 만들어 내다 — 사역자가 직접 하는 바이브 코딩 (Vibe Coding)</h3>
-            </div>
-            <div class="course-toggle">▾</div>
-          </div>
-          <div class="course-body">
-            <ul class="lecture-list">
-              <li><span class="check-mark">✓</span> 코드를 한 줄도 몰라도 괜찮습니다 — 자연어로 소프트웨어를 짓는 원리</li>
-              <li><span class="check-mark">✓</span> 우리 교회 맞춤 심방 신청 및 기도 제목 공유 앱 실전 제작</li>
-              <li><span class="check-mark">✓</span> 노회·전도기관 홈페이지 및 행사 안내 페이지 직접 배포하기</li>
-            </ul>
-          </div>
-        </div>
-
-        <a class="upcoming-strip" href="강의상세_커리큘럼.html#upcoming">
-          <span class="us-date"><b>11월</b>16–17일</span>
-          <span class="us-text">
-            <span class="us-label">예정된 세미나 · 확정</span>
-            <strong>한남노회 AI 세미나</strong>
-            <span class="us-meta">2026년 11월 16일(월) – 17일(화) · 소풍교회(예정)</span>
-          </span>
-          <span class="us-go">자세히 →</span>
+      <div class="flow-mini-grid">
+        <a href="설교플로우.html" class="flow-mini">
+          <span class="fm-ico">📖</span><h3>설교플로우</h3>
+          <p>본문 분석부터 완성 원고, 나눔지·카드뉴스까지 — 목회자가 결정하는 관문을 지나는 설교 준비의 길</p>
+          <span class="fm-go">살펴보기 →</span>
         </a>
-        <p class="us-live-line"><a href="live.html"><span class="live-mark" aria-hidden="true"></span> 세미나 참가자이신가요? <b>라이브톡 들어가기 →</b></a></p>
-
-        <div class="curriculum-more-box">
-          <div>
-            <h3>과정별 12주 상세 실습표 및 세미나 안내</h3>
-            <p>과목별 상세 교안과 목회자 세미나 코호트 일정을 독립 전문 페이지에서 확인하실 수 있습니다.</p>
-          </div>
-          <a href="강의상세_커리큘럼.html" class="btn-main" style="text-decoration:none; display:inline-block;">과정별 상세 커리큘럼 페이지 열기 →</a>
+        <a href="에듀플로우.html" class="flow-mini">
+          <span class="fm-ico">🌱</span><h3>에듀플로우</h3>
+          <p>주일학교 설교 한 편을 예열 → 선포 → 반응 → 인침 → 동행, 한 주의 흐름으로</p>
+          <span class="fm-go">살펴보기 →</span>
+        </a>
+        <a href="제자훈련플로우.html" class="flow-mini">
+          <span class="fm-ico">☕</span><h3>제자훈련플로우</h3>
+          <p>「일상동행 제자도」 4권 28주 — 스스로 묻고, 일터와 가정에서 살아내는 제자훈련</p>
+          <span class="fm-go">살펴보기 →</span>
+        </a>
+        <div class="flow-mini soon">
+          <span class="fm-ico">🏛️</span><h3>교회운영플로우</h3>
+          <p>행정·재정·회의처럼 교회를 움직이는 일의 흐름</p>
+          <span class="fm-go">준비 중</span>
         </div>
+      </div>
+      <div class="feature-btns center">
+        <a href="목회시스템.html" class="feature-cta g">상세 페이지 보기 →</a>
       </div>
     </div>
   </section>
 
-  <!-- 활용사례 섹션 (추후 추가) -->
-  <!-- "사역 현장의 이야기"(#usecases) 절은 내용이 생길 때까지 뺐음 (09-30) -->
-
-  <!-- FAQ 섹션 -->
   <section id="faq" class="faq-section">
     <div class="wrap">
       <div class="sec-header">
