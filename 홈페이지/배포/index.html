@@ -711,6 +711,16 @@
       display: none; padding: 24px; border-top: 1px solid var(--line-s); line-height: 1.7;
     }
     .course-item.open .course-body { display: block; }
+    /* 과정 4 · 오레브 (보라) */
+    .course-item.course-orev { background: #F6F2FB; border-color: #D9CCEE; }
+    .course-item.course-orev .course-num { background: #6B4E9B; color: #fff; }
+    .course-item.course-orev .course-header { background: #EFE8F8; }
+    .course-item.course-orev .course-toggle { color: #6B4E9B; }
+    .course-item.course-orev h3 { color: #3E2A6B; }
+    .course-item.course-orev .check-mark { color: #6B4E9B; }
+    .course-orev-tag { margin-left: auto; margin-right: 12px; font-size: 12.5px; font-weight: 700; color: #fff; background: #6B4E9B; padding: 3px 10px; border-radius: 99px; white-space: nowrap; }
+    .course-orev-link { display: inline-block; margin-top: 10px; font-weight: 700; color: #5A3F8A; text-decoration: none; }
+    @media (max-width: 640px) { .course-orev-tag { display: none; } }
     .course-item.open .course-toggle { transform: rotate(180deg); }
     .lecture-list {
       list-style: none; padding: 0; margin: 0;
@@ -1013,6 +1023,20 @@
     }
       .live-mark { width: 7px; height: 7px; border-radius: 50%; background: #D64545; display: inline-block; margin-right: 2px; }
     .nav-live { color: var(--sprout-tx) !important; font-weight: 700; }
+  
+/* 메뉴: 마우스를 올리면 아래로 하위 메뉴 (09-30) */
+@media (hover: hover) and (min-width: 769px) {
+  .nav-item:hover > .dropdown-menu, .nav-item:focus-within > .dropdown-menu { display: block; }
+}
+.dropdown-menu::before { content: ''; position: absolute; left: 0; right: 0; top: -10px; height: 10px; }
+.dd-item.dd-soon { color: var(--faint, #93867A); cursor: default; }
+.dd-item.dd-soon:hover { background: transparent; color: var(--faint, #93867A); }
+.dd-item.dd-soon em { font-style: normal; font-size: 11.5px; margin-left: auto; padding: 1px 7px; border-radius: 99px; background: var(--card, #F3EFE4); }
+.dd-item.dd-orev { background: #F1ECF8; color: #4E3780; }
+.dd-item.dd-orev:hover { background: #E6DCF4; color: #3E2A6B; }
+.dd-item.dd-all { border-top: 1px solid var(--line); margin-top: 4px; font-weight: 700; color: var(--sky-tx); border-radius: 0 0 var(--radius, 8px) var(--radius, 8px); }
+.dropdown-menu { min-width: 300px; max-width: none; }
+.dd-item { white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -1040,7 +1064,20 @@
       <nav class="main-nav">
         <a href="#hero" class="nav-link active">처음</a>
         <a href="오레브.html" class="nav-link">오레브</a>
-        <a href="목회시스템.html" class="nav-link">목회시스템</a>
+        <div class="nav-item" id="navItemSystem">
+          <a href="목회시스템.html" class="nav-link">목회시스템</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemSystem', event)" title="목회시스템 플로우 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">목회시스템 · 네 가지 플로우</div>
+            <div class="dd-list">
+              <a href="설교플로우.html" class="dd-item"><span class="dd-icon">📖</span> <strong>설교플로우</strong> (묵상에서 설교문까지)</a>
+              <a href="에듀플로우.html" class="dd-item"><span class="dd-icon">🌱</span> <strong>에듀플로우</strong> (주일학교 한 주의 흐름)</a>
+              <a href="제자훈련플로우.html" class="dd-item"><span class="dd-icon">☕</span> <strong>제자훈련플로우</strong> (일상동행 제자도)</a>
+              <span class="dd-item dd-soon"><span class="dd-icon">🏛️</span> <strong>교회운영플로우</strong> <em>준비 중</em></span>
+              <a href="목회시스템.html" class="dd-item dd-all"><span class="dd-icon">🧭</span> 목회시스템 전체 보기 →</a>
+            </div>
+          </div>
+        </div>
 
         <!-- 사역 도구 (10) 드롭다운 -->
         <div class="nav-item" id="navItemApps">
@@ -1068,12 +1105,13 @@
           <a href="#lectures" class="nav-link">AI 강의</a>
           <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
           <div class="dropdown-menu">
-            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩 · 오레브</div>
             <div class="dd-list">
               <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
               <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
               <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
-              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+              <a href="강의상세_커리큘럼.html?tab=4" class="dd-item dd-orev"><span class="dd-icon">🕊️</span> <strong>과정 4.</strong> 오레브 — AI를 한 팀으로</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item dd-all"><span class="dd-icon">🎓</span> 4과정 전체 실습표 보기 →</a>
             </div>
           </div>
         </div>
@@ -1148,7 +1186,7 @@
               <span class="slide-tag">바이브 코딩 · 사역자가 짓는 앱</span>
               <h2>외주 개발 없이, 사역자가 <br class="pc-only">말로 직접 짓는 바이브 코딩</h2>
               <p>프로그래밍 문법을 한 줄도 몰라도 괜찮습니다. AI와 한국어로 대화하며 우리 교회 비전이 담긴 말씀 앱과 웹사이트를 짓습니다.</p>
-              <a href="강의상세_커리큘럼.html?tab=3" class="slide-cta">🌱 3과정 12주 실습표 열람 →</a>
+              <a href="강의상세_커리큘럼.html?tab=3" class="slide-cta">🌱 4과정 실습표 열람 →</a>
             </div>
             <div class="slide-img-area">
               <img src="화면사진/말씀뽑기 첫화면.webp" alt="말씀뽑기 앱 화면">
@@ -1225,7 +1263,7 @@
             <h3>AI 목회 활용 · 바이브 코딩 강의</h3>
             <p>
               기술에 종속되지 않고 하나님 중심의 사역을 돕는 지혜.
-              AI의 원리를 이해하고 우리 교회의 필요를 코드로 실현하는 3과정 커리큘럼입니다.
+              AI의 원리를 이해하고 우리 교회의 필요를 코드로 실현하는 3과정에, 여러 AI를 한 팀으로 부리는 오레브 과정까지 4과정입니다.
             </p>
           </div>
           <div class="pillar-action">강의 커리큘럼 살펴보기 →</div>
@@ -1282,12 +1320,12 @@
     </div>
   </section>
 
-  <!-- AI 강의 3과정 커리큘럼 아코디언 -->
+  <!-- AI 강의 4과정 커리큘럼 아코디언 (과정 4 = 오레브, 보라색) -->
   <section id="lectures" class="lecture-section">
     <div class="wrap">
       <div class="sec-header">
-        <h2>AI 목회 활용 · 바이브 코딩 커리큘럼</h2>
-        <p>기술을 두려워하지 않고, 우리 사역의 주도권을 지키는 3과정 안내입니다.</p>
+        <h2>AI 목회 활용 · 바이브 코딩 · 오레브 커리큘럼</h2>
+        <p>기술을 두려워하지 않고, 우리 사역의 주도권을 지키는 4과정 안내입니다.</p>
       </div>
 
       <div class="curriculum-wrap">
@@ -1342,6 +1380,25 @@
           </div>
         </div>
 
+        <div class="course-item course-orev" onclick="toggleAccordion(this)">
+          <div class="course-header">
+            <div class="course-title-area">
+              <div class="course-num">4</div>
+              <h3>과정 4. 오레브로 일하다 — 여러 AI를 한 팀으로 (에이전트 오케스트레이션)</h3>
+            </div>
+            <span class="course-orev-tag">오레브 과정</span>
+            <div class="course-toggle">▾</div>
+          </div>
+          <div class="course-body">
+            <ul class="lecture-list">
+              <li><span class="check-mark">✓</span> 오레브 설치와 가입, 첫 팀 만들기 — 터미널을 몰라도 한글 화면으로</li>
+              <li><span class="check-mark">✓</span> 지휘하는 AI와 일손 AI — 일을 나눠 맡기고, AI끼리 서로의 결과를 검토하게 하기</li>
+              <li><span class="check-mark">✓</span> 설교팀·주보와 카드뉴스 팀처럼 매주 되풀이되는 사역을 팀과 기록으로 이어 가기</li>
+            </ul>
+            <a class="course-orev-link" href="오레브.html" onclick="event.stopPropagation()">🕊️ 오레브 알아보기 →</a>
+          </div>
+        </div>
+
         <a class="upcoming-strip" href="강의상세_커리큘럼.html#upcoming">
           <span class="us-date"><b>11월</b>16–17일</span>
           <span class="us-text">
@@ -1355,7 +1412,7 @@
 
         <div class="curriculum-more-box">
           <div>
-            <h3>과정별 12주 상세 실습표 및 세미나 안내</h3>
+            <h3>과정별 상세 실습표 및 세미나 안내</h3>
             <p>과목별 상세 교안과 목회자 세미나 코호트 일정을 독립 전문 페이지에서 확인하실 수 있습니다.</p>
           </div>
           <a href="강의상세_커리큘럼.html" class="btn-main" style="text-decoration:none; display:inline-block;">과정별 상세 커리큘럼 페이지 열기 →</a>

@@ -46,7 +46,20 @@
       <nav class="main-nav">
         <a href="index.html#hero" class="nav-link">처음</a>
         <a href="오레브.html" class="nav-link">오레브</a>
-        <a href="목회시스템.html" class="nav-link active" aria-current="page">목회시스템</a>
+        <div class="nav-item" id="navItemSystem">
+          <a href="목회시스템.html" class="nav-link active" aria-current="page">목회시스템</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemSystem', event)" title="목회시스템 플로우 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">목회시스템 · 네 가지 플로우</div>
+            <div class="dd-list">
+              <a href="설교플로우.html" class="dd-item"><span class="dd-icon">📖</span> <strong>설교플로우</strong> (묵상에서 설교문까지)</a>
+              <a href="에듀플로우.html" class="dd-item"><span class="dd-icon">🌱</span> <strong>에듀플로우</strong> (주일학교 한 주의 흐름)</a>
+              <a href="제자훈련플로우.html" class="dd-item"><span class="dd-icon">☕</span> <strong>제자훈련플로우</strong> (일상동행 제자도)</a>
+              <span class="dd-item dd-soon"><span class="dd-icon">🏛️</span> <strong>교회운영플로우</strong> <em>준비 중</em></span>
+              <a href="목회시스템.html" class="dd-item dd-all"><span class="dd-icon">🧭</span> 목회시스템 전체 보기 →</a>
+            </div>
+          </div>
+        </div>
 
         <!-- 사역 도구 (10) 드롭다운 -->
         <div class="nav-item" id="navItemApps">
@@ -74,12 +87,13 @@
           <a href="index.html#lectures" class="nav-link">AI 강의</a>
           <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
           <div class="dropdown-menu">
-            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩 · 오레브</div>
             <div class="dd-list">
               <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
               <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
               <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
-              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+              <a href="강의상세_커리큘럼.html?tab=4" class="dd-item dd-orev"><span class="dd-icon">🕊️</span> <strong>과정 4.</strong> 오레브 — AI를 한 팀으로</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item dd-all"><span class="dd-icon">🎓</span> 4과정 전체 실습표 보기 →</a>
             </div>
           </div>
         </div>

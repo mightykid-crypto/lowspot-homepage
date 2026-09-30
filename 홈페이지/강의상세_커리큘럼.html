@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="AI 목회 활용과 바이브 코딩 3과정 12주 실습표, 그리고 예정된 세미나(한남노회 · 2026년 11월 16~17일)를 안내합니다.">
+  <meta name="description" content="AI 목회 활용·바이브 코딩·오레브 4과정 실습표, 그리고 예정된 세미나(한남노회 · 2026년 11월 16~17일)를 안내합니다.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="낮은자리">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:title" content="AI 강의 커리큘럼 — 낮은자리">
-  <meta property="og:description" content="AI 목회 활용과 바이브 코딩 3과정 12주 실습표, 그리고 예정된 세미나(한남노회 · 2026년 11월 16~17일)를 안내합니다.">
+  <meta property="og:description" content="AI 목회 활용·바이브 코딩·오레브 4과정 실습표, 그리고 예정된 세미나(한남노회 · 2026년 11월 16~17일)를 안내합니다.">
   <meta property="og:url" content="https://lowspot.net/%EA%B0%95%EC%9D%98%EC%83%81%EC%84%B8_%EC%BB%A4%EB%A6%AC%ED%81%98%EB%9F%BC.html">
   <meta property="og:image" content="https://lowspot.net/og/lowspot.png">
   <meta property="og:image:width" content="1200">
@@ -229,6 +229,17 @@
     }
     .syl-top h3 { font-size: 28px; margin-bottom: 8px; color: var(--ink); }
     .syl-top p { color: var(--sub); font-size: 16px; margin: 0; }
+    /* 4과정 · 오레브 (보라) */
+    .tab-btn.tab-orev { color: #5A3F8A; border-color: #D9CCEE; background: #F6F2FB; }
+    .tab-btn.tab-orev:hover { background: #EDE5F7; color: #3E2A6B; }
+    .tab-btn.tab-orev.active { background: #6B4E9B; border-color: #6B4E9B; color: #fff; }
+    .syllabus-card.syl-orev { background: #FBF9FE; border-color: #D9CCEE; }
+    .syl-orev .syl-top h3 { color: #3E2A6B; }
+    .syl-orev-tag { display: inline-block; font-size: 13px; font-weight: 700; color: #fff; background: #6B4E9B; padding: 4px 12px; border-radius: 99px; margin-bottom: 10px; }
+    .syl-orev .week-table th { background: #EDE5F7; color: #3E2A6B; }
+    .syl-orev .week-num { color: #6B4E9B !important; }
+    .syl-orev-more { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 20px; }
+    .syl-orev-more a { font-weight: 700; color: #5A3F8A; text-decoration: none; }
 
     .week-table {
       width: 100%; border-collapse: collapse; text-align: left;
@@ -498,6 +509,20 @@
     }
       .live-mark { width: 7px; height: 7px; border-radius: 50%; background: #D64545; display: inline-block; margin-right: 2px; }
     .nav-live { color: var(--sprout-tx) !important; font-weight: 700; }
+  
+/* 메뉴: 마우스를 올리면 아래로 하위 메뉴 (09-30) */
+@media (hover: hover) and (min-width: 769px) {
+  .nav-item:hover > .dropdown-menu, .nav-item:focus-within > .dropdown-menu { display: block; }
+}
+.dropdown-menu::before { content: ''; position: absolute; left: 0; right: 0; top: -10px; height: 10px; }
+.dd-item.dd-soon { color: var(--faint, #93867A); cursor: default; }
+.dd-item.dd-soon:hover { background: transparent; color: var(--faint, #93867A); }
+.dd-item.dd-soon em { font-style: normal; font-size: 11.5px; margin-left: auto; padding: 1px 7px; border-radius: 99px; background: var(--card, #F3EFE4); }
+.dd-item.dd-orev { background: #F1ECF8; color: #4E3780; }
+.dd-item.dd-orev:hover { background: #E6DCF4; color: #3E2A6B; }
+.dd-item.dd-all { border-top: 1px solid var(--line); margin-top: 4px; font-weight: 700; color: var(--sky-tx); border-radius: 0 0 var(--radius, 8px) var(--radius, 8px); }
+.dropdown-menu { min-width: 300px; max-width: none; }
+.dd-item { white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -523,7 +548,20 @@
       <nav class="main-nav">
         <a href="index.html#hero" class="nav-link">처음</a>
         <a href="오레브.html" class="nav-link">오레브</a>
-        <a href="목회시스템.html" class="nav-link">목회시스템</a>
+        <div class="nav-item" id="navItemSystem">
+          <a href="목회시스템.html" class="nav-link">목회시스템</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemSystem', event)" title="목회시스템 플로우 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">목회시스템 · 네 가지 플로우</div>
+            <div class="dd-list">
+              <a href="설교플로우.html" class="dd-item"><span class="dd-icon">📖</span> <strong>설교플로우</strong> (묵상에서 설교문까지)</a>
+              <a href="에듀플로우.html" class="dd-item"><span class="dd-icon">🌱</span> <strong>에듀플로우</strong> (주일학교 한 주의 흐름)</a>
+              <a href="제자훈련플로우.html" class="dd-item"><span class="dd-icon">☕</span> <strong>제자훈련플로우</strong> (일상동행 제자도)</a>
+              <span class="dd-item dd-soon"><span class="dd-icon">🏛️</span> <strong>교회운영플로우</strong> <em>준비 중</em></span>
+              <a href="목회시스템.html" class="dd-item dd-all"><span class="dd-icon">🧭</span> 목회시스템 전체 보기 →</a>
+            </div>
+          </div>
+        </div>
 
         <!-- 사역 도구 (10) 드롭다운 -->
         <div class="nav-item" id="navItemApps">
@@ -551,12 +589,13 @@
           <a href="index.html#lectures" class="nav-link">AI 강의</a>
           <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
           <div class="dropdown-menu">
-            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩 · 오레브</div>
             <div class="dd-list">
               <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
               <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
               <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
-              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+              <a href="강의상세_커리큘럼.html?tab=4" class="dd-item dd-orev"><span class="dd-icon">🕊️</span> <strong>과정 4.</strong> 오레브 — AI를 한 팀으로</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item dd-all"><span class="dd-icon">🎓</span> 4과정 전체 실습표 보기 →</a>
             </div>
           </div>
         </div>
@@ -569,7 +608,7 @@
   <section class="hero">
     <div class="wrap">
       <span class="hero-tag">AI MINISTRY & VIBE CODING SYLLABUS</span>
-      <h1>교회를 섬기는 바이브 코딩 : 3과정 전체 실습표</h1>
+      <h1>교회를 섬기는 AI 배움 : 4과정 전체 실습표</h1>
       <p>
         이론보다 실습 중심으로 진행되는 실전 목회자 세미나 및 교육 교안입니다.<br>
         아래 탭을 눌러 각 과정의 주차별 커리큘럼을 확인하실 수 있습니다.
@@ -583,6 +622,7 @@
         <button class="tab-btn active" onclick="showSyllabus(1, this)">🌱 1과정. 목회적 이해와 기본 대화</button>
         <button class="tab-btn" onclick="showSyllabus(2, this)">📋 2과정. 문서·행정·주해 리서치</button>
         <button class="tab-btn" onclick="showSyllabus(3, this)">⚡ 3과정. 바이브 코딩 실전 (앱 짓기)</button>
+        <button class="tab-btn tab-orev" onclick="showSyllabus(4, this)">🕊️ 4과정. 오레브 — AI를 한 팀으로</button>
       </div>
 
       <!-- 1과정 -->
@@ -701,6 +741,46 @@
           </tbody>
         </table>
       </div>
+      <!-- 4과정 · 오레브 (보라) -->
+      <div class="syllabus-card syl-orev" id="syl4" style="display:none;">
+        <div class="syl-top">
+          <span class="syl-orev-tag">오레브 과정 · 에이전트 오케스트레이션</span>
+          <h3>4과정. 오레브로 일하다 : 여러 AI를 한 팀으로</h3>
+          <p>클로드·코덱스·제미나이를 한 팀으로 묶어, 설교 준비부터 주보·카드뉴스까지 매주의 사역을 이어 가는 법을 익힙니다.</p>
+        </div>
+        <table class="week-table">
+          <thead>
+            <tr>
+              <th>주차</th>
+              <th>주제</th>
+              <th>세부 실습 및 다루는 내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="week-num">1주차</td>
+              <td><strong>오레브 시작하기</strong></td>
+              <td>내 노트북에 설치하고 가입하기, 한글 화면 둘러보기, 첫 팀 만들기 — 터미널을 몰라도 됩니다</td>
+            </tr>
+            <tr>
+              <td class="week-num">2주차</td>
+              <td><strong>팀과 지휘</strong></td>
+              <td>지휘하는 AI(마스터)와 일손 AI(워커) 구조, 일의 성격에 맞춰 AI를 나눠 쓰고 같은 구독으로 더 오래 일하기</td>
+            </tr>
+            <tr>
+              <td class="week-num">3주차</td>
+              <td><strong>기록으로 이어 가기</strong></td>
+              <td>결정 대장·기억·티켓·인수인계 — 대화가 끊기거나 AI를 바꿔도 정한 것을 잃지 않고 이어서 일하기</td>
+            </tr>
+            <tr>
+              <td class="week-num">4주차</td>
+              <td><strong>매주 사역을 팀으로</strong></td>
+              <td>설교팀과 주보·카드뉴스·나눔지 팀 세우기, AI끼리 교차 검토, 사람의 허락이 필요한 일(안전선) 정하기</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="syl-orev-more"><a href="오레브.html">🕊️ 오레브 자세히 보기 →</a> <a href="#upcoming">세미나에서 시작하기 →</a></div>
+      </div>
     </div>
   </section>
 
@@ -754,7 +834,7 @@
           <input type="text" class="input-field" placeholder="교회명 또는 기관명 (예: 낮은자리 교회)">
           <input type="text" class="input-field" placeholder="신청자 성함 및 직분 (예: 홍길동 목사)">
           <input type="text" class="input-field" placeholder="연락처 (휴대폰 또는 이메일)">
-          <input type="text" class="input-field" placeholder="희망 세미나 과정 (예: 1과정 또는 3과정 바이브 코딩)">
+          <input type="text" class="input-field" placeholder="희망 세미나 과정 (예: 1과정, 3과정 바이브 코딩, 4과정 오레브)">
         </div>
         <button class="submit-btn" onclick="sendSeminarMail()">
           🌿 메일로 세미나 신청하기
@@ -822,9 +902,10 @@
       document.getElementById('syl1').style.display = idx === 1 ? 'block' : 'none';
       document.getElementById('syl2').style.display = idx === 2 ? 'block' : 'none';
       document.getElementById('syl3').style.display = idx === 3 ? 'block' : 'none';
+      document.getElementById('syl4').style.display = idx === 4 ? 'block' : 'none';
     }
 
-    // URL 파라미터 ?tab=1, 2, 3 체크하여 자동 탭 열기
+    // URL 파라미터 ?tab=1~4 체크하여 자동 탭 열기
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       if (params.has('tab')) {
