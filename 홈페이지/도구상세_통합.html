@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>낮은자리 사역 도구 통합 상세 페이지 (v3 Spoke · 세로 퀵바 및 상단 드롭다운)</title>
+  <meta name="robots" content="noindex, nofollow">
+  <title>사역 도구 — 낮은자리</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
@@ -572,7 +573,7 @@
 
   <footer>
     <div class="wrap">
-      <p>© 2026 민경우 · 낮은자리 (lowspot.kr) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
+      <p>© 2026 민경우 · 낮은자리 (lowspot.net) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
     </div>
   </footer>
 
@@ -930,7 +931,11 @@
 
     function downloadOrLaunch() {
       const app = appsData[currentAppId];
-      alert(app.actionMsg);
+      // 실제 주소가 생기면 appsData 에 url 을 넣는다. 그 전까지는 준비 중 안내 + 문의 메일.
+      if (app.url) { window.open(app.url, '_blank', 'noopener'); return; }
+      if (confirm(app.name + '은(는) 곧 공개됩니다.\n먼저 받아 보고 싶으시면 문의 메일을 보내 주세요. 메일을 쓰시겠어요?')) {
+        location.href = 'mailto:help@lowspot.net?subject=' + encodeURIComponent(app.name + ' 받기 문의');
+      }
     }
 
     window.addEventListener('DOMContentLoaded', init);

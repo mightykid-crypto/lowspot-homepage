@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 목회 & 바이브 코딩 상세 커리큘럼 — 낮은자리 (v3 Spoke)</title>
+  <meta name="robots" content="noindex, nofollow">
+  <title>AI 강의 커리큘럼 — 낮은자리</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
@@ -601,8 +602,8 @@
           <input type="text" class="input-field" placeholder="연락처 (휴대폰 또는 이메일)">
           <input type="text" class="input-field" placeholder="희망 세미나 과정 (예: 1과정 또는 3과정 바이브 코딩)">
         </div>
-        <button class="submit-btn" onclick="alert('세미나 출강 문의가 성공적으로 접수되었습니다. 곧 연락드리겠습니다.')">
-          🌿 세미나 출강 신청하기
+        <button class="submit-btn" onclick="sendSeminarMail()">
+          🌿 메일로 세미나 신청하기
         </button>
       </div>
     </div>
@@ -610,7 +611,7 @@
 
   <footer>
     <div class="wrap">
-      <p>© 2026 민경우 · 낮은자리 (lowspot.kr) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
+      <p>© 2026 민경우 · 낮은자리 (lowspot.net) — 세상엔 강하게, 하나님 앞엔 아이처럼</p>
     </div>
   </footer>
 
@@ -677,6 +678,13 @@
         if (tabBtn) showSyllabus(tabIdx, tabBtn);
       }
     });
+      // 세미나 신청: 입력한 내용으로 메일 쓰기 창을 연다(서버 없음).
+    function sendSeminarMail() {
+      const labels = ['교회·기관', '신청자', '연락처', '희망 과정'];
+      const vals = [...document.querySelectorAll('.seminar-box .input-field')].map(i => i.value.trim());
+      const body = labels.map((l, i) => l + ': ' + (vals[i] || '')).join('\n');
+      location.href = 'mailto:help@lowspot.net?subject=' + encodeURIComponent('세미나 출강 신청') + '&body=' + encodeURIComponent(body);
+    }
   </script>
 </body>
 </html>
