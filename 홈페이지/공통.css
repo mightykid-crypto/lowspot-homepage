@@ -81,6 +81,9 @@ nav.main-nav { display: flex; align-items: center; gap: 6px; }
 }
 .dd-item:hover { background: var(--card-g); color: var(--sprout-tx); }
 .dd-icon { font-size: 16px; width: 22px; text-align: center; }
+/* 메뉴의 라이브톡 */
+.live-mark { width: 7px; height: 7px; border-radius: 50%; background: #D64545; display: inline-block; margin-right: 2px; }
+.nav-live { color: var(--sprout-tx) !important; font-weight: 700; }
 
 /* ── 첫머리 ── */
 .page-hero { padding: 72px 0 56px; border-bottom: 1px solid var(--line); }

@@ -286,6 +286,14 @@
     .up-info dt { flex: 0 0 36px; font-weight: 700; color: var(--sub); }
     .up-info dd { margin: 0; }
     .up-info small { color: var(--sub); font-size: 13px; }
+    .up-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+    .up-live {
+      display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: var(--radius);
+      background: var(--sprout-btn); color: #fff; font-weight: 700; text-decoration: none; font-size: 15px;
+    }
+    .up-live:hover { background: var(--sprout-tx); }
+    .up-live .live-mark { background: #FFB4B4; }
+    .up-note { font-size: 13.5px !important; color: var(--sub); margin: 12px 0 0 !important; }
     .up-link { font-weight: 700; color: var(--sprout-tx); text-decoration: none; font-size: 15px; }
     .up-link.sky { color: var(--sky-tx); }
     .up-link:hover { text-decoration: underline; }
@@ -488,6 +496,8 @@
       .mobile-fab-btn span:not(:first-child) { display: none; }
       .vertical-quick-bar { right: 16px !important; bottom: 72px !important; }
     }
+      .live-mark { width: 7px; height: 7px; border-radius: 50%; background: #D64545; display: inline-block; margin-right: 2px; }
+    .nav-live { color: var(--sprout-tx) !important; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -550,6 +560,7 @@
             </div>
           </div>
         </div>
+        <a href="live.html" class="nav-link nav-live"><span class="live-mark" aria-hidden="true"></span>라이브톡</a>
         <a href="index.html#contact" class="nav-link">문의</a>
       </nav>
     </div>
@@ -714,7 +725,11 @@
               <div><dt>일시</dt><dd>2026년 11월 16일(월) – 17일(화) <small>· 2일간</small></dd></div>
               <div><dt>장소</dt><dd>소풍교회 <small>(예정)</small></dd></div>
             </dl>
-            <a class="up-link" href="mailto:help@lowspot.net?subject=%ED%95%9C%EB%82%A8%EB%85%B8%ED%9A%8C%20AI%20%EC%84%B8%EB%AF%B8%EB%82%98%20%EB%AC%B8%EC%9D%98">세미나 문의하기 →</a>
+            <div class="up-actions">
+              <a class="up-live" href="live.html"><span class="live-mark" aria-hidden="true"></span> 라이브톡 들어가기</a>
+              <a class="up-link" href="mailto:help@lowspot.net?subject=%ED%95%9C%EB%82%A8%EB%85%B8%ED%9A%8C%20AI%20%EC%84%B8%EB%AF%B8%EB%82%98%20%EB%AC%B8%EC%9D%98">세미나 문의하기 →</a>
+            </div>
+            <p class="up-note">세미나 동안 강사님이 올리는 프롬프트·자료를 라이브톡에서 실시간으로 받아요.</p>
           </div>
         </article>
         <article class="up-card up-orev">

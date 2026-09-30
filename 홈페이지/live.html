@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="세미나 동안 강사님이 올리는 프롬프트와 자료를 실시간으로 받아 복사하고, 질문하는 곳입니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="낮은자리">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="라이브톡 — 세미나 자료를 실시간으로">
+  <meta property="og:description" content="세미나 동안 강사님이 올리는 프롬프트와 자료를 실시간으로 받아 복사하고, 질문하는 곳입니다.">
+  <meta property="og:url" content="https://lowspot.net/live">
+  <meta property="og:image" content="https://lowspot.net/og/lowspot.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>라이브톡 — 낮은자리</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="공통.css">
+  <style>
+    body { background: var(--bg); }
+    header.top { position: static; }   /* 라이브톡은 위 막대(appbar)만 붙어 있게 */
+    .live [hidden] { display: none !important; }
+    body:not(.is-teacher) .teacher-only, body.is-teacher .user-only { display: none !important; }
+    .btn-sm { min-height: 40px; padding: 8px 18px; font-size: 15px; }
+
+    /* 입장 */
+    .live-join { padding: 56px 0 80px; }
+    .join-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+    .join-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 36px 34px; box-shadow: 0 18px 50px rgba(51, 47, 42, .08); }
+    .join-card h1 { font-size: 32px; margin-bottom: 14px; }
+    .join-card .lead { color: var(--sub); margin: 0 0 24px; }
+    #joinForm { display: grid; gap: 14px; }
+    #joinForm label { display: grid; gap: 6px; font-weight: 700; font-size: 15px; }
+    #joinForm label small { color: var(--sub); font-weight: 400; }
+    #joinForm input, #composer input, #composer select, #composer textarea, #askText, .beam-code-form input {
+      font: inherit; font-size: 16px; padding: 11px 13px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--card); color: var(--ink); width: 100%;
+    }
+    #joinForm input:focus, #composer :is(input, select, textarea):focus, #askText:focus { outline: 2px solid var(--sprout); outline-offset: 1px; background: #fff; }
+    #joinForm input[name=code] { font-size: 20px; letter-spacing: .08em; font-weight: 700; text-transform: uppercase; }
+    .join-error { color: #B3261E; min-height: 1.2em; margin: 0; font-size: 14.5px; }
+    #joinForm .btn { width: 100%; min-height: 50px; font-size: 17px; }
+    .join-note { color: var(--sub); font-size: 13.5px; margin: 18px 0 0; }
+    .join-how { padding-top: 10px; }
+    .join-how h2 { font-size: 22px; margin-bottom: 18px; }
+    .how-steps { list-style: none; padding: 0; margin: 0 0 24px; counter-reset: s; display: grid; gap: 14px; }
+    .how-steps li { counter-increment: s; position: relative; padding: 16px 18px 16px 62px; background: var(--card-g); border: 1px solid var(--line); border-radius: var(--radius-lg); display: grid; gap: 2px; }
+    .how-steps li::before { content: counter(s); position: absolute; left: 18px; top: 16px; width: 30px; height: 30px; border-radius: 50%; background: var(--sprout-tx); color: #fff; font-family: var(--serif); font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .how-steps span { color: var(--sub); font-size: 14.5px; }
+    .up-mini { display: block; padding: 14px 18px; border: 1px dashed var(--sky); border-radius: var(--radius); color: var(--sky-tx); text-decoration: none; font-weight: 600; font-size: 14.5px; background: var(--card-s); }
+
+    /* 방 위 막대 */
+    .appbar { position: sticky; top: 0; z-index: 400; background: color-mix(in srgb, var(--bg) 94%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .appbar-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; flex-wrap: wrap; }
+    .appbar-l, .appbar-r { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .live-dot { width: 10px; height: 10px; border-radius: 50%; background: #D64545; box-shadow: 0 0 0 4px color-mix(in srgb, #D64545 20%, transparent); animation: pulse 1.8s infinite; flex: none; }
+    @keyframes pulse { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, #D64545 6%, transparent); } }
+    .room-title { font-family: var(--serif); font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .conn { font-size: 12.5px; padding: 2px 9px; border-radius: 99px; background: var(--card); color: var(--sub); white-space: nowrap; }
+    .conn[data-state=on] { background: var(--card-g); color: var(--sprout-tx); }
+    .conn[data-state=wait] { background: #FFF4D6; color: #7A5B00; }
+    .online { font-size: 14px; color: var(--sub); white-space: nowrap; }
+    .me { font-size: 14px; font-weight: 700; white-space: nowrap; }
+    .bar-btn { font: inherit; font-size: 14px; padding: 6px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; cursor: pointer; color: var(--ink); white-space: nowrap; }
+    .bar-btn:hover { background: var(--card); }
+    .tabbar { display: none; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-bottom: 8px; }
+    .tabbar button { font: inherit; font-size: 15px; font-weight: 700; padding: 8px 14px; border: 0; border-radius: 99px; background: transparent; color: var(--sub); cursor: pointer; white-space: nowrap; }
+    .tabbar button[aria-selected=true] { background: var(--sprout-tx); color: #fff; }
+    .tab-n:not(:empty) { margin-left: 6px; background: #D64545; color: #fff; border-radius: 99px; padding: 0 7px; font-size: 12px; }
+
+    /* 3단 */
+    .live-grid { display: grid; grid-template-columns: 190px minmax(0, 1fr) 340px; gap: 24px; padding-top: 22px; padding-bottom: 80px; align-items: start; }
+    .col-left, .col-side { position: sticky; top: 78px; max-height: calc(100vh - 96px); overflow-y: auto; scrollbar-width: thin; }
+    .col-side { display: grid; gap: 16px; }
+    .side-label { font-size: 12.5px; font-weight: 700; color: var(--sub); margin: 4px 0 10px; }
+    .chips { display: flex; flex-direction: column; gap: 6px; }
+    .chip { font: inherit; font-size: 15px; display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid transparent; border-radius: var(--radius); background: transparent; color: var(--ink); cursor: pointer; text-align: left; }
+    .chip:hover { background: var(--card); }
+    .chip.on { background: var(--card-g); border-color: color-mix(in srgb, var(--sprout) 40%, transparent); color: var(--sprout-tx); font-weight: 700; }
+    .chip-n { font-size: 12.5px; color: var(--sub); }
+
+    /* 자료 카드 */
+    .feed { display: grid; gap: 14px; }
+    .feed-label { font-size: 13px; font-weight: 700; color: var(--sub); margin-top: 6px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 18px 20px; box-shadow: 0 6px 18px rgba(51, 47, 42, .05); scroll-margin-top: 130px; }
+    .card.t-prompt { border-left: 4px solid var(--sprout); }
+    .card.t-link { border-left: 4px solid var(--sky); }
+    .card.t-answer { border-left: 4px solid var(--sky); background: color-mix(in srgb, var(--sky) 5%, #fff); }
+    .card.t-notice { background: var(--card); }
+    .card.flash { animation: flash 1.6s ease-out; }
+    @keyframes flash { 0% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--sprout) 45%, transparent); } 100% { box-shadow: 0 6px 18px rgba(51, 47, 42, .05); } }
+    .card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+    .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 99px; color: #fff; background: var(--sprout-tx); }
+    .b-link, .b-answer { background: var(--sky-tx); }
+    .b-notice { background: var(--soil); }
+    .lesson { font-weight: 700; color: var(--sub); }
+    .when { margin-left: auto; color: var(--sub); font-size: 12.5px; }
+    .card-title { font-size: 18px; margin: 0 0 8px; }
+    .card-text { white-space: pre-wrap; word-break: break-word; }
+    .inline-link { color: var(--sky-tx); word-break: break-all; }
+    .prompt-box { margin: 0; padding: 14px 16px; background: var(--card-g); border: 1px solid color-mix(in srgb, var(--sprout) 25%, var(--line)); border-radius: var(--radius); white-space: pre-wrap; word-break: break-word; font-family: var(--sans); font-size: 15.5px; line-height: 1.7; max-height: 420px; overflow: auto; }
+    .q-quote { margin: 0 0 10px; padding: 10px 14px; border-left: 3px solid var(--sky); background: var(--card-s); border-radius: 0 var(--radius) var(--radius) 0; color: var(--ink); }
+    .file-card { display: flex; align-items: center; gap: 12px; margin-top: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card-s); text-decoration: none; color: var(--ink); }
+    .file-card:hover { border-color: var(--sky); }
+    .file-card.drive { background: #fff; }
+    .file-ico { font-size: 26px; }
+    .file-meta { display: grid; min-width: 0; }
+    .file-meta small { color: var(--sub); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .file-go { margin-left: auto; font-weight: 700; color: var(--sky-tx); white-space: nowrap; }
+    .card-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
+    .act { font: inherit; font-size: 14.5px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 99px; background: #fff; color: var(--ink); cursor: pointer; }
+    .act:hover { background: var(--card); }
+    .act .n { font-size: 12.5px; color: var(--sub); }
+    .act.on { background: var(--card-g); border-color: var(--sprout); color: var(--sprout-tx); font-weight: 700; }
+    .act-copy { background: var(--sprout-tx); color: #fff; border-color: var(--sprout-tx); font-weight: 700; padding: 8px 16px; }
+    .act-copy:hover { background: color-mix(in srgb, var(--sprout-tx) 88%, #000); }
+    .act-copy .n { color: color-mix(in srgb, #fff 80%, transparent); }
+    .act-save { margin-left: auto; font-size: 17px; padding: 5px 11px; }
+    .act-stat { font-size: 13px; color: var(--sub); }
+    .progress { display: flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 13px; color: var(--sub); }
+    .progress .bar { flex: 0 0 120px; height: 8px; border-radius: 99px; background: var(--card); overflow: hidden; }
+    .progress .bar i { display: block; height: 100%; background: var(--sprout); border-radius: 99px; transition: width .4s; }
+    .teacher-tools { display: flex; gap: 6px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+    .teacher-tools button, .draft-tools button, .row-btns button, .room-btns button { font: inherit; font-size: 13.5px; padding: 5px 11px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; color: var(--ink); cursor: pointer; }
+    .teacher-tools button:hover, .draft-tools button:hover, .row-btns button:hover, .room-btns button:hover { background: var(--card); }
+    button.danger { color: #B3261E; }
+    button.go { background: var(--sprout-tx); color: #fff; border-color: var(--sprout-tx); font-weight: 700; }
+    button.go:hover { background: color-mix(in srgb, var(--sprout-tx) 88%, #000); }
+    .empty { text-align: center; padding: 60px 20px; color: var(--sub); border: 1px dashed var(--line); border-radius: var(--radius-lg); background: #fff; }
+    .empty-mark { font-size: 34px; }
+    .new-pill { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 450; font: inherit; font-weight: 700; padding: 10px 20px; border: 0; border-radius: 99px; background: var(--sprout-tx); color: #fff; box-shadow: 0 10px 26px rgba(82, 115, 59, .35); cursor: pointer; }
+
+    /* 옆 칸 */
+    .panel { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 18px; }
+    .panel h2 { font-size: 17px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .panel h2.mt { margin-top: 20px; }
+    .panel textarea { resize: vertical; }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; }
+    .row2 { display: flex; gap: 10px; margin: 10px 0; }
+    .lbl { display: grid; gap: 4px; font-size: 13.5px; font-weight: 700; }
+    .lbl small { font-weight: 400; color: var(--sub); }
+    .grow { flex: 1; }
+    .muted { color: var(--sub); font-size: 14px; margin: 0; }
+    .small { font-size: 13px; margin-top: 10px; }
+    .count-soft { font-size: 13px; color: var(--sub); font-family: var(--sans); font-weight: 600; }
+    .count-badge:not(:empty) { font-size: 12.5px; background: #D64545; color: #fff; border-radius: 99px; padding: 1px 8px; font-family: var(--sans); }
+    .seg { display: flex; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .seg label { flex: 1; }
+    .seg input { position: absolute; opacity: 0; pointer-events: none; }
+    .seg span { display: block; text-align: center; padding: 9px 4px; font-size: 14.5px; font-weight: 700; color: var(--sub); cursor: pointer; background: #fff; }
+    .seg input:checked + span { background: var(--sprout-tx); color: #fff; }
+    .seg input:focus-visible + span { outline: 2px solid var(--sky); outline-offset: -3px; }
+    .hint { font-size: 13.5px; background: #FFF8E6; border: 1px solid #F1DEA8; padding: 9px 12px; border-radius: var(--radius); margin: 10px 0 0; }
+    .mode { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 14px; background: var(--card-s); padding: 8px 12px; border-radius: var(--radius); margin-bottom: 10px; }
+    .mode button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: #fff; border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+    .my-q { list-style: none; padding: 0; margin: 14px 0 0; display: grid; gap: 8px; font-size: 14.5px; }
+    .my-q li { display: grid; gap: 2px; padding: 10px 12px; background: var(--card); border-radius: var(--radius); }
+    .my-q li.done { background: var(--card-g); }
+    .my-q a { color: var(--sky-tx); font-weight: 700; font-size: 13.5px; }
+    .q-state { font-size: 12px; font-weight: 700; color: var(--sub); }
+    .my-q li.done .q-state { color: var(--sprout-tx); }
+    .row-btns, .room-btns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .draft-list { display: grid; gap: 8px; }
+    .draft-lesson { font-weight: 700; font-size: 13px; color: var(--sprout-tx); margin-top: 6px; }
+    .draft { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; }
+    .draft.used { opacity: .62; }
+    .draft-top { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+    .draft-top b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .used-mark { margin-left: auto; font-size: 12px; color: var(--sprout-tx); font-weight: 700; }
+    .draft p, .question p { font-size: 13.5px; color: var(--sub); margin: 6px 0 8px; white-space: pre-wrap; }
+    .draft-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+    .question { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; margin-bottom: 8px; }
+    .question.done { opacity: .6; }
+    .q-who { display: flex; gap: 4px; font-size: 13.5px; }
+    .question p { color: var(--ink); font-size: 14.5px; }
+    .people { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; max-height: 240px; overflow: auto; }
+    .people li { display: flex; justify-content: space-between; align-items: center; font-size: 14px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+    .people small { color: var(--sub); }
+    .link-danger { font: inherit; font-size: 12.5px; border: 0; background: none; color: #B3261E; cursor: pointer; }
+    .toast { position: fixed; left: 50%; bottom: 80px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; z-index: 600; background: var(--ink); color: #fff; padding: 11px 18px; border-radius: 99px; font-size: 14.5px; transition: all .25s; max-width: calc(100vw - 32px); text-align: center; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    /* 중간 창: 왼쪽 칸 → 위쪽 칩 줄 */
+    @media (max-width: 1180px) {
+      .live-grid { grid-template-columns: minmax(0, 1fr) 320px; }
+      .col-left { grid-column: 1 / -1; position: static; max-height: none; }
+      .side-label { display: none; }
+      .chips { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+      .chip { white-space: nowrap; border-color: var(--line); background: #fff; border-radius: 99px; padding: 6px 12px; }
+    }
+    /* 좁은 창(반쪽 창·휴대폰): 한 줄 + 탭 */
+    @media (max-width: 900px) {
+      .tabbar { display: flex; }
+      .live-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; padding-top: 14px; }
+      .col-side { position: static; max-height: none; overflow: visible; }
+      .pane { display: none; }
+      body[data-tab=feed] .pane[data-pane=feed],
+      body[data-tab=ask] .pane[data-pane=ask],
+      body[data-tab=compose] .pane[data-pane=compose],
+      body[data-tab=drafts] .pane[data-pane=drafts],
+      body[data-tab=questions] .pane[data-pane=questions],
+      body[data-tab=room] .pane[data-pane=room] { display: block; }
+      body:not([data-tab=feed]) .col-left { display: none; }
+      .join-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      .join-card { padding: 28px 22px; }
+      .join-card h1 { font-size: 26px; }
+      .live-join { padding: 28px 0 60px; }
+      .appbar .online { display: none; }
+      .card { padding: 16px; }
+    }
+    @media (max-width: 560px) {
+      .me { display: none; }
+      .act-save { margin-left: 0; }
+      .row2 { flex-direction: column; }
+    }
+
+    /* 빔 화면 */
+    body.beam header.top, body.beam footer { display: none; }
+    .beam-view { min-height: 100vh; background: #1D1F1A; color: #EAE4D7; padding: 28px 40px; display: flex; flex-direction: column; gap: 24px; }
+    .beam-top { display: flex; justify-content: space-between; align-items: center; font-size: 22px; }
+    .beam-top b { font-family: var(--serif); font-size: 28px; }
+    .beam-live { color: #FF6B6B; font-weight: 700; margin-right: 8px; }
+    .beam-main { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 32px; }
+    .beam-post { background: #272A22; border: 1px solid #3B3F34; border-radius: 20px; padding: 36px 40px; }
+    .beam-head { font-size: 22px; color: #93BD70; font-weight: 700; margin-bottom: 14px; }
+    .beam-post h2 { font-size: 40px; margin-bottom: 18px; color: #fff; }
+    .beam-post pre, .beam-post p { font-family: var(--sans); font-size: 30px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; margin: 0; }
+    .beam-stats { margin-top: 26px; font-size: 22px; color: #8FAEC4; }
+    .beam-empty { font-size: 30px; color: #8FAEC4; }
+    .beam-join { background: #93BD70; color: #1D1F1A; border-radius: 20px; padding: 30px 26px; text-align: center; align-self: start; }
+    .beam-join p { margin: 0 0 6px; font-weight: 700; font-size: 18px; }
+    .beam-url { font-size: 26px; font-weight: 800; margin-bottom: 24px; white-space: nowrap; }
+    .beam-code { font-size: 44px; font-weight: 800; letter-spacing: .06em; background: #1D1F1A; color: #fff; border-radius: 12px; padding: 12px 8px; word-break: break-all; }
+    .beam-code.empty { font-size: 18px; font-weight: 600; background: rgba(29,31,26,.35); }
+    .beam-q { margin: 0 0 18px; padding: 14px 20px; border-left: 4px solid #8FAEC4; background: #1D1F1A; border-radius: 0 12px 12px 0; font-size: 24px; color: #8FAEC4; }
+    .beam-code-form { display: flex; gap: 6px; margin-top: 16px; opacity: .55; }
+    .beam-code-form:focus-within, .beam-code-form:hover { opacity: 1; }
+    .beam-code-form input { background: #fff; font-size: 14px; padding: 6px 8px; }
+    .beam-code-form button { font: inherit; font-size: 14px; border: 0; border-radius: 6px; padding: 0 12px; cursor: pointer; }
+    .beam-view .badge { font-size: 18px; padding: 4px 14px; }
+      .live-mark { width: 7px; height: 7px; border-radius: 50%; background: #D64545; display: inline-block; margin-right: 2px; }
+    .nav-live { color: var(--sprout-tx) !important; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top-in">
+      <a href="index.html" class="brand">
+        <div class="logo-icon">
+          <svg width="36" height="36" viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M0 100V76C22 76 30 86 50 86C70 86 78 76 100 76V100Z" fill="#4A3E33"/>
+            <path d="M44 86C44 68 44 57 47 45H53C50 57 50 68 50 86Z" fill="#6E9A4F"/>
+            <path d="M52 49C65 47 78 36 81 17C65 19 53 31 52 49Z" fill="#6E9A4F"/>
+            <path d="M46 57C34 55 23 44 20 27C34 30 45 42 46 57Z" fill="#6E9A4F"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-name">낮은자리</div>
+          <div class="brand-motto">세상엔 강하고 하나님껜 아이처럼.</div>
+        </div>
+      </a>
+
+      <!-- 상단 내비게이션 -->
+      <nav class="main-nav">
+        <a href="index.html#hero" class="nav-link">처음</a>
+        <a href="오레브.html" class="nav-link">오레브</a>
+        <a href="목회시스템.html" class="nav-link">목회시스템</a>
+
+        <!-- 사역 도구 (10) 드롭다운 -->
+        <div class="nav-item" id="navItemApps">
+          <a href="index.html#apps" class="nav-link">사역 도구 (10)</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemApps', event)" title="10개 앱 하위 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">만든 사역 도구 목록</div>
+            <div class="dd-list">
+              <a href="도구상세_통합.html?id=bible-note" class="dd-item"><span class="dd-icon">✍️</span> <strong>성경노트</strong> (서피스펜 햅틱)</a>
+              <a href="도구상세_통합.html?id=game10s" class="dd-item"><span class="dd-icon">🎮</span> <strong>10초게임</strong> (17종 아이스브레이크)</a>
+              <a href="도구상세_통합.html?id=wordle" class="dd-item"><span class="dd-icon">📖</span> <strong>낮은꼬들</strong> (설교 단어 워들)</a>
+              <a href="도구상세_통합.html?id=finance" class="dd-item"><span class="dd-icon">📊</span> <strong>교회재정</strong> (헌금·결산 회계)</a>
+              <a href="도구상세_통합.html?id=presenter" class="dd-item"><span class="dd-icon">🖥️</span> <strong>설교프레젠터</strong> (말씀 화면 송출)</a>
+              <a href="도구상세_통합.html?id=pdf" class="dd-item"><span class="dd-icon">📄</span> <strong>PDF변환</strong> (주보 분할/병합)</a>
+              <a href="도구상세_통합.html?id=worship" class="dd-item"><span class="dd-icon">🎵</span> <strong>찬양콘티</strong> (4곡 분할 악보)</a>
+              <a href="도구상세_통합.html?id=draw" class="dd-item"><span class="dd-icon">📜</span> <strong>말씀뽑기</strong> (신년 축복 말씀)</a>
+              <a href="도구상세_통합.html?id=qr" class="dd-item"><span class="dd-icon">📱</span> <strong>QR메이커</strong> (주보·현수막 QR)</a>
+              <a href="도구상세_통합.html?id=typing" class="dd-item"><span class="dd-icon">⌨️</span> <strong>타자 말씀 암송</strong> (100선 묵상)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI 강의 드롭다운 -->
+        <div class="nav-item" id="navItemLectures">
+          <a href="index.html#lectures" class="nav-link">AI 강의</a>
+          <button class="nav-arrow" onclick="toggleDropdown('navItemLectures', event)" title="강의 과정 목록 보기">▾</button>
+          <div class="dropdown-menu">
+            <div class="dd-title">AI 목회 활용 · 바이브 코딩</div>
+            <div class="dd-list">
+              <a href="강의상세_커리큘럼.html?tab=1" class="dd-item"><span class="dd-icon">🌱</span> <strong>과정 1.</strong> 처음 만나는 AI (이론·영성)</a>
+              <a href="강의상세_커리큘럼.html?tab=2" class="dd-item"><span class="dd-icon">📋</span> <strong>과정 2.</strong> 행정·주해 리서치 자동화</a>
+              <a href="강의상세_커리큘럼.html?tab=3" class="dd-item"><span class="dd-icon">⚡</span> <strong>과정 3.</strong> 바이브 코딩 실전 (앱 짓기)</a>
+              <a href="강의상세_커리큘럼.html" class="dd-item" style="border-top:1px solid var(--line); margin-top:4px; font-weight:700; color:var(--sky-tx);"><span class="dd-icon">🎓</span> 3과정 12주 전체 실습표 보기 →</a>
+            </div>
+          </div>
+        </div>
+        <a href="live.html" class="nav-link nav-live active" aria-current="page"><span class="live-mark" aria-hidden="true"></span>라이브톡</a>
+        <a href="index.html#contact" class="nav-link">문의</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="live">
+    <!-- 입장 -->
+    <section id="liveJoin" class="live-join" hidden>
+      <div class="wrap join-grid">
+        <div class="join-card">
+          <span class="eyebrow">라이브톡</span>
+          <h1>세미나 자료를<br>실시간으로 받아 보세요</h1>
+          <p class="lead">강사님이 올리는 프롬프트와 자료를 바로 복사해 실습에 쓰세요. 제미나이 창 옆에 반쪽으로 띄워 두면 편해요.</p>
+          <form id="joinForm" autocomplete="on">
+            <label><span>세미나 코드</span>
+              <input name="code" required autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="화면에 띄워 드린 코드">
+            </label>
+            <label><span>이름</span>
+              <input name="name" maxlength="20" autocomplete="name" placeholder="예: 홍길동 목사">
+            </label>
+            <label><span>교회 <small>(선택)</small></span>
+              <input name="church" maxlength="30" placeholder="예: 소풍교회">
+            </label>
+            <p id="joinError" class="join-error" role="alert"></p>
+            <button type="submit" class="btn btn-main">입장하기</button>
+          </form>
+          <p class="join-note">강사님은 강사 코드만 넣으시면 돼요.<br>받는 정보는 이름과 교회뿐이며, 세미나가 끝나고 7일 뒤 모두 지워집니다.</p>
+        </div>
+        <div class="join-how">
+          <h2>이렇게 씁니다</h2>
+          <ol class="how-steps">
+            <li><b>코드와 이름으로 들어오기</b><span>세미나 화면에 띄운 코드를 적으면 끝이에요. 아이디·비밀번호는 없어요.</span></li>
+            <li><b>📋 복사하기 → 제미나이에 붙여 넣기</b><span>강사님이 올린 프롬프트를 한 번에 복사해 실습 창에 붙여 넣으세요.</span></li>
+            <li><b>✅ 따라 했어요 · 질문하기</b><span>다 해 보셨으면 ✅를 눌러 주세요. 질문은 강사님께만 보여요.</span></li>
+          </ol>
+          <a class="up-mini" href="강의상세_커리큘럼.html#upcoming">📅 한남노회 AI 세미나 · 2026년 11월 16–17일 · 소풍교회(예정)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 방 -->
+    <section id="liveApp" hidden>
+      <div class="appbar">
+        <div class="wrap appbar-in">
+          <div class="appbar-l">
+            <span class="live-dot" aria-hidden="true"></span>
+            <b id="roomTitle" class="room-title">라이브톡</b>
+            <span id="connState" class="conn" data-state="wait">연결 중…</span>
+          </div>
+          <div class="appbar-r">
+            <span id="onlineCount" class="online"></span>
+            <span id="meName" class="me"></span>
+            <button id="beamBtn" type="button" class="bar-btn teacher-only">🖥 빔 화면</button>
+            <button id="leaveBtn" type="button" class="bar-btn">나가기</button>
+          </div>
+        </div>
+        <div class="wrap"><div id="tabBar" class="tabbar" role="tablist" aria-label="라이브톡 화면"></div></div>
+      </div>
+
+      <div class="wrap live-grid">
+        <aside class="col-left">
+          <div class="side-label">강의별 보기</div>
+          <div id="lessonFilter" class="chips"></div>
+        </aside>
+
+        <div class="col-feed pane" data-pane="feed">
+          <div id="feed" class="feed" aria-live="polite"></div>
+          <button id="newPill" type="button" class="new-pill" hidden></button>
+        </div>
+
+        <aside class="col-side">
+          <!-- 참가자 -->
+          <section class="pane panel user-only" data-pane="ask" id="askBox">
+            <h2>강사님께 질문하기</h2>
+            <form id="askForm">
+              <textarea id="askText" rows="3" maxlength="500" placeholder="궁금한 점을 적어 주세요 (Ctrl+Enter 로 보내기)"></textarea>
+              <div class="row"><small id="askNote" class="muted"></small><button id="askSend" class="btn btn-main btn-sm">보내기</button></div>
+            </form>
+            <ul id="myQuestions" class="my-q"></ul>
+          </section>
+          <section class="pane panel user-only" data-pane="ask">
+            <h2>⭐ 내 보관함 <span id="savedCount" class="count-soft"></span></h2>
+            <p id="savedEmpty" class="muted">자료의 ☆ 를 누르면 여기에 모여요. 이 컴퓨터에만 저장돼요.</p>
+            <div class="row-btns">
+              <button id="savedShow" type="button">보관함만 보기</button>
+              <button id="savedCopy" type="button">모두 복사</button>
+              <button id="savedDown" type="button">파일로 받기</button>
+            </div>
+          </section>
+
+          <!-- 강사 -->
+          <section class="pane panel teacher-only" data-pane="compose">
+            <h2>자료 올리기</h2>
+            <div id="composerMode" class="mode" hidden><span id="composerModeText"></span><button id="cancelEdit" type="button">취소</button></div>
+            <div id="answerOf" class="mode answer" hidden><span><b>질문에 답하기 · </b><span id="answerOfText"></span></span><button id="cancelAnswer" type="button">취소</button></div>
+            <form id="composer">
+              <div class="seg" role="radiogroup" aria-label="종류">
+                <label><input type="radio" name="type" value="prompt" checked><span>프롬프트</span></label>
+                <label><input type="radio" name="type" value="link"><span>링크·파일</span></label>
+                <label><input type="radio" name="type" value="notice"><span>공지</span></label>
+              </div>
+              <div class="row2">
+                <label class="lbl"><span>강의</span>
+                  <select name="lesson">
+                    <option value="0">공통</option><option value="1">1강</option><option value="2">2강</option><option value="3">3강</option>
+                    <option value="4">4강</option><option value="5">5강</option><option value="6">6강</option>
+                  </select>
+                </label>
+                <label class="lbl grow"><span>제목 <small>(선택)</small></span><input name="title" maxlength="120" placeholder="예: 여는 실습"></label>
+              </div>
+              <textarea name="text" rows="7" placeholder="프롬프트, 안내, 링크(구글 드라이브 등)를 적어 주세요"></textarea>
+              <p id="driveHint" class="hint" hidden>📄 구글 드라이브 파일은 공유를 <b>“링크가 있는 모든 사용자 — 뷰어”</b>로 바꿔 두셔야 참가자가 열 수 있어요.</p>
+              <div class="row"><button type="button" id="draftBtn" class="btn btn-quiet btn-sm">준비함에 넣기</button><button id="postBtn" class="btn btn-main btn-sm">지금 올리기</button></div>
+            </form>
+          </section>
+          <section class="pane panel teacher-only" data-pane="drafts">
+            <h2>준비함 <span id="draftCount" class="count-soft"></span></h2>
+            <div id="draftList" class="draft-list"></div>
+          </section>
+          <section class="pane panel teacher-only" data-pane="questions">
+            <h2>질문함 <span id="questionCount" class="count-badge"></span></h2>
+            <div id="questionList"></div>
+          </section>
+          <section class="pane panel teacher-only" data-pane="room">
+            <h2>참가자 <span id="peopleCount" class="count-soft"></span></h2>
+            <ul id="peopleList" class="people"></ul>
+            <h2 class="mt">방 관리</h2>
+            <div class="room-btns">
+              <button id="lockBtn" type="button">🔒 질문 받기 멈추기</button>
+              <button id="exportBtn" type="button">📥 전체 내보내기</button>
+              <button id="wipeBtn" type="button" class="danger">🗑 지금 바로 삭제</button>
+            </div>
+            <p class="muted small">세미나가 끝나고 7일 뒤 자동으로 지워져요. 지우기 전에 [전체 내보내기]로 받아 두세요.</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 빔 화면 (강사 노트북을 빔에 띄워 둔다) -->
+    <section id="beam" class="beam-view" hidden>
+      <div class="beam-top"><div><span class="beam-live">● LIVE</span> <b id="beamTitle"></b></div><div id="beamOnline"></div></div>
+      <div class="beam-main">
+        <div id="beamPost" class="beam-post"></div>
+        <aside class="beam-join">
+          <p>참여하기</p>
+          <div class="beam-url">lowspot.net/live</div>
+          <p>세미나 코드</p>
+          <div id="beamCode" class="beam-code"></div>
+          <form id="beamCodeForm" class="beam-code-form"><input name="code" placeholder="화면에 보일 코드"><button>표시</button></form>
+        </aside>
+      </div>
+    </section>
+
+    <div id="liveToast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p><a href="오레브.html">오레브</a> · <a href="약관.html">이용약관</a> · <a href="개인정보.html">개인정보 처리 안내</a> · <a href="mailto:help@lowspot.net">help@lowspot.net</a></p>
+      <p>© 2026 민경우 · 낮은자리 (lowspot.net) — 세상엔 강하고 하나님껜 아이처럼</p>
+    </div>
+  </footer>
+
+  <script src="live.js"></script>
+  <script>
+    // 상단 메뉴 펼침 (다른 페이지와 같음)
+    function toggleDropdown(itemId, e) {
+      e.stopPropagation();
+      const el = document.getElementById(itemId);
+      const wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) el.classList.add('open');
+    }
+    window.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('open'));
+    });
+  </script>
+</body>
+</html>
