@@ -337,7 +337,7 @@ a.flow-card:hover { transform: translateY(-3px); border-color: var(--sprout); bo
 .stage.own .stage-body { border-color: color-mix(in srgb, #C98A2B 45%, var(--bg)); background: color-mix(in srgb, #C98A2B 5%, #fff); }
 .own-tag { display: inline-block; margin-bottom: 8px; padding: 4px 11px; border-radius: 99px; background: #C98A2B; color: #fff; font-size: 12.5px; font-weight: 700; }
 .stage-body > p + p { margin-top: -2px; }
-.lesson-banner { display: block; width: 100%; height: auto; max-height: 360px; object-fit: cover; }
-.lesson-img { display: block; width: 100%; height: auto; max-height: 320px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); margin: 12px 0; }
+.lesson-banner { display: block; width: 100%; height: auto; max-height: 440px; object-fit: cover; }
+.lesson-img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; border-radius: 12px; border: 1px solid var(--line); margin: 12px 0; }
 .lesson-img.sq { max-height: none; object-fit: contain; }
 .lesson-img.sq { max-width: 340px; margin-left: auto; margin-right: auto; }
