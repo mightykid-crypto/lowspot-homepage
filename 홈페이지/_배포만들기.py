@@ -29,7 +29,7 @@ PAGES = [
     '404.html',          # Cloudflare Pages 가 없는 주소에 자동으로 보여 줌
 ]
 EXTRA = ['favicon.svg', '공통.css', 'live.js', 'og/lowspot.png', 'og/orev.png']   # og/ = 카톡 링크 미리보기 그림
-ASSET_DIRS = ('화면사진', '오레브사진', '에듀사진')
+ASSET_DIRS = ('화면사진', '오레브사진', '에듀사진', '제자사진')
 
 MAX_W = 1600          # 이보다 넓은 그림은 줄인다
 MAX_KB = 250          # 이보다 큰 그림은 webp 로 바꾼다
